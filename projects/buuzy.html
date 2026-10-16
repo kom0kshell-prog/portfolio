@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Шэнэхэнские буузы — кафе в Шелехове</title>
+<meta name="description" content="Кафе бурятской и европейской кухни в Шелехове: сочные буузы, пельмени, супы, салаты. 6-й квартал, 28а/1. Ежедневно 10:00–22:00. Рейтинг 4,9 в 2ГИС.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dark:#14110f; --dark-2:#1e1a17; --gold:#d6a24e; --gold-2:#f0cf8f;
+    --cream:#f7f1e7; --paper:#fffcf6; --ink:#25201b; --muted:#756a5e; --line:#e7dccb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{display:block;max-width:100%}
+  h1,h2,h3{font-family:"Playfair Display",Georgia,serif;line-height:1.12;font-weight:700}
+  a{color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+  /* nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:20;transition:background .3s,box-shadow .3s}
+  nav.solid{background:rgba(20,17,15,.94);backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(0,0,0,.25)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;color:#fff}
+  .logo{font-family:"Playfair Display",serif;font-size:1.25rem;text-decoration:none;letter-spacing:.01em}
+  .logo span{color:var(--gold)}
+  nav ul{display:flex;gap:30px;list-style:none;font-weight:600;font-size:.95rem}
+  nav ul a{text-decoration:none;opacity:.85}
+  nav ul a:hover{opacity:1;color:var(--gold-2)}
+  .nav-call{background:var(--gold);color:var(--dark);padding:10px 18px;border-radius:10px;font-weight:800;text-decoration:none;font-size:.92rem;white-space:nowrap}
+  @media(max-width:860px){nav ul{display:none}}
+  @media(max-width:420px){.logo{font-size:1.05rem}.nav-call{padding:9px 12px;font-size:.85rem}}
+
+  /* hero */
+  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;color:#fff;
+    background:linear-gradient(180deg,rgba(15,12,10,.55) 0%,rgba(15,12,10,.35) 40%,rgba(15,12,10,.92) 100%),
+    url("https://images.unsplash.com/photo-1563245372-f21724e3856d?w=2000&q=80") center/cover no-repeat}
+  .hero .wrap{padding-top:120px;padding-bottom:80px;width:100%}
+  .rating{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);padding:8px 16px;border-radius:999px;font-weight:700;font-size:.92rem}
+  .rating .stars{color:var(--gold);letter-spacing:2px}
+  .hero h1{font-size:clamp(2.6rem,7vw,5.4rem);margin:22px 0 16px;max-width:12em}
+  .hero h1 em{font-style:italic;color:var(--gold-2)}
+  .hero p{font-size:clamp(1.02rem,2vw,1.25rem);opacity:.9;max-width:34em}
+  .btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 28px;border-radius:12px;font-weight:800;text-decoration:none;transition:transform .15s,box-shadow .15s,background .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-gold{background:var(--gold);color:var(--dark);box-shadow:0 10px 30px rgba(214,162,78,.35)}
+  .btn-line{border:2px solid rgba(255,255,255,.5);color:#fff}
+  .btn-line:hover{background:rgba(255,255,255,.1)}
+  .hero-facts{display:flex;flex-wrap:wrap;gap:12px 34px;margin-top:46px;padding-top:26px;border-top:1px solid rgba(255,255,255,.18);font-size:.95rem;opacity:.9}
+  .hero-facts b{color:var(--gold-2);font-weight:800}
+  @media(max-width:520px){.btns .btn{flex:1 1 100%}}
+
+  section{padding:100px 0}
+  @media(max-width:700px){section{padding:70px 0}}
+  .kicker{color:var(--gold);font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:.78rem}
+  h2{font-size:clamp(2rem,4.4vw,3.1rem);margin:10px 0 16px}
+  .lead{color:var(--muted);max-width:40em;font-size:1.08rem}
+
+  /* about */
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .about-img{position:relative}
+  .about-img img{border-radius:22px;aspect-ratio:4/5;object-fit:cover;width:100%;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+  .about-img .float{position:absolute;right:-24px;bottom:40px;width:46%;border-radius:18px;border:6px solid var(--cream);aspect-ratio:1;object-fit:cover;box-shadow:0 20px 40px rgba(0,0,0,.2)}
+  .points{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
+  .point{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px}
+  .point strong{display:block;font-family:"Playfair Display",serif;font-size:1.7rem;color:var(--dark)}
+  .point span{color:var(--muted);font-size:.92rem}
+  @media(max-width:900px){.about .wrap{grid-template-columns:1fr;gap:40px}.about-img .float{right:12px}}
+
+  /* featured dishes */
+  .dishes{background:var(--dark);color:#fff}
+  .dishes .lead{color:#b9ad9e}
+  .dish-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+  .dish{background:var(--dark-2);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.06);transition:transform .25s}
+  .dish:hover{transform:translateY(-5px)}
+  .dish .ph{aspect-ratio:4/3;overflow:hidden}
+  .dish img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .dish:hover img{transform:scale(1.06)}
+  .dish .body{padding:20px 22px 24px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .dish h3{font-size:1.3rem}
+  .dish p{color:#a99d8f;font-size:.92rem;margin-top:4px}
+  .price{font-weight:800;color:var(--gold);font-size:1.2rem;white-space:nowrap}
+  @media(max-width:960px){.dish-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.dish-grid{grid-template-columns:1fr}}
+
+  /* full menu */
+  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:36px 0 28px}
+  .tab{border:1px solid var(--line);background:var(--paper);padding:10px 18px;border-radius:999px;font:inherit;font-weight:700;cursor:pointer;color:var(--ink)}
+  .tab.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+  .menu-list{display:none;grid-template-columns:1fr 1fr;gap:0 56px;background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:18px 34px}
+  .menu-list.active{display:grid}
+  .row{display:flex;align-items:baseline;gap:10px;padding:13px 0;border-bottom:1px dashed var(--line)}
+  .row span:first-child{flex:0 1 auto}
+  .row i{flex:1;border-bottom:1px dotted #cbbda7;transform:translateY(-4px);min-width:20px}
+  .row b{white-space:nowrap}
+  .note{color:var(--muted);font-size:.85rem;margin-top:14px}
+  @media(max-width:760px){.menu-list{grid-template-columns:1fr;padding:10px 20px}}
+
+  /* reviews */
+  .reviews{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .rev-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+  .score{display:flex;align-items:center;gap:16px}
+  .score strong{font-family:"Playfair Display",serif;font-size:3.6rem;line-height:1}
+  .score .stars{color:var(--gold);font-size:1.3rem;letter-spacing:3px}
+  .score small{display:block;color:var(--muted)}
+  .rev-grid{columns:3 300px;column-gap:22px;margin-top:44px}
+  .rev{break-inside:avoid;background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:22px}
+  .rev .top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .ava{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:#8b6a3e;flex:none}
+  .rev .name{font-weight:800}
+  .rev .meta{color:var(--muted);font-size:.82rem}
+  .rev .stars{color:var(--gold);letter-spacing:2px;font-size:.95rem}
+  .rev p{margin-top:8px}
+  .src{display:inline-block;margin-top:10px;font-weight:700;color:var(--gold);text-decoration:none}
+
+  /* visit */
+  .visit .card{display:grid;grid-template-columns:1fr 1fr;border-radius:26px;overflow:hidden;background:var(--dark);color:#fff;box-shadow:0 30px 70px rgba(0,0,0,.2)}
+  .visit .info{padding:54px 50px}
+  .visit h2{color:#fff}
+  .visit dl{display:grid;gap:18px;margin:26px 0 30px}
+  .visit dt{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);font-weight:800}
+  .visit dd{font-size:1.12rem}
+  .visit dd a{text-decoration:none}
+  .visit .pic{min-height:420px;background:url("https://images.unsplash.com/photo-1583354608715-177553a4035e?w=1200&q=80") center/cover}
+  .socials{display:flex;gap:10px;flex-wrap:wrap}
+  .socials a{border:1px solid rgba(255,255,255,.25);padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.92rem}
+  .socials a:hover{background:rgba(255,255,255,.08)}
+  @media(max-width:900px){.visit .card{grid-template-columns:1fr}.visit .pic{min-height:240px;order:-1}.visit .info{padding:34px 24px}}
+
+  footer{padding:34px 0;color:var(--muted);font-size:.88rem;text-align:center}
+
+  /* mobile call bar */
+  .callbar{display:none}
+  @media(max-width:700px){
+    .callbar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:30;gap:10px}
+    .callbar a{flex:1;text-align:center;padding:14px;border-radius:14px;font-weight:800;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .callbar .c1{background:var(--gold);color:var(--dark)}
+    .callbar .c2{background:var(--dark);color:#fff}
+    footer{padding-bottom:96px}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">Шэнэхэнские <span>буузы</span></a>
+    <ul>
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#dishes">Хиты</a></li>
+      <li><a href="#menu">Меню</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li><a href="#visit">Контакты</a></li>
+    </ul>
+    <a class="nav-call" href="tel:+79027693141">☎ Позвонить</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="rating"><span class="stars">★★★★★</span> 4,9 · 629 оценок в 2ГИС</span>
+    <h1>Сочные <em>буузы</em> и домашняя кухня в Шелехове</h1>
+    <p>Уютное кафе бурятской и европейской кухни. Лепим вручную, готовим быстро, кормим сытно — заходите пообедать всей семьёй или возьмите с собой.</p>
+    <div class="btns">
+      <a class="btn btn-gold" href="#menu">Смотреть меню и цены</a>
+      <a class="btn btn-line" href="tel:+79027693141">+7 902 769-31-41</a>
+    </div>
+    <div class="hero-facts">
+      <div><b>Ежедневно</b> 10:00–22:00</div>
+      <div><b>Средний чек</b> ~700 ₽</div>
+      <div><b>Ланч</b> от 380 ₽</div>
+      <div><b>Есть</b> доставка и навынос</div>
+    </div>
+  </div>
+</header>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1583354608715-177553a4035e?w=900&q=80" alt="Уютный зал кафе" loading="lazy">
+      <img class="float" src="https://images.unsplash.com/photo-1545809278-56c8739d74e1?w=500&q=80" alt="Буузы на пару" loading="lazy">
+    </div>
+    <div>
+      <div class="kicker">О кафе</div>
+      <h2>Вкус Бурятии — в 6-м квартале</h2>
+      <p class="lead">Мы готовим так, как готовят дома: сочные буузы с тонким тестом, наваристые супы, большие порции и честные цены. К нам заезжают по дороге из Иркутска в Бурятию — и возвращаются снова.</p>
+      <div class="points">
+        <div class="point"><strong>4,9 ★</strong><span>рейтинг в 2ГИС</span></div>
+        <div class="point"><strong>500+</strong><span>отзывов гостей</span></div>
+        <div class="point"><strong>79</strong><span>позиций в меню</span></div>
+        <div class="point"><strong>10–22</strong><span>без выходных</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dishes" id="dishes">
+  <div class="wrap">
+    <div class="kicker">Хиты кухни</div>
+    <h2>То, за чем к нам приходят</h2>
+    <p class="lead">Самые любимые блюда наших гостей — по отзывам в 2ГИС.</p>
+    <div class="dish-grid">
+      <article class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1545809278-56c8739d74e1?w=700&q=80" alt="Буузы классические" loading="lazy"></div><div class="body"><div><h3>Буузы классические</h3><p>Сочные, с бульоном внутри, за 1 шт.</p></div><span class="price">80 ₽</span></div></article>
+      <article class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=700&q=80" alt="Буузы Малышки" loading="lazy"></div><div class="body"><div><h3>Буузы «Малышки»</h3><p>Маленькие буузы — гости в восторге</p></div><span class="price">330 ₽</span></div></article>
+      <article class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1716834092803-08c8dca5226f?w=700&q=80" alt="Пельмени" loading="lazy"></div><div class="body"><div><h3>Пельмени</h3><p>Домашние, со сметаной</p></div><span class="price">330 ₽</span></div></article>
+      <article class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1491961865842-98f7befd1a60?w=700&q=80" alt="Суп лапша по-домашнему" loading="lazy"></div><div class="body"><div><h3>Суп-лапша по-домашнему</h3><p>Наваристый, согревает в мороз</p></div><span class="price">300 ₽</span></div></article>
+      <article class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1607095597425-6f61dee8ab7e?w=700&q=80" alt="Драники с беконом" loading="lazy"></div><div class="body"><div><h3>Драники с беконом</h3><p>Хрустящие, с золотистой корочкой</p></div><span class="price">340 ₽</span></div></article>
+      <article class="dish"><div class="ph"><img src="https://images.unsplash.com/photo-1600555379765-f82335a7b1b0?w=700&q=80" alt="Крылышки Чили-терияки" loading="lazy"></div><div class="body"><div><h3>Крылышки «Чили-терияки»</h3><p>Для компании и под разговор</p></div><span class="price">490 ₽</span></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="kicker">Меню</div>
+    <h2>Меню и цены</h2>
+    <p class="lead">Актуальные позиции и цены из 2ГИС (обновлено 5 сентября 2026).</p>
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-t="hot">Горячие блюда</button>
+      <button class="tab" data-t="soup">Супы</button>
+      <button class="tab" data-t="salad">Салаты</button>
+      <button class="tab" data-t="snack">Закуски</button>
+      <button class="tab" data-t="sauce">Соусы</button>
+    </div>
+
+    <div class="menu-list active" id="hot">
+      <div class="row"><span>Буузы классические</span><i></i><b>80 ₽</b></div>
+      <div class="row"><span>Буузы «Малышки»</span><i></i><b>330 ₽</b></div>
+      <div class="row"><span>Пельмени</span><i></i><b>330 ₽</b></div>
+      <div class="row"><span>Пельмени замороженные</span><i></i><b>700 ₽</b></div>
+      <div class="row"><span>Жарёха по-бурятски</span><i></i><b>480 ₽</b></div>
+      <div class="row"><span>Бефстроганов в сливочном соусе с пюре</span><i></i><b>490 ₽</b></div>
+      <div class="row"><span>Курица с овощами в соусе терияки</span><i></i><b>420 ₽</b></div>
+      <div class="row"><span>Шампиньоны в сливочном соусе</span><i></i><b>390 ₽</b></div>
+      <div class="row"><span>Филе минтая в кляре</span><i></i><b>380 ₽</b></div>
+      <div class="row"><span>Свинина в кляре в соусе сладкий чили</span><i></i><b>380 ₽</b></div>
+      <div class="row"><span>Жарёха из свинины с картофелем</span><i></i><b>380 ₽</b></div>
+      <div class="row"><span>Драники с беконом</span><i></i><b>340 ₽</b></div>
+      <div class="row"><span>Жареный картофель с грибами</span><i></i><b>340 ₽</b></div>
+      <div class="row"><span>Драники картофельные со сметаной</span><i></i><b>300 ₽</b></div>
+      <div class="row"><span>Глазунья из 2 яиц с беконом и тостами</span><i></i><b>280 ₽</b></div>
+      <div class="row"><span>Сырники</span><i></i><b>260 ₽</b></div>
+      <div class="row"><span>Овощи на гриле</span><i></i><b>260 ₽</b></div>
+      <div class="row"><span>Картофель отварной с луком криспи</span><i></i><b>240 ₽</b></div>
+      <div class="row"><span>Картофель «Айдахо»</span><i></i><b>220 ₽</b></div>
+      <div class="row"><span>Картофель фри</span><i></i><b>220 ₽</b></div>
+      <div class="row"><span>Картофельное пюре</span><i></i><b>220 ₽</b></div>
+      <div class="row"><span>Рис жареный с яйцом</span><i></i><b>200 ₽</b></div>
+      <div class="row"><span>Овощи на пару</span><i></i><b>200 ₽</b></div>
+      <div class="row"><span>Каша молочная рисовая</span><i></i><b>190 ₽</b></div>
+      <div class="row"><span>Каша молочная овсяная</span><i></i><b>190 ₽</b></div>
+    </div>
+
+    <div class="menu-list" id="soup">
+      <div class="row"><span>Крем-суп грибной с гренками</span><i></i><b>380 ₽</b></div>
+      <div class="row"><span>Сливочная уха из двух видов рыб</span><i></i><b>380 ₽</b></div>
+      <div class="row"><span>Солянка по-домашнему</span><i></i><b>350 ₽</b></div>
+      <div class="row"><span>Суп с фрикадельками</span><i></i><b>320 ₽</b></div>
+      <div class="row"><span>Суп-лапша по-домашнему</span><i></i><b>300 ₽</b></div>
+    </div>
+
+    <div class="menu-list" id="salad">
+      <div class="row"><span>Салат от Шефа</span><i></i><b>410 ₽</b></div>
+      <div class="row"><span>Тёплый салат с говядиной и фунчозой</span><i></i><b>380 ₽</b></div>
+      <div class="row"><span>Тёплый салат с баклажаном</span><i></i><b>370 ₽</b></div>
+      <div class="row"><span>Оливье</span><i></i><b>360 ₽</b></div>
+      <div class="row"><span>Салат с кальмаром</span><i></i><b>360 ₽</b></div>
+      <div class="row"><span>Салат из свежих овощей с оливковым маслом</span><i></i><b>360 ₽</b></div>
+      <div class="row"><span>Салат «Таёжный»</span><i></i><b>350 ₽</b></div>
+      <div class="row"><span>Морковь по-корейски</span><i></i><b>170 ₽</b></div>
+    </div>
+
+    <div class="menu-list" id="snack">
+      <div class="row"><span>Тарелка «На компанию»</span><i></i><b>1 000 ₽</b></div>
+      <div class="row"><span>Крылышки «Чили-терияки»</span><i></i><b>490 ₽</b></div>
+      <div class="row"><span>Кольца кальмара в кляре</span><i></i><b>400 ₽</b></div>
+      <div class="row"><span>Наггетсы</span><i></i><b>250 ₽</b></div>
+      <div class="row"><span>Гарлики чесночные</span><i></i><b>220 ₽</b></div>
+    </div>
+
+    <div class="menu-list" id="sauce">
+      <div class="row"><span>Фирменный чесночный соус</span><i></i><b>50 ₽</b></div>
+      <div class="row"><span>Фирменный сырный соус</span><i></i><b>50 ₽</b></div>
+      <div class="row"><span>Фирменный грибной соус</span><i></i><b>50 ₽</b></div>
+      <div class="row"><span>Чили острый</span><i></i><b>50 ₽</b></div>
+      <div class="row"><span>Майонез</span><i></i><b>50 ₽</b></div>
+      <div class="row"><span>Сгущённое молоко</span><i></i><b>50 ₽</b></div>
+      <div class="row"><span>Сметана</span><i></i><b>45 ₽</b></div>
+    </div>
+    <p class="note">Также в меню: шулэн, бухлёр, чебуреки, блины, комбо и сеты — уточняйте у администратора. Цены не являются публичной офертой.</p>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="rev-head">
+      <div>
+        <div class="kicker">Отзывы</div>
+        <h2>Что говорят гости</h2>
+        <p class="lead">Настоящие отзывы из 2ГИС.</p>
+      </div>
+      <div class="score"><strong>4,9</strong><div><div class="stars">★★★★★</div><small>629 оценок · 501 отзыв</small></div></div>
+    </div>
+    <div class="rev-grid">
+      <div class="rev"><div class="top"><div class="ava" style="background:#a0522d">А</div><div><div class="name">Аня</div><div class="meta">Частый гость · июнь 2026</div></div></div><div class="stars">★★★★★</div><p>«Отличное заведение. Самые вкусные буузы в городе, а также стоит автомат с вкусным кофе, буду рекомендовать друзьям)»</p></div>
+      <div class="rev"><div class="top"><div class="ava" style="background:#6b8e23">А</div><div><div class="name">Алена Алтанова</div><div class="meta">июль 2026</div></div></div><div class="stars">★★★★★</div><p>«Ехали с 3 детьми с Ольхона в Улан-Удэ. Первое кафе, где шулэн и бухлёр очень понравились и мне, и детям!! …Цены очень приемлемые, помещение уютное.»</p></div>
+      <div class="rev"><div class="top"><div class="ava" style="background:#4682b4">А</div><div><div class="name">Александр Семёнов</div><div class="meta">август 2026</div></div></div><div class="stars">★★★★★</div><p>«Уютное кафе. Приятное обслуживание. Вкусные и сочные буузы. Ароматный чай. Обязательно вернёмся ещё.»</p></div>
+      <div class="rev"><div class="top"><div class="ava" style="background:#8b4513">К</div><div><div class="name">Константин Афанасьев</div><div class="meta">июль 2026</div></div></div><div class="stars">★★★★★</div><p>«Очень классное кафе. Если едете из Иркутска через Шелехов, не поленитесь и сверните в это кафе… Зал чистый и приятный.»</p></div>
+      <div class="rev"><div class="top"><div class="ava" style="background:#b8860b">Г</div><div><div class="name">Горбунов Алексей</div><div class="meta">апрель 2026</div></div></div><div class="stars">★★★★★</div><p>«Кафе уютное, персонал вежливый, не навязчивый. Порции большие и вкусные. И кстати недорогие. …Особенно порадовали своими размерами чебуреки 😁»</p></div>
+      <div class="rev"><div class="top"><div class="ava" style="background:#708090">С</div><div><div class="name">Соелма</div><div class="meta">август 2026</div></div></div><div class="stars">★★★★★</div><p>«Были в кафе семьёй, всё понравилось) Особенно понравились вкусные блюда и вежливый персонал. Рекомендуем)»</p></div>
+    </div>
+    <a class="src" href="https://2gis.ru/shelekhov/firm/70000001062808001/tab/reviews" target="_blank" rel="noopener">Все 501 отзыв в 2ГИС →</a>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="wrap">
+    <div class="card">
+      <div class="info">
+        <div class="kicker">Ждём в гости</div>
+        <h2>Приходите на буузы</h2>
+        <dl>
+          <div><dt>Адрес</dt><dd>г. Шелехов, 6-й квартал, 28а/1, 1 этаж</dd></div>
+          <div><dt>Режим работы</dt><dd>Ежедневно с 10:00 до 22:00</dd></div>
+          <div><dt>Телефон</dt><dd><a href="tel:+79027693141">+7 902 769-31-41</a></dd></div>
+        </dl>
+        <div class="btns" style="margin-top:0">
+          <a class="btn btn-gold" href="https://2gis.ru/shelekhov/firm/70000001062808001" target="_blank" rel="noopener">Маршрут в 2ГИС</a>
+        </div>
+        <div class="socials" style="margin-top:18px">
+          <a href="https://t.me/+79027693141" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://vk.com/shenehenskiebuuzi" target="_blank" rel="noopener">ВКонтакте</a>
+        </div>
+      </div>
+      <div class="pic" role="img" aria-label="Интерьер кафе"></div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Шэнэхэнские буузы · Шелехов, 6-й квартал, 28а/1</footer>
+
+<div class="callbar">
+  <a class="c1" href="tel:+79027693141">☎ Позвонить</a>
+  <a class="c2" href="https://2gis.ru/shelekhov/firm/70000001062808001" target="_blank" rel="noopener">Маршрут</a>
+</div>
+
+<script>
+  const nav=document.getElementById('nav');
+  const onScroll=()=>nav.classList.toggle('solid',scrollY>40);
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===t));
+    document.querySelectorAll('.menu-list').forEach(l=>l.classList.toggle('active',l.id===t.dataset.t));
+  }));
+</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4b6ba4a5a90a11d',t:'MTc5MjE1MDE4Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
