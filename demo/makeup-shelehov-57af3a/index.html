@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Студия макияжа и причёски — Макияж и укладки в Шелехове</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=PT+Sans:wght@400;700&display=swap">
+<style>
+/* Стиль 17 «Кинетика»: монохром + цвет бренда, огромная типографика, всё в движении.
+   Сложный: анимация заголовка по буквам, прогресс прокрутки, список услуг с плавающим превью за курсором,
+   счётчики, перетаскиваемая лента работ, автосмена отзывов, полноэкранная заявка. */
+:root{--accent:#2f6f5e;--bg:#efefec;--ink:#0b0b0b;--muted:#6b6b66;--line:#0b0b0b22;--d:"Rubik Mono One","Arial Black",sans-serif;--b:"PT Sans",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 var(--b);overflow-x:hidden}
+.prog{position:fixed;top:0;left:0;height:4px;width:0;background:var(--accent);z-index:60}
+.wrap{max-width:1300px;margin:0 auto;padding:0 clamp(16px,3vw,40px)}
+h1,h2,h3{font-family:var(--d);font-weight:400;line-height:.92;margin:0;text-transform:uppercase}
+.top{position:sticky;top:0;z-index:40;mix-blend-mode:difference;color:#fff}
+.top .wrap{display:flex;align-items:center;gap:24px;height:68px}
+.brand{font:400 15px var(--d);text-decoration:none;color:inherit;margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top nav{display:flex;gap:22px}.top a{color:inherit;text-decoration:none;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.06em}
+.ob{background:none;border:2px solid #fff;color:#fff;border-radius:999px;padding:8px 16px;font:700 14px var(--b);text-transform:uppercase;cursor:pointer;white-space:nowrap}
+@media(max-width:760px){.top nav{display:none}}
+.hero{overflow-x:clip;min-height:calc(100vh - 68px);display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:50px;position:relative}
+.blob{position:absolute;width:44vw;height:44vw;max-width:620px;max-height:620px;border-radius:50%;background:var(--accent);right:-6vw;top:2vh;z-index:-1;will-change:transform}
+.hero h1{font-size:clamp(44px,10.5vw,170px);letter-spacing:-.04em;overflow-wrap:anywhere}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.04em}
+.hero h1 .ch{display:inline-block;transform:translateY(110%);animation:up .9s cubic-bezier(.2,.7,.1,1) forwards}
+@keyframes up{to{transform:none}}
+.hrow{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-top:34px;flex-wrap:wrap}
+.hrow p{max-width:44ch;margin:0;font-size:20px}
+.cta{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:var(--bg);padding:18px 30px;border-radius:999px;text-decoration:none;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border:0;cursor:pointer;font-family:var(--b);font-size:16px;transition:transform .25s}
+.cta:hover{transform:scale(1.05)}
+.cta:focus-visible,.ob:focus-visible,.row:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.scroll{font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+section{padding:110px 0}
+.lbl{font-size:13px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-bottom:18px;display:flex;gap:12px;align-items:center}
+.lbl::before{content:"";width:40px;height:2px;background:var(--accent)}
+.big{font-size:clamp(40px,8vw,120px);letter-spacing:-.03em;margin-bottom:40px}
+.cat{font-size:13px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);padding:26px 0 8px}
+.row{display:grid;grid-template-columns:60px 1fr auto 40px;gap:20px;align-items:center;width:100%;padding:22px 10px;border:0;border-top:2px solid var(--ink);background:none;color:inherit;text-align:left;cursor:pointer;font-family:var(--b);position:relative;transition:background .25s,color .25s,padding .25s}
+.row:last-child{border-bottom:2px solid var(--ink)}
+.row .i{font:400 14px var(--d);color:var(--muted)}
+.row .n{font:400 clamp(20px,3.2vw,44px)/1 var(--d);letter-spacing:-.02em}
+.row .p{font-size:20px;font-weight:700;white-space:nowrap}
+.row .m{width:36px;height:36px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:20px;transition:transform .3s}
+.row.on .m{background:var(--accent);border-color:var(--accent);color:#fff;transform:rotate(45deg)}
+.row.on .n{color:var(--accent)}
+@media(hover:hover){.row:hover{background:var(--ink);color:var(--bg);padding-left:26px}.row:hover .i{color:#888}.row.on:hover .n{color:var(--bg)}}
+@media(max-width:640px){.row{grid-template-columns:1fr auto;gap:8px 14px}.row .i{display:none}.row .p{grid-column:1;grid-row:2;font-size:16px}.row .m{grid-column:2;grid-row:1/3}}
+.peek{position:fixed;left:0;top:0;width:280px;padding:20px;border-radius:22px;background:var(--accent);color:#fff;pointer-events:none;z-index:50;opacity:0;transform:translate(-50%,-50%) scale(.6);transition:opacity .2s,transform .2s;font-size:15px}
+.peek.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.peek b{display:block;font:400 18px/1.05 var(--d);margin-bottom:8px}
+.peek small{display:block;margin-top:10px;opacity:.8;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+@media(hover:none){.peek{display:none}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:30px;border-top:2px solid var(--ink);padding-top:30px}
+.stat b{display:block;font:400 clamp(56px,8vw,110px)/1 var(--d);letter-spacing:-.04em}
+.stat span{font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.about{font-size:clamp(22px,2.6vw,34px);line-height:1.25;max-width:32ch;margin:0 0 60px}
+.strip{display:flex;gap:20px;overflow-x:auto;padding:0 clamp(16px,3vw,40px) 10px;cursor:grab;scrollbar-width:none;user-select:none}
+.strip::-webkit-scrollbar{display:none}
+.strip.drag{cursor:grabbing}
+.w{flex:0 0 min(440px,80vw);aspect-ratio:4/5;border-radius:30px;position:relative;overflow:hidden;background:var(--ink);display:flex;align-items:flex-end}
+.w:nth-child(even){background:var(--accent)}
+.w img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.w span{position:relative;color:#fff;font:400 clamp(20px,2.4vw,30px)/1 var(--d);margin:26px;text-transform:uppercase}
+.w i{position:absolute;top:22px;right:26px;color:#fff;font:400 14px var(--d);font-style:normal}
+.quote{font:400 clamp(26px,4vw,58px)/1.08 var(--d);letter-spacing:-.02em;min-height:3.4em;transition:opacity .4s}
+.quote.fade{opacity:0}
+.qw{margin-top:22px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.dots{display:flex;gap:8px;margin-top:20px}
+.dots button{width:40px;height:6px;border-radius:6px;border:0;background:var(--line);cursor:pointer;padding:0}
+.dots button.on{background:var(--accent)}
+.contact{background:var(--ink);color:var(--bg)}
+.contact .big{color:var(--bg)}
+.cl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:0}
+.cl a,.cl div{padding:22px 0;border-top:1px solid #ffffff33;color:var(--bg);text-decoration:none;font-size:22px;font-weight:700}
+.cl small{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:#999;font-weight:400}
+.cl a:hover{color:var(--accent);filter:brightness(1.5)}
+footer{background:var(--ink);color:#777;padding:20px 0 40px;font-size:14px}
+.rv{transition:opacity .8s,transform .8s}
+html.js .rv:not(.in){opacity:0;transform:translateY(40px)}
+@media(prefers-reduced-motion:reduce){.hero h1 .ch{animation:none;transform:none}.rv{transition:none}html.js .rv:not(.in){opacity:1;transform:none}.blob{transform:none!important}}
+/* полноэкранная заявка */
+.full{position:fixed;inset:0;background:var(--accent);color:#fff;z-index:70;overflow:auto;clip-path:circle(0 at calc(100% - 60px) 34px);transition:clip-path .6s cubic-bezier(.7,0,.2,1);visibility:hidden}
+.full.open{clip-path:circle(150% at calc(100% - 60px) 34px);visibility:visible}
+.full .wrap{padding-top:90px;padding-bottom:60px;display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.full h2{font-size:clamp(44px,8vw,110px)}
+.fx{position:fixed;top:16px;right:20px;width:56px;height:56px;border-radius:50%;border:2px solid #fff;background:none;color:#fff;font-size:26px;cursor:pointer;z-index:71}
+@media(max-width:860px){.full .wrap{grid-template-columns:1fr;gap:20px;padding-top:80px}}
+.op-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 0;border-top:2px solid #ffffff55}
+.op-nm{font:400 20px/1.1 var(--d)}.op-nm small{display:block;font:400 15px var(--b);opacity:.8;margin-top:4px}
+.op-qty{display:flex;align-items:center;gap:6px}
+.op-qty button{width:36px;height:36px;border-radius:50%;border:2px solid #fff;background:none;color:#fff;font-size:18px;cursor:pointer}
+.op-qty span{min-width:22px;text-align:center;font-weight:700}
+.op-empty{font-size:22px;opacity:.85}
+.op-field{display:block;margin-top:14px}
+.op-field span{font-size:13px;text-transform:uppercase;letter-spacing:.12em;opacity:.8}
+.op-field input{display:block;width:100%;background:transparent;border:0;border-bottom:2px solid #fff;color:#fff;font:22px var(--b);padding:8px 0}
+.op-field input:focus{outline:0;border-color:var(--ink)}
+.op-total{display:flex;justify-content:space-between;font:400 30px var(--d);margin-top:22px}
+.op-text{width:100%;min-height:170px;margin-top:16px;background:rgba(0,0,0,.18);border:0;border-radius:18px;color:#fff;font:15px/1.5 var(--b);padding:14px;resize:vertical}
+.op-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.op-links a,.op-links button{padding:14px 22px;border-radius:999px;border:2px solid #fff;color:#fff;background:none;text-decoration:none;font:700 15px var(--b);text-transform:uppercase;cursor:pointer}
+.op-copy{background:#fff!important;color:var(--ink)!important}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<header class="top"><div class="wrap">
+  <a class="brand" id="brand" href="#top"></a>
+  <nav><a href="#services">Услуги</a><a href="#works">Работы</a><a href="#contacts">Контакты</a></nav>
+  <button class="ob" id="ob" type="button">Заявка (<span id="cnt">0</span>)</button>
+</div></header>
+<main id="top">
+  <section class="hero wrap" style="padding-top:0"><div class="blob" id="blob" aria-hidden="true"></div>
+    <h1 id="h1"></h1>
+    <div class="hrow"><p id="lead"></p><a class="cta" href="#services" id="choose"></a></div>
+  </section>
+  <section id="services"><div class="wrap">
+    <div class="lbl rv" id="sSub"></div><h2 class="big rv" id="sTitle"></h2>
+    <div id="list"></div>
+  </div></section>
+  <section id="about" style="padding-top:20px"><div class="wrap"><div class="lbl rv">О нас</div><p class="about rv" id="aboutTxt"></p><div class="stats" id="stats"></div></div></section>
+  <section id="works" style="padding-top:20px"><div class="wrap"><div class="lbl rv" id="wSub"></div><h2 class="big rv">Работы</h2></div><div class="strip" id="strip"></div></section>
+  <section id="reviews" style="padding-top:20px"><div class="wrap"><div class="lbl rv">Отзывы</div><div class="quote" id="quote" aria-live="polite"></div><div class="qw" id="qw"></div><div class="dots" id="dots"></div></div></section>
+  <section id="contacts" class="contact"><div class="wrap"><h2 class="big rv">Связаться</h2><div class="cl" id="cl"></div></div></section>
+</main>
+<footer><div class="wrap" id="foot"></div></footer>
+<div class="peek" id="peek" aria-hidden="true"></div>
+<div class="full" id="full" role="dialog" aria-modal="true" aria-labelledby="ft"><button class="fx" id="fx" type="button" aria-label="Закрыть">×</button>
+  <div class="wrap"><div><div class="lbl" style="color:#fff">Шаг последний</div><h2 id="ft">Ваша<br>заявка</h2></div><div id="panel"></div></div>
+</div>
+<script>
+const CONFIG = (function () { var d = /*CONFIG*/{"brand": "Студия макияжа и причёски", "tagline": "Макияж и укладки в Шелехове", "description": "Макияж и причёски на праздник, свадьбу, фотосессию. Выберите образ и дату.", "accent": "#ff6b6b", "currency": "₽", "phone": "", "email": "", "address": "Шелехов, 4-й квартал, 21", "hours": "По предварительной записи", "messengers": {"telegram": "alinaefim", "whatsapp": "", "vk": "alina_hair_38"}, "services": [{"id": "s1", "category": "Макияж", "name": "Дневной макияж", "desc": "", "price": 2000, "unit": ""}, {"id": "s2", "category": "Макияж", "name": "Вечерний макияж", "desc": "", "price": 2500, "unit": ""}, {"id": "s3", "category": "Причёски", "name": "Укладка локоны", "desc": "", "price": 2000, "unit": ""}, {"id": "s4", "category": "Причёски", "name": "Вечерняя причёска", "desc": "", "price": 3000, "unit": "от"}, {"id": "s5", "category": "Комплекс", "name": "Образ: макияж + причёска", "desc": "", "price": 4500, "unit": ""}, {"id": "s6", "category": "Обучение", "name": "Макияж для себя", "desc": "Индивидуально.", "price": 4000, "unit": ""}], "worksSubtitle": "Примеры наших работ.", "works": [], "about": ["Макияж и причёски на праздник, свадьбу, фотосессию. Выберите образ и дату."], "facts": [{"value": "Шелехов", "label": "4-й квартал, 21"}, {"value": "Онлайн-заявка", "label": "в Telegram и в ВК"}], "order": {"greeting": "Здравствуйте! Хочу записаться:", "closing": "Подскажите, пожалуйста, свободное время. Спасибо!"}, "ui": {"nav": "Услуги", "servicesTitle": "Услуги и цены", "servicesSub": "Выберите процедуры, нажмите «Заказать» — вы получите готовый текст для записи. Окончательную стоимость мастер уточнит на месте.", "chooseBtn": "Выбрать процедуры", "whenLabel": "Удобные дата и время (по желанию)", "whenText": "Удобные дата и время"}, "faq": [], "booking": {"open": "10:00", "close": "20:00", "step": 60, "days": [1, 2, 3, 4, 5, 6], "status": false}, "demo": true}/*/CONFIG*/; try { if (/[?&]preview/.test(location.search)) { var p = localStorage.getItem("draft:" + location.pathname.replace(/[^/]*$/, "")); if (p) return JSON.parse(p); } } catch (e) {} return d; })();
+</script>
+<script>
+/* ===== ЯДРО: корзина, текст заявки, мессенджеры. Менять не нужно. ===== */
+const K = (function () {
+  const C = CONFIG;
+  const money = (n) => new Intl.NumberFormat("ru-RU").format(n) + " " + C.currency;
+  const KEY = "k:" + location.pathname + ":" + C.brand;
+  const st = { cart: {}, form: {} };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const byId = (id) => C.services.find((s) => s.id === id);
+  Object.keys(st.cart).forEach((id) => { if (!byId(id)) delete st.cart[id]; });
+  const subs = [];
+  const emit = () => { save(); subs.forEach((f) => f()); };
+  const pad = (n) => String(n).padStart(2, "0");
+  const toMin = (t) => { const [a, b] = t.split(":").map(Number); return a * 60 + b; };
+  const B = Object.assign({ open: "10:00", close: "20:00", step: 60, days: [0, 1, 2, 3, 4, 5, 6] }, C.booking);
+
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => {
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    kids.flat().forEach((c) => { if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); });
+    return e;
+  }
+
+  const st0 = document.createElement("style");
+  st0.textContent = "[hidden]{display:none!important}.k-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#111;color:#fff;padding:11px 18px;border-radius:12px;font:14px/1.4 system-ui,sans-serif;opacity:0;transition:.25s;z-index:999;pointer-events:none;max-width:calc(100% - 32px);text-align:center}.k-toast.show{opacity:1;transform:translate(-50%,0)}";
+  document.head.prepend(st0);
+  let toastEl, toastT;
+  function toast(msg) {
+    if (!toastEl) { toastEl = h("div", { class: "k-toast", role: "status" }); document.body.append(toastEl); }
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove("show"), 2400);
+  }
+
+  const api = {
+    C, h, money, byId, toast, pad,
+    qty: (id) => st.cart[id] || 0,
+    set(id, q) { if (q <= 0) delete st.cart[id]; else st.cart[id] = Math.min(q, 99); emit(); },
+    toggle(id) { api.set(id, api.qty(id) ? 0 : 1); },
+    clear() { st.cart = {}; emit(); },
+    items: () => Object.keys(st.cart).map((id) => ({ s: byId(id), q: st.cart[id] })).filter((x) => x.s),
+    count: () => api.items().reduce((a, x) => a + x.q, 0),
+    total: () => api.items().reduce((a, x) => a + (x.s.price || 0) * x.q, 0),
+    onRequest: () => api.items().some((x) => !x.s.price),
+    on: (f) => subs.push(f),
+    field(k, v) { if (v === undefined) return st.form[k] || ""; st.form[k] = v; save(); },
+    cats: () => [...new Set(C.services.map((s) => s.category).filter(Boolean))],
+    price: (s) => (s.price ? money(s.price) : "по договорённости"),
+
+    /* текст заявки; extra — массив [подпись, значение] */
+    text(extra) {
+      const L = [C.order.greeting, ""];
+      api.items().forEach((x, i) => L.push((i + 1) + ". " + x.s.name + (x.q > 1 ? " × " + x.q : "") + " — " + (x.s.price ? money(x.s.price * x.q) : "по договорённости")));
+      if (!api.items().length) L.push("(услуги обсудим)");
+      L.push("");
+      if (api.total() > 0) L.push("Итого: " + money(api.total()) + (api.onRequest() ? " + позиции по договорённости" : ""));
+      (extra || []).forEach(([k, v]) => { if (v && String(v).trim()) L.push(k + ": " + String(v).trim()); });
+      if (C.order.closing) L.push("", C.order.closing);
+      return L.join("\n");
+    },
+
+    /* ссылки на мессенджеры владельца */
+    links(text) {
+      const m = C.messengers || {}, out = [];
+      if (m.telegram) out.push({ k: "tg", label: "Telegram", href: "https://t.me/" + m.telegram });
+      if (m.whatsapp) out.push({ k: "wa", label: "WhatsApp", href: "https://wa.me/" + m.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "") });
+      if (m.vk) out.push({ k: "vk", label: "ВКонтакте", href: "https://vk.me/" + m.vk });
+      if (C.phone) out.push({ k: "tel", label: "Позвонить", href: "tel:" + C.phone.replace(/[^\d+]/g, "") });
+      return out;
+    },
+    tel: () => (C.phone ? "tel:" + C.phone.replace(/[^\d+]/g, "") : null),
+
+    copy(text) {
+      const ok = () => toast("Текст скопирован — вставьте его в чат");
+      const fb = () => {
+        const t = h("textarea", { style: "position:fixed;opacity:0" }); t.value = text; document.body.append(t); t.select();
+        let done = false; try { done = document.execCommand("copy"); } catch (e) {}
+        t.remove(); done ? ok() : toast("Не получилось скопировать — выделите текст вручную");
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, fb); else fb();
+    },
+
+
+    /* готовый блок заявки: список, поля, итог, текст, мессенджеры. Оформляется классами op-* */
+    panel(box, opt) {
+      opt = opt || {};
+      const UI = C.ui || {};
+      const fields = opt.fields || [["fName", "Ваше имя"], ["fWhen", UI.whenLabel || "Когда удобно"], ["fNote", "Комментарий"]];
+      const list = h("div", { class: "op-list" }), total = h("div", { class: "op-total" });
+      const ta = h("textarea", { class: "op-text", readonly: true, "aria-label": "Текст заявки" });
+      const links = h("div", { class: "op-links" });
+      const inputs = fields.map(([id, label]) => {
+        const i = h("input", { id: "op-" + id }); i.value = api.field(id);
+        i.addEventListener("input", () => { api.field(id, i.value); refreshText(); });
+        return h("label", { class: "op-field" }, h("span", {}, label), i);
+      });
+      box.append(list, h("div", { class: "op-fields" }, inputs), total, ta, links);
+      const extra = () => fields.map(([id, label]) => [id === "fWhen" ? (UI.whenText || "Когда") : id === "fName" ? "Имя" : label.replace(/ \(.*\)$/, ""), api.field(id)]).concat(opt.extra ? opt.extra() : []);
+      function refreshText() {
+        const t = api.text(extra()); ta.value = t; links.innerHTML = "";
+        links.append(h("button", { type: "button", class: "op-copy", onclick: () => api.copy(t) }, "Скопировать текст"));
+        api.links(t).forEach((x) => links.append(h("a", { class: "op-" + x.k, href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && api.copy(t) }, x.label)));
+      }
+      function refresh() {
+        list.innerHTML = "";
+        if (!api.items().length) list.append(h("p", { class: "op-empty" }, opt.empty || "Пока ничего не выбрано."));
+        api.items().forEach((x) => list.append(h("div", { class: "op-row" },
+          h("div", { class: "op-nm" }, x.s.name, h("small", {}, x.s.price ? api.money(x.s.price * x.q) : "по договорённости")),
+          h("div", { class: "op-qty" },
+            h("button", { type: "button", "aria-label": "Меньше", onclick: () => api.set(x.s.id, x.q - 1) }, "−"),
+            h("span", {}, String(x.q)),
+            h("button", { type: "button", "aria-label": "Больше", onclick: () => api.set(x.s.id, x.q + 1) }, "+")))));
+        total.innerHTML = "";
+        if (api.total()) total.append(h("span", {}, "Итого"), h("b", {}, api.money(api.total())));
+        refreshText();
+      }
+      api.on(refresh); refresh();
+      return { refresh };
+    },
+    /* график: открыто ли сейчас, ближайшие рабочие дни, свободное время */
+    status() {
+      if (!B.status) return { open: false, text: "" };
+      const d = new Date(), m = d.getHours() * 60 + d.getMinutes();
+      const open = B.days.includes(d.getDay()) && m >= toMin(B.open) && m < toMin(B.close);
+      return open ? { open: true, text: "Открыто до " + B.close } : { open: false, text: "Сейчас закрыто · откроемся в " + B.open };
+    },
+    days(n) {
+      const out = [], d = new Date(); d.setHours(0, 0, 0, 0);
+      for (let i = 0; out.length < n && i < 60; i++) {
+        const x = new Date(d); x.setDate(d.getDate() + i);
+        if (B.days.includes(x.getDay())) out.push(x);
+      }
+      return out;
+    },
+    slots(date) {
+      const out = [], now = new Date(), today = date.toDateString() === now.toDateString();
+      for (let t = toMin(B.open); t + B.step <= toMin(B.close); t += B.step) {
+        if (today && t <= now.getHours() * 60 + now.getMinutes() + 30) continue;
+        out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
+      }
+      return out;
+    },
+    dayLabel(d) {
+      const now = new Date(); now.setHours(0, 0, 0, 0);
+      const diff = Math.round((d - now) / 864e5);
+      const wd = d.toLocaleDateString("ru-RU", { weekday: "short" });
+      return diff === 0 ? "Сегодня" : diff === 1 ? "Завтра" : wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + d.getDate();
+    },
+    dateText: (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long" })
+  };
+  return api;
+})();
+
+</script>
+<script>
+document.documentElement.classList.add("js");
+(function () {
+  const { C, h } = K, $ = (id) => document.getElementById(id), U = C.ui || {};
+  document.documentElement.style.setProperty("--accent", C.accent);
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  $("brand").textContent = C.brand;
+  // заголовок по буквам
+  let n = 0;
+  C.brand.split(" ").forEach((word) => {
+    const ln = h("span", { class: "ln" });
+    [...word].forEach((c) => ln.append(h("span", { class: "ch", style: "animation-delay:" + (0.05 * n++) + "s" }, c)));
+    $("h1").append(ln);
+  });
+  $("h1").setAttribute("aria-label", C.brand);
+  $("lead").textContent = C.tagline + ". " + C.description;
+  $("choose").textContent = (U.chooseBtn || "Выбрать") + " ↓";
+  $("sTitle").textContent = U.servicesTitle || "Услуги"; $("sSub").textContent = "Нажмите на строку, чтобы добавить в заявку";
+
+  // прогресс и параллакс
+  const blob = $("blob");
+  addEventListener("scroll", () => {
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    $("prog").style.width = (max > 0 ? 100 * y / max : 0) + "%";
+    if (!still) blob.style.transform = "translate(" + (-y * 0.15) + "px," + (y * 0.35) + "px) scale(" + (1 + y / 2500) + ")";
+  }, { passive: true });
+
+  // услуги + плавающее превью
+  const peek = $("peek"); let i = 0;
+  K.cats().forEach((cat) => {
+    $("list").append(h("div", { class: "cat" }, cat));
+    C.services.filter((s) => s.category === cat).forEach((s) => {
+      const row = h("button", { class: "row", type: "button", "data-id": s.id, onclick: () => K.toggle(s.id) },
+        h("span", { class: "i" }, String(++i).padStart(2, "0")), h("span", { class: "n" }, s.name),
+        h("span", { class: "p" }, s.price ? K.money(s.price) : "Договорная"), h("span", { class: "m", "aria-hidden": "true" }, "+"));
+      row.addEventListener("mouseenter", () => { peek.innerHTML = ""; peek.append(h("b", {}, s.name), s.desc || "", h("small", {}, [s.category, s.unit].filter(Boolean).join(" · "))); peek.classList.add("on"); });
+      row.addEventListener("mouseleave", () => peek.classList.remove("on"));
+      $("list").append(row);
+    });
+  });
+  let px = 0, py = 0, tx = 0, ty = 0;
+  addEventListener("mousemove", (e) => { tx = e.clientX + 170; ty = e.clientY; if (tx + 150 > innerWidth) tx = e.clientX - 170; }, { passive: true });
+  (function loop() { px += (tx - px) * 0.15; py += (ty - py) * 0.15; peek.style.left = px + "px"; peek.style.top = py + "px"; requestAnimationFrame(loop); })();
+  function upd() {
+    document.querySelectorAll(".row").forEach((r) => { const on = !!K.qty(r.dataset.id); r.classList.toggle("on", on); r.setAttribute("aria-pressed", on); });
+    $("cnt").textContent = K.count();
+  }
+  K.on(upd); upd();
+
+  // о нас + счётчики
+  $("aboutTxt").textContent = (C.about || []).join(" ");
+  (C.facts || []).forEach((f) => {
+    const m = /^([^\d]*)(\d+(?:\s\d{3})*)(.*)$/.exec(f.value);
+    const b = h("b", {}, f.value);
+    if (m && !still) { b.dataset.to = m[2].replace(/\s/g, ""); b.dataset.pre = m[1]; b.dataset.post = m[3]; b.textContent = m[1] + "0" + m[3]; }
+    $("stats").append(h("div", { class: "stat rv" }, b, h("span", {}, f.label)));
+  });
+  const count = (b) => { const to = +b.dataset.to, t0 = performance.now(); (function f(t) { const k = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - k, 3); b.textContent = b.dataset.pre + Math.round(to * e).toLocaleString("ru-RU") + b.dataset.post; if (k < 1) requestAnimationFrame(f); })(t0); };
+
+  // работы: перетаскивание
+  $("wSub").textContent = C.worksSubtitle || "Работы";
+  (C.works || []).forEach((w, j) => $("strip").append(h("div", { class: "w" }, w.image ? h("img", { src: w.image, alt: w.title || "" }) : null, h("i", {}, String(j + 1).padStart(2, "0")), h("span", {}, w.title))));
+  if (!(C.works || []).length) $("works").hidden = true;
+  const strip = $("strip"); let down = false, sx = 0, sl = 0;
+  strip.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") return; down = true; sx = e.clientX; sl = strip.scrollLeft; strip.classList.add("drag"); });
+  addEventListener("pointermove", (e) => { if (down) strip.scrollLeft = sl - (e.clientX - sx); });
+  addEventListener("pointerup", () => { down = false; strip.classList.remove("drag"); });
+
+  // отзывы: автосмена
+  const R = C.reviews || []; let ri = 0, rt;
+  function rev(k) {
+    if (!R.length) return; ri = (k + R.length) % R.length;
+    $("quote").classList.add("fade");
+    setTimeout(() => { $("quote").textContent = "«" + R[ri].text + "»"; $("qw").textContent = "— " + R[ri].name + " " + "★".repeat(R[ri].rating); $("quote").classList.remove("fade"); }, still ? 0 : 300);
+    [...$("dots").children].forEach((d, j) => d.classList.toggle("on", j === ri));
+    clearTimeout(rt); if (!still) rt = setTimeout(() => rev(ri + 1), 6000);
+  }
+  R.forEach((r, j) => $("dots").append(h("button", { type: "button", "aria-label": "Отзыв " + (j + 1), onclick: () => rev(j) })));
+  if (R.length) rev(0); else $("reviews").hidden = true;
+
+  // контакты
+  const m = C.messengers || {};
+  [["Телефон", C.phone, K.tel()], ["Telegram", m.telegram && (/^\+/.test(m.telegram) ? "" : "@") + m.telegram, m.telegram && "https://t.me/" + m.telegram], ["WhatsApp", m.whatsapp && "+" + m.whatsapp, m.whatsapp && "https://wa.me/" + m.whatsapp], ["ВКонтакте", m.vk && "vk.com/" + m.vk, m.vk && "https://vk.com/" + m.vk], ["Адрес", C.address], ["Часы", C.hours]]
+    .forEach(([k, v, href]) => v && $("cl").append(h(href ? "a" : "div", { href, target: href && href.startsWith("http") ? "_blank" : null, rel: "noopener" }, h("small", {}, k), v)));
+  $("foot").textContent = "© " + new Date().getFullYear() + " " + C.brand;
+
+  // появление при прокрутке
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting) return; e.target.classList.add("in"); const b = e.target.querySelector("[data-to]"); if (b) count(b); io.unobserve(e.target); }), { threshold: 0.15 });
+  document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+
+  // заявка
+  K.panel($("panel"), { empty: "Пока пусто. Нажмите на услуги в списке." });
+  const open = () => { $("full").classList.add("open"); document.body.style.overflow = "hidden"; $("fx").focus(); };
+  const close = () => { $("full").classList.remove("open"); document.body.style.overflow = ""; };
+  $("ob").onclick = open; $("fx").onclick = close;
+  document.addEventListener("keydown", (e) => e.key === "Escape" && close());
+})();
+</script>
+<script>
+(function () { if (!CONFIG.demo && !/[?&]preview/.test(location.search)) return;
+  var p = /[?&]preview/.test(location.search);
+  var b = document.createElement("div");
+  b.style.cssText = "position:relative;z-index:99;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center";
+  b.innerHTML = p ? "Предпросмотр ваших изменений — видно только на этом устройстве · <a href='admin/' style='color:#ffd54a'>вернуться в кабинет</a>"
+                  : "Демо-версия сайта · цены примерные · <a href='admin/' style='color:#ffd54a'>✎ войти в кабинет и изменить</a>";
+  document.body.prepend(b); })();
+</script>
+</body>
+</html>

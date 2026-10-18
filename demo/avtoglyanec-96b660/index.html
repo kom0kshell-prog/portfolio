@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>АвтоГлянец — Автосервис в Омске</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:wght@400;700&family=Golos+Text:wght@400;500;600&family=Neucha&family=Fira+Mono:wght@500&display=swap">
+<style>
+/* Тематический ФЛАГМАН · Автосервис · «Сервисная книжка».
+   Обложка открывается, первая страница заполняется данными вашей машины; номерной знак рисуется по вводу;
+   рекомендации по пробегу и сезону; на выбранных работах ставится штамп; запись на день и время;
+   итог — «талон на ТО» с отправкой в мессенджер. */
+:root{--accent:#1d4ed8;--cover:#14213d;--gold:#c9a24a;--paper:#eef3ee;--paper2:#e4ece6;--ink:#1d2622;--muted:#5e6b64;--line:#b9c7bd;--stamp:#c0392b;--ok:#2a7a46;
+  --d:"Old Standard TT",Georgia,serif;--b:"Golos Text",system-ui,sans-serif;--hand:"Neucha","Segoe Print",cursive;--m:"Fira Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+a{color:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:#cfd8d2;color:var(--ink);font:16px/1.6 var(--b);background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.5),transparent 40%)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
+h1,h2,h3{font-family:var(--d);font-weight:700;margin:0;line-height:1.05}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* шапка */
+.top{position:sticky;top:0;z-index:30;background:var(--cover);color:#fff;border-bottom:2px solid var(--gold)}
+.top .wrap{display:flex;align-items:center;gap:22px;height:64px}
+.brand{font:700 21px var(--d);color:var(--gold);text-decoration:none;margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.03em}
+.top nav{display:flex;gap:20px}.top nav a{color:#cfd6e6;text-decoration:none;font-size:15px}.top nav a:hover{color:var(--gold)}
+.ph{color:#fff;text-decoration:none;font-weight:600;white-space:nowrap}
+@media(max-width:860px){.top nav{display:none}}
+/* обложка + первая страница */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;padding:56px 0 70px}
+.book{position:relative;aspect-ratio:3/4.1;max-width:440px;width:100%;margin:0 auto;perspective:1600px}
+.page1{position:absolute;inset:0;background:var(--paper);border-radius:4px 14px 14px 4px;box-shadow:0 30px 60px -25px rgba(0,0,0,.45),inset 8px 0 18px -10px rgba(0,0,0,.25);padding:30px 28px;overflow:hidden;
+  background-image:repeating-radial-gradient(circle at 50% 120%,transparent 0 10px,rgba(30,90,60,.05) 10px 11px),repeating-linear-gradient(90deg,transparent 0 22px,rgba(30,90,60,.03) 22px 23px)}
+.page1 .t{font:700 13px var(--b);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:14px}
+.fline{display:flex;align-items:baseline;gap:10px;margin:12px 0}
+.fline span{font-size:12px;color:var(--muted);white-space:nowrap;text-transform:uppercase;letter-spacing:.08em}
+.fline b{flex:1;font:400 22px var(--hand);color:#1f3a8a;border-bottom:1px dotted var(--muted);min-height:30px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.page1 .seal{position:absolute;right:22px;bottom:22px;width:110px;height:110px;border-radius:50%;border:3px double var(--accent);color:var(--accent);display:grid;place-items:center;text-align:center;font:700 11px/1.2 var(--b);letter-spacing:.06em;text-transform:uppercase;transform:rotate(-14deg);opacity:.75;padding:12px}
+.cover{position:absolute;inset:0;border-radius:4px 14px 14px 4px;background:var(--cover);transform-origin:left center;transform:rotateY(0);transition:transform 1.4s cubic-bezier(.6,.1,.2,1) .5s;box-shadow:0 30px 60px -25px rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--gold);padding:30px;backface-visibility:hidden;
+  background-image:radial-gradient(circle at 30% 20%,rgba(255,255,255,.08),transparent 50%),repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0 2px,transparent 2px 4px)}
+.cover::before{content:"";position:absolute;inset:16px;border:1.5px solid var(--gold);border-radius:6px;opacity:.6}
+.cover .em{width:84px;height:84px;border:2px solid var(--gold);border-radius:50%;display:grid;place-items:center;margin-bottom:22px}
+.cover .em svg{width:46px;height:46px}
+.cover h2{font-size:30px;letter-spacing:.12em;text-transform:uppercase}
+.cover p{margin:10px 0 0;font:400 15px var(--d);letter-spacing:.2em;text-transform:uppercase}
+.book.open .cover{transform:rotateY(-165deg)}
+@media(prefers-reduced-motion:reduce){.cover{transition:none}}
+.intro .lbl{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.intro h1{font-size:clamp(40px,5.6vw,70px);margin:14px 0 16px;color:var(--cover)}
+.intro p{font-size:18px;color:var(--muted);max-width:44ch;margin:0 0 24px}
+.status{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:14px;background:var(--paper)}
+.status i{width:8px;height:8px;border-radius:50%;background:#999}.status.on i{background:var(--ok)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:10px;background:var(--cover);color:#fff;border:0;font:600 15px var(--b);text-decoration:none;cursor:pointer}
+.btn.gold{background:var(--gold);color:var(--cover)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.trust{display:flex;gap:26px;margin-top:30px;flex-wrap:wrap}
+.trust b{display:block;font:700 30px var(--d);color:var(--cover)}.trust span{font-size:13px;color:var(--muted)}
+@media(max-width:860px){.hero{grid-template-columns:1fr;gap:34px;padding-top:30px}.book{max-width:360px}}
+/* страницы-разделы */
+.sheet{background:var(--paper);border-radius:18px;padding:clamp(22px,4vw,44px);margin-bottom:26px;box-shadow:0 18px 40px -28px rgba(0,0,0,.4);position:relative;
+  background-image:repeating-radial-gradient(circle at 100% 0,transparent 0 14px,rgba(30,90,60,.035) 14px 15px)}
+.sheet .num{position:absolute;top:22px;right:26px;font:700 13px var(--b);letter-spacing:.2em;color:var(--muted)}
+.sheet h2{font-size:clamp(28px,3.6vw,42px);color:var(--cover);margin-bottom:6px}
+.sheet .sub{color:var(--muted);margin:0 0 22px;max-width:60ch}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.fl{display:block;margin-bottom:14px}
+.fl span{display:block;font-size:13px;color:var(--muted);margin-bottom:5px;font-weight:500}
+.fl input,.fl textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;font:400 16px var(--b);color:var(--ink)}
+.fl textarea{min-height:70px;resize:vertical}
+.fl.bad input{border-color:var(--stamp)}
+.fl em{display:block;font-style:normal;color:var(--stamp);font-size:13px;margin-top:4px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.plateWrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:var(--paper2);border-radius:14px;padding:24px}
+.plate{display:flex;align-items:stretch;background:#fff;border:3px solid #111;border-radius:8px;font:500 clamp(26px,4vw,38px)/1 var(--m);color:#111;box-shadow:0 6px 0 rgba(0,0,0,.15);overflow:hidden;max-width:100%}
+.plate .n{padding:10px 14px;letter-spacing:.06em;white-space:nowrap}
+.plate .r{border-left:3px solid #111;padding:6px 8px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;font-size:.55em}
+.plate .r i{font:700 10px var(--b);display:flex;gap:3px;align-items:center;font-style:normal}
+.plate .r i::after{content:"";width:16px;height:10px;background:linear-gradient(#fff 33%,#1c3faa 33% 66%,#d52b1e 66%);border:1px solid #999}
+.rec{width:100%}
+.rec h3{font:600 13px var(--b);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;margin:0 6px 6px 0;padding:7px 12px;border-radius:999px;border:1px dashed var(--accent);background:#fff;color:var(--accent);font:500 14px var(--b);cursor:pointer}
+.chip.on{background:var(--accent);color:#fff;border-style:solid}
+.chip small{opacity:.75}
+.none{color:var(--muted);font-size:14px}
+/* таблица работ */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:left;font:600 12px var(--b);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:10px 8px;border-bottom:2px solid var(--ink)}
+.tbl td{padding:14px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr.cat td{font:700 18px var(--d);color:var(--cover);padding-top:22px;border-bottom:1px solid var(--ink)}
+.tbl .nm b{display:block;font-weight:600}.tbl .nm small{color:var(--muted)}
+.tbl .pr{white-space:nowrap;font-family:var(--m);text-align:right}
+.tbl .mk{width:120px;text-align:center;position:relative}
+.mkb{width:100%;min-height:52px;border:1.5px dashed var(--line);border-radius:10px;background:transparent;cursor:pointer;color:var(--muted);font:500 13px var(--b);position:relative}
+.mkb:hover{border-color:var(--accent);color:var(--accent)}
+.stamp{position:absolute;inset:-6px 4px;display:grid;place-items:center;pointer-events:none}
+.stamp span{border:3px double var(--stamp);color:var(--stamp);font:700 12px/1.1 var(--b);letter-spacing:.1em;text-transform:uppercase;padding:6px 8px;border-radius:8px;transform:rotate(-12deg) scale(1);opacity:.9;background:rgba(255,255,255,.4);animation:stamp .35s cubic-bezier(.3,1.6,.5,1)}
+@keyframes stamp{from{transform:rotate(-12deg) scale(2.4);opacity:0}}
+.qty{display:inline-flex;align-items:center;gap:2px;margin-top:6px}
+.qty button{width:24px;height:24px;border-radius:6px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--ink)}
+.qty span{min-width:18px;text-align:center;font-size:13px}
+@media(max-width:640px){.tbl thead{display:none}.tbl td{padding:12px 4px}.tbl .mk{width:96px}}
+/* запись */
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+.day{flex:0 0 auto;min-width:80px;padding:10px;border-radius:12px;border:1px solid var(--line);background:#fff;color:var(--ink);font:500 14px var(--b);cursor:pointer;text-align:center}
+.day small{display:block;color:var(--muted);font-size:12px}
+.day[aria-pressed="true"]{background:var(--cover);color:#fff;border-color:var(--cover)}.day[aria-pressed="true"] small{color:#cfd6e6}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;margin-top:14px}
+.slot{padding:10px 4px;border-radius:10px;border:1px solid var(--line);background:#fff;font:500 15px var(--m);cursor:pointer;color:var(--ink)}
+.slot[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+/* талон */
+.ticket{background:#fff;border-radius:16px;position:relative;padding:26px;border:1px solid var(--line);
+  -webkit-mask:radial-gradient(circle 12px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 12px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.ticket .th{display:flex;justify-content:space-between;align-items:center;gap:14px;border-bottom:2px dashed var(--line);padding-bottom:14px;margin-bottom:14px;flex-wrap:wrap}
+.ticket .th h3{font-size:24px;color:var(--cover)}
+.ticket .th .plate{font-size:20px;box-shadow:none;border-width:2px}
+.kv{display:grid;grid-template-columns:140px 1fr;gap:8px 16px;font-size:15px}
+.kv span{color:var(--muted)}
+.kv b{font-weight:500}
+.ticket .tot{display:flex;justify-content:space-between;align-items:baseline;border-top:2px dashed var(--line);margin-top:14px;padding-top:12px;font:700 26px var(--d);color:var(--cover)}
+.send{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:16px}
+.send a,.send button{display:flex;align-items:center;justify-content:center;padding:13px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);text-decoration:none;font:600 14px var(--b);cursor:pointer}
+.send .main{grid-column:1/-1;background:var(--cover);color:#fff;border-color:var(--cover);font-size:16px;padding:15px}
+.send .main[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.need{color:var(--muted);font-size:14px;margin:10px 0 0}
+.chk{display:grid;gap:6px;margin-top:12px;font-size:14px}
+.chk div{display:flex;gap:8px;align-items:center}.chk i{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:11px}
+.chk .ok i{background:var(--ok);border-color:var(--ok);color:#fff}
+/* отметки, вопросы, контакты */
+.marks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px}
+.mark{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;position:relative}
+.mark .d{font:500 12px var(--m);color:var(--muted)}
+.mark p{font:400 20px/1.35 var(--hand);color:#1f3a8a;margin:8px 0 10px}
+.mark b{font-size:14px}
+.mark .s{position:absolute;right:14px;top:12px;color:#d4a017;letter-spacing:2px}
+details{border-bottom:1px solid var(--line)}
+summary{padding:16px 0;cursor:pointer;font:700 20px var(--d);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent)}details[open] summary::after{content:"−"}
+details p{margin:0 0 16px;color:var(--muted)}
+.cl{display:grid;gap:2px}
+.cl a,.cl div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.cl span{color:var(--muted);font-size:14px}.cl b{font-weight:500;text-align:right}
+.cl a:hover b{color:var(--accent)}
+footer{padding:30px 0 110px;text-align:center;color:var(--muted);font-size:14px}
+.mbar{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:40;display:none;align-items:center;gap:12px;background:var(--cover);color:#fff;border-radius:16px;padding:10px 10px 10px 16px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.mbar div{flex:1;font-size:13px}.mbar b{display:block;font:700 18px var(--d);color:var(--gold)}
+@media(max-width:760px){.mbar{display:flex}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" id="brand" href="#"></a>
+  <nav><a href="#car">Автомобиль</a><a href="#works">Работы</a><a href="#when">Запись</a><a href="#marks">Отзывы</a><a href="#contacts">Контакты</a></nav>
+  <a class="ph" id="ph"></a>
+</div></header>
+<main class="wrap">
+  <div class="hero">
+    <div class="book" id="book">
+      <div class="page1" aria-label="Первая страница сервисной книжки">
+        <div class="t">Сервисная книжка · стр. 1</div>
+        <div class="fline"><span>Сервис</span><b id="p1s"></b></div>
+        <div class="fline"><span>Автомобиль</span><b id="p1c"></b></div>
+        <div class="fline"><span>Гос. номер</span><b id="p1n"></b></div>
+        <div class="fline"><span>Пробег, км</span><b id="p1k"></b></div>
+        <div class="fline"><span>Дата записи</span><b id="p1d"></b></div>
+        <div class="seal" id="seal"></div>
+      </div>
+      <div class="cover" aria-hidden="true"><div class="em"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 30l4-10h24l4 10v8H8z"/><circle cx="15" cy="38" r="3.5"/><circle cx="33" cy="38" r="3.5"/><path d="M14 20l3-6h14l3 6"/></svg></div><h2>Сервисная<br>книжка</h2><p id="cvb"></p></div>
+    </div>
+    <div class="intro">
+      <span class="status" id="status"><i></i><span></span></span>
+      <h1 id="h1"></h1>
+      <p id="lead"></p>
+      <a class="btn" href="#car">Заполнить книжку и записаться ↓</a>
+      <div class="trust" id="trust"></div>
+    </div>
+  </div>
+
+  <section class="sheet" id="car"><span class="num">СТР. 2</span>
+    <h2>Ваш автомобиль</h2><p class="sub">Заполните — подскажем, какие работы пора сделать по пробегу и сезону. Данные попадут в заявку.</p>
+    <div class="grid2">
+      <div>
+        <label class="fl"><span>Марка и модель</span><input id="carModel" placeholder="Например, Kia Rio" autocomplete="off"></label>
+        <div class="row2">
+          <label class="fl"><span>Год выпуска</span><input id="carYear" inputmode="numeric" maxlength="4" placeholder="2018"></label>
+          <label class="fl"><span>Пробег, км</span><input id="carKm" inputmode="numeric" placeholder="85 000"></label>
+        </div>
+        <label class="fl"><span>Гос. номер</span><input id="carNum" placeholder="А123ВС 38" autocomplete="off"></label>
+      </div>
+      <div class="plateWrap">
+        <div class="plate" aria-label="Номерной знак"><span class="n" id="plateN">А000АА</span><span class="r"><span id="plateR">00</span><i>RUS</i></span></div>
+        <div class="rec"><h3>Рекомендуем</h3><div id="rec"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="works"><span class="num">СТР. 3</span>
+    <h2 id="sTitle"></h2><p class="sub" id="sSub"></p>
+    <table class="tbl"><thead><tr><th>Вид работ</th><th style="text-align:right">Стоимость</th><th style="text-align:center">Отметка</th></tr></thead><tbody id="tb"></tbody></table>
+  </section>
+
+  <section class="sheet" id="when"><span class="num">СТР. 4</span>
+    <h2>Запись на ТО</h2><p class="sub">Выберите день и время. Показаны рабочие дни на две недели вперёд.</p>
+    <div class="days" id="days"></div><div class="slots" id="slots"></div>
+    <div class="grid2" style="margin-top:26px">
+      <div><label class="fl" id="wN"><span>Ваше имя</span><input id="fName" autocomplete="name"><em hidden>Укажите имя</em></label>
+        <label class="fl" id="wP"><span>Телефон</span><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"><em hidden>Номер нужен полностью — 11 цифр</em></label></div>
+      <label class="fl"><span>Что беспокоит в машине</span><textarea id="fNote" placeholder="Стук спереди справа, ABS горит…"></textarea></label>
+    </div>
+  </section>
+
+  <section class="sheet" id="ticket"><span class="num">СТР. 5</span>
+    <h2>Талон на ТО</h2><p class="sub">Проверьте талон и отправьте его нам — подтвердим запись в ответном сообщении.</p>
+    <div class="grid2">
+      <div class="ticket"><div class="th"><h3 id="tBrand"></h3><div class="plate"><span class="n" id="tPlate">—</span><span class="r"><span id="tPlateR">—</span><i>RUS</i></span></div></div>
+        <div class="kv" id="tkv"></div><div class="tot"><span>Итого</span><span id="tTot">—</span></div></div>
+      <div><div class="chk" id="chk"></div><div class="send" id="send"></div><p class="need" id="need"></p></div>
+    </div>
+  </section>
+
+  <section class="sheet" id="marks"><span class="num">СТР. 6</span><h2>Отметки клиентов</h2><p class="sub" id="about"></p><div class="marks" id="mk"></div></section>
+  <section class="sheet" id="faq"><span class="num">СТР. 7</span><h2>Особые отметки</h2><p class="sub">Ответы на частые вопросы.</p><div id="fq"></div></section>
+  <section class="sheet" id="contacts"><span class="num">СТР. 8</span><h2>Контакты сервиса</h2><div class="cl" id="cl"></div></section>
+</main>
+<footer id="foot"></footer>
+<div class="mbar" id="mbar"><div id="mtxt"></div><a class="btn gold" href="#ticket" style="padding:12px 16px">Талон</a></div>
+<script>
+const CONFIG = (function () { var d = /*CONFIG*/{"brand": "АвтоГлянец", "tagline": "Автосервис в Омске", "description": "Ремонт и обслуживание легковых авто. Выберите работы — заявка уйдёт мастеру в Telegram.", "accent": "#1f6feb", "currency": "₽", "phone": "+7 904 589-55-85", "email": "", "address": "г. Омск, пос. Энергетиков, 75, бокс 21", "hours": "По предварительной записи", "messengers": {"telegram": "+79045895585", "whatsapp": "", "vk": "id164057086"}, "services": [{"id": "s1", "category": "Диагностика", "name": "Компьютерная диагностика", "desc": "Ошибки, датчики, отчёт.", "price": 1000, "unit": ""}, {"id": "s2", "category": "Диагностика", "name": "Диагностика ходовой", "desc": "На подъёмнике.", "price": 800, "unit": ""}, {"id": "s3", "category": "ТО", "name": "Замена масла и фильтра", "desc": "Работа без материалов.", "price": 800, "unit": ""}, {"id": "s4", "category": "ТО", "name": "Замена тормозных колодок", "desc": "Одна ось.", "price": 1200, "unit": ""}, {"id": "s5", "category": "Ходовая", "name": "Ремонт подвески", "desc": "Точная цена после диагностики.", "price": null, "unit": ""}, {"id": "s6", "category": "Двигатель", "name": "Замена ремня ГРМ", "desc": "Зависит от мотора.", "price": 5000, "unit": "от"}, {"id": "s7", "category": "Сезон", "name": "Подготовка авто к зиме", "desc": "АКБ, жидкости, свечи, осмотр.", "price": 1500, "unit": ""}], "worksSubtitle": "Примеры наших работ.", "works": [], "about": ["Ремонт и обслуживание легковых авто. Выберите работы — заявка уйдёт мастеру в Telegram."], "facts": [{"value": "Омск", "label": "пос. Энергетиков, 75, бокс 21"}, {"value": "Онлайн-заявка", "label": "в Telegram и в ВК"}], "order": {"greeting": "Здравствуйте! Хочу записаться в сервис:", "closing": "Подскажите, когда можно подъехать. Спасибо!"}, "ui": {"nav": "Услуги", "servicesTitle": "Услуги и цены", "servicesSub": "Выберите нужные работы, нажмите «Заказать» — получите готовый текст для записи. Точную стоимость назовём после осмотра.", "chooseBtn": "Выбрать услуги", "whenLabel": "Марка и модель авто, желаемые дата и время", "whenText": "Авто, дата и время"}, "faq": [], "booking": {"open": "10:00", "close": "20:00", "step": 60, "days": [1, 2, 3, 4, 5, 6], "status": false}, "demo": true}/*/CONFIG*/; try { if (/[?&]preview/.test(location.search)) { var p = localStorage.getItem("draft:" + location.pathname.replace(/[^/]*$/, "")); if (p) return JSON.parse(p); } } catch (e) {} return d; })();
+</script>
+<script>
+/* ===== ЯДРО: корзина, текст заявки, мессенджеры. Менять не нужно. ===== */
+const K = (function () {
+  const C = CONFIG;
+  const money = (n) => new Intl.NumberFormat("ru-RU").format(n) + " " + C.currency;
+  const KEY = "k:" + location.pathname + ":" + C.brand;
+  const st = { cart: {}, form: {} };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const byId = (id) => C.services.find((s) => s.id === id);
+  Object.keys(st.cart).forEach((id) => { if (!byId(id)) delete st.cart[id]; });
+  const subs = [];
+  const emit = () => { save(); subs.forEach((f) => f()); };
+  const pad = (n) => String(n).padStart(2, "0");
+  const toMin = (t) => { const [a, b] = t.split(":").map(Number); return a * 60 + b; };
+  const B = Object.assign({ open: "10:00", close: "20:00", step: 60, days: [0, 1, 2, 3, 4, 5, 6] }, C.booking);
+
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => {
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    kids.flat().forEach((c) => { if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); });
+    return e;
+  }
+
+  const st0 = document.createElement("style");
+  st0.textContent = "[hidden]{display:none!important}.k-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#111;color:#fff;padding:11px 18px;border-radius:12px;font:14px/1.4 system-ui,sans-serif;opacity:0;transition:.25s;z-index:999;pointer-events:none;max-width:calc(100% - 32px);text-align:center}.k-toast.show{opacity:1;transform:translate(-50%,0)}";
+  document.head.prepend(st0);
+  let toastEl, toastT;
+  function toast(msg) {
+    if (!toastEl) { toastEl = h("div", { class: "k-toast", role: "status" }); document.body.append(toastEl); }
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove("show"), 2400);
+  }
+
+  const api = {
+    C, h, money, byId, toast, pad,
+    qty: (id) => st.cart[id] || 0,
+    set(id, q) { if (q <= 0) delete st.cart[id]; else st.cart[id] = Math.min(q, 99); emit(); },
+    toggle(id) { api.set(id, api.qty(id) ? 0 : 1); },
+    clear() { st.cart = {}; emit(); },
+    items: () => Object.keys(st.cart).map((id) => ({ s: byId(id), q: st.cart[id] })).filter((x) => x.s),
+    count: () => api.items().reduce((a, x) => a + x.q, 0),
+    total: () => api.items().reduce((a, x) => a + (x.s.price || 0) * x.q, 0),
+    onRequest: () => api.items().some((x) => !x.s.price),
+    on: (f) => subs.push(f),
+    field(k, v) { if (v === undefined) return st.form[k] || ""; st.form[k] = v; save(); },
+    cats: () => [...new Set(C.services.map((s) => s.category).filter(Boolean))],
+    price: (s) => (s.price ? money(s.price) : "по договорённости"),
+
+    /* текст заявки; extra — массив [подпись, значение] */
+    text(extra) {
+      const L = [C.order.greeting, ""];
+      api.items().forEach((x, i) => L.push((i + 1) + ". " + x.s.name + (x.q > 1 ? " × " + x.q : "") + " — " + (x.s.price ? money(x.s.price * x.q) : "по договорённости")));
+      if (!api.items().length) L.push("(услуги обсудим)");
+      L.push("");
+      if (api.total() > 0) L.push("Итого: " + money(api.total()) + (api.onRequest() ? " + позиции по договорённости" : ""));
+      (extra || []).forEach(([k, v]) => { if (v && String(v).trim()) L.push(k + ": " + String(v).trim()); });
+      if (C.order.closing) L.push("", C.order.closing);
+      return L.join("\n");
+    },
+
+    /* ссылки на мессенджеры владельца */
+    links(text) {
+      const m = C.messengers || {}, out = [];
+      if (m.telegram) out.push({ k: "tg", label: "Telegram", href: "https://t.me/" + m.telegram });
+      if (m.whatsapp) out.push({ k: "wa", label: "WhatsApp", href: "https://wa.me/" + m.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "") });
+      if (m.vk) out.push({ k: "vk", label: "ВКонтакте", href: "https://vk.me/" + m.vk });
+      if (C.phone) out.push({ k: "tel", label: "Позвонить", href: "tel:" + C.phone.replace(/[^\d+]/g, "") });
+      return out;
+    },
+    tel: () => (C.phone ? "tel:" + C.phone.replace(/[^\d+]/g, "") : null),
+
+    copy(text) {
+      const ok = () => toast("Текст скопирован — вставьте его в чат");
+      const fb = () => {
+        const t = h("textarea", { style: "position:fixed;opacity:0" }); t.value = text; document.body.append(t); t.select();
+        let done = false; try { done = document.execCommand("copy"); } catch (e) {}
+        t.remove(); done ? ok() : toast("Не получилось скопировать — выделите текст вручную");
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, fb); else fb();
+    },
+
+
+    /* готовый блок заявки: список, поля, итог, текст, мессенджеры. Оформляется классами op-* */
+    panel(box, opt) {
+      opt = opt || {};
+      const UI = C.ui || {};
+      const fields = opt.fields || [["fName", "Ваше имя"], ["fWhen", UI.whenLabel || "Когда удобно"], ["fNote", "Комментарий"]];
+      const list = h("div", { class: "op-list" }), total = h("div", { class: "op-total" });
+      const ta = h("textarea", { class: "op-text", readonly: true, "aria-label": "Текст заявки" });
+      const links = h("div", { class: "op-links" });
+      const inputs = fields.map(([id, label]) => {
+        const i = h("input", { id: "op-" + id }); i.value = api.field(id);
+        i.addEventListener("input", () => { api.field(id, i.value); refreshText(); });
+        return h("label", { class: "op-field" }, h("span", {}, label), i);
+      });
+      box.append(list, h("div", { class: "op-fields" }, inputs), total, ta, links);
+      const extra = () => fields.map(([id, label]) => [id === "fWhen" ? (UI.whenText || "Когда") : id === "fName" ? "Имя" : label.replace(/ \(.*\)$/, ""), api.field(id)]).concat(opt.extra ? opt.extra() : []);
+      function refreshText() {
+        const t = api.text(extra()); ta.value = t; links.innerHTML = "";
+        links.append(h("button", { type: "button", class: "op-copy", onclick: () => api.copy(t) }, "Скопировать текст"));
+        api.links(t).forEach((x) => links.append(h("a", { class: "op-" + x.k, href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && api.copy(t) }, x.label)));
+      }
+      function refresh() {
+        list.innerHTML = "";
+        if (!api.items().length) list.append(h("p", { class: "op-empty" }, opt.empty || "Пока ничего не выбрано."));
+        api.items().forEach((x) => list.append(h("div", { class: "op-row" },
+          h("div", { class: "op-nm" }, x.s.name, h("small", {}, x.s.price ? api.money(x.s.price * x.q) : "по договорённости")),
+          h("div", { class: "op-qty" },
+            h("button", { type: "button", "aria-label": "Меньше", onclick: () => api.set(x.s.id, x.q - 1) }, "−"),
+            h("span", {}, String(x.q)),
+            h("button", { type: "button", "aria-label": "Больше", onclick: () => api.set(x.s.id, x.q + 1) }, "+")))));
+        total.innerHTML = "";
+        if (api.total()) total.append(h("span", {}, "Итого"), h("b", {}, api.money(api.total())));
+        refreshText();
+      }
+      api.on(refresh); refresh();
+      return { refresh };
+    },
+    /* график: открыто ли сейчас, ближайшие рабочие дни, свободное время */
+    status() {
+      if (!B.status) return { open: false, text: "" };
+      const d = new Date(), m = d.getHours() * 60 + d.getMinutes();
+      const open = B.days.includes(d.getDay()) && m >= toMin(B.open) && m < toMin(B.close);
+      return open ? { open: true, text: "Открыто до " + B.close } : { open: false, text: "Сейчас закрыто · откроемся в " + B.open };
+    },
+    days(n) {
+      const out = [], d = new Date(); d.setHours(0, 0, 0, 0);
+      for (let i = 0; out.length < n && i < 60; i++) {
+        const x = new Date(d); x.setDate(d.getDate() + i);
+        if (B.days.includes(x.getDay())) out.push(x);
+      }
+      return out;
+    },
+    slots(date) {
+      const out = [], now = new Date(), today = date.toDateString() === now.toDateString();
+      for (let t = toMin(B.open); t + B.step <= toMin(B.close); t += B.step) {
+        if (today && t <= now.getHours() * 60 + now.getMinutes() + 30) continue;
+        out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
+      }
+      return out;
+    },
+    dayLabel(d) {
+      const now = new Date(); now.setHours(0, 0, 0, 0);
+      const diff = Math.round((d - now) / 864e5);
+      const wd = d.toLocaleDateString("ru-RU", { weekday: "short" });
+      return diff === 0 ? "Сегодня" : diff === 1 ? "Завтра" : wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + d.getDate();
+    },
+    dateText: (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long" })
+  };
+  return api;
+})();
+
+</script>
+<script>
+(function () {
+  const { C, h } = K, $ = (id) => document.getElementById(id), U = C.ui || {}, F = K.field;
+  document.documentElement.style.setProperty("--accent", C.accent);
+  $("brand").textContent = C.brand; $("cvb").textContent = C.brand; $("h1").textContent = C.tagline; $("lead").textContent = C.description;
+  if (C.phone) { $("ph").textContent = C.phone; $("ph").href = K.tel(); }
+  const st = K.status(); $("status").classList.toggle("on", st.open); $("status").querySelector("span").textContent = st.text;
+  (C.facts || []).forEach((f) => $("trust").append(h("div", {}, h("b", {}, f.value), h("span", {}, f.label))));
+  $("p1s").textContent = C.brand; $("seal").textContent = C.brand + " · проверено";
+  setTimeout(() => $("book").classList.add("open"), 100);
+
+  // ---- автомобиль ----
+  const fmtKm = (v) => { const d = v.replace(/\D/g, "").slice(0, 7); return d ? (+d).toLocaleString("ru-RU") : ""; };
+  const RU = "АВЕКМНОРСТУХ", LAT = "ABEKMHOPCTYX";
+  const fmtNum = (v) => v.toUpperCase().replace(/[ABEKMHOPCTYX]/g, (c) => RU[LAT.indexOf(c)]).replace(/[^АВЕКМНОРСТУХ0-9 ]/g, "").slice(0, 10);
+  [["carModel", (v) => v], ["carYear", (v) => v.replace(/\D/g, "").slice(0, 4)], ["carKm", fmtKm], ["carNum", fmtNum]].forEach(([id, f]) => {
+    const i = $(id); i.value = F(id); i.addEventListener("input", () => { i.value = f(i.value); F(id, i.value); car(); });
+  });
+  const find = (re) => C.services.find((s) => re.test(s.name));
+  function car() {
+    const num = F("carNum").replace(/\s/g, ""), m = /^(.{0,6})(\d{0,3})$/.exec(num) || ["", num.slice(0, 6), num.slice(6)];
+    $("plateN").textContent = m[1] || "А000АА"; $("plateR").textContent = m[2] || "00";
+    $("p1c").textContent = [F("carModel"), F("carYear")].filter(Boolean).join(", "); $("p1n").textContent = F("carNum"); $("p1k").textContent = F("carKm");
+    // рекомендации
+    const km = +F("carKm").replace(/\D/g, ""), mon = new Date().getMonth(), rec = [];
+    const oil = find(/масл/i), pads = find(/колод/i), tyre = find(/колёс|колес|шин/i), diag = find(/диагност/i);
+    if (km && oil) rec.push([oil, "каждые 10 000 км"]);
+    if (km >= 40000 && pads) rec.push([pads, "после 40 000 км"]);
+    if ([2, 3, 9, 10].includes(mon) && tyre) rec.push([tyre, "сезон переобувки"]);
+    if (+F("carYear") && new Date().getFullYear() - +F("carYear") >= 5 && diag) rec.push([diag, "машине 5+ лет"]);
+    $("rec").innerHTML = "";
+    if (!rec.length) $("rec").append(h("span", { class: "none" }, "Укажите пробег и год — подскажем, что пора сделать."));
+    rec.forEach(([s, why]) => $("rec").append(h("button", { class: "chip" + (K.qty(s.id) ? " on" : ""), type: "button", onclick: () => K.set(s.id, K.qty(s.id) ? 0 : 1) }, (K.qty(s.id) ? "✓ " : "+ ") + s.name, h("small", {}, "· " + why))));
+    ticket();
+  }
+
+  // ---- работы со штампами ----
+  $("sTitle").textContent = U.servicesTitle || "Работы"; $("sSub").textContent = U.servicesSub || "";
+  function table() {
+    const tb = $("tb"); tb.innerHTML = "";
+    K.cats().forEach((cat) => {
+      tb.append(h("tr", { class: "cat" }, h("td", { colspan: "3" }, cat)));
+      C.services.filter((s) => s.category === cat).forEach((s) => {
+        const q = K.qty(s.id);
+        const mk = h("button", { class: "mkb", type: "button", "aria-pressed": q ? "true" : "false", "aria-label": (q ? "Убрать: " : "Отметить: ") + s.name, onclick: () => K.set(s.id, q ? 0 : 1) }, q ? "" : "Отметить");
+        if (q) mk.append(h("span", { class: "stamp" }, h("span", {}, "Принято")));
+        tb.append(h("tr", {}, h("td", { class: "nm" }, h("b", {}, s.name), h("small", {}, [s.desc, s.unit].filter(Boolean).join(" · ")),
+          q ? h("div", { class: "qty" }, h("button", { type: "button", "aria-label": "Меньше", onclick: () => K.set(s.id, q - 1) }, "−"), h("span", {}, "× " + q), h("button", { type: "button", "aria-label": "Больше", onclick: () => K.set(s.id, q + 1) }, "+")) : null),
+          h("td", { class: "pr" }, s.price ? K.money(s.price) : "по осмотру"), h("td", { class: "mk" }, mk)));
+      });
+    });
+  }
+
+  // ---- запись ----
+  const days = K.days(14);
+  function when() {
+    $("days").innerHTML = ""; $("slots").innerHTML = "";
+    days.forEach((d) => $("days").append(h("button", { class: "day", type: "button", "aria-pressed": F("day") === d.toDateString() ? "true" : "false", onclick: () => { F("day", d.toDateString()); F("time", ""); when(); ticket(); } }, K.dayLabel(d), h("small", {}, d.toLocaleDateString("ru-RU", { day: "numeric", month: "short" })))));
+    const d = days.find((x) => x.toDateString() === F("day"));
+    if (!d) { $("slots").append(h("span", { class: "none", style: "grid-column:1/-1" }, "Сначала выберите день.")); return; }
+    const sl = K.slots(d); if (!sl.length) $("slots").append(h("span", { class: "none", style: "grid-column:1/-1" }, "На этот день мест нет."));
+    sl.forEach((t) => $("slots").append(h("button", { class: "slot", type: "button", "aria-pressed": F("time") === t ? "true" : "false", onclick: () => { F("time", t); when(); ticket(); } }, t)));
+  }
+  const fmtPh = (v) => { let d = v.replace(/\D/g, ""); if (!d) return ""; if (d[0] === "8") d = "7" + d.slice(1); if (d[0] !== "7") d = "7" + d; d = d.slice(0, 11); const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)]; return "+7" + (p[0] ? " (" + p[0] : "") + (p[0].length === 3 ? ")" : "") + (p[1] ? " " + p[1] : "") + (p[2] ? "-" + p[2] : "") + (p[3] ? "-" + p[3] : ""); };
+  const okN = () => F("fName").trim().length >= 2, okP = () => F("fPhone").replace(/\D/g, "").length === 11;
+  [["fName", "wN", okN], ["fPhone", "wP", okP], ["fNote", null, null]].forEach(([id, w, ok]) => {
+    const i = $(id); i.value = F(id);
+    i.addEventListener("input", () => { if (id === "fPhone") i.value = fmtPh(i.value); F(id, i.value); if (w) { $(w).classList.remove("bad"); $(w).querySelector("em").hidden = true; } ticket(); });
+    if (w) i.addEventListener("blur", () => { if (i.value && !ok()) { $(w).classList.add("bad"); $(w).querySelector("em").hidden = false; } });
+  });
+
+  // ---- талон ----
+  $("tBrand").textContent = C.brand;
+  function ticket() {
+    const d = days.find((x) => x.toDateString() === F("day")), when = d && F("time") ? K.dateText(d) + ", " + F("time") : "";
+    $("p1d").textContent = when;
+    $("tPlate").textContent = $("plateN").textContent; $("tPlateR").textContent = $("plateR").textContent;
+    const carTxt = [F("carModel"), F("carYear") && F("carYear") + " г.", F("carKm") && F("carKm") + " км", F("carNum")].filter(Boolean).join(", ");
+    $("tkv").innerHTML = "";
+    [["Автомобиль", carTxt || "—"], ["Работы", K.items().map((x) => x.s.name + (x.q > 1 ? " × " + x.q : "")).join(", ") || "обсудим на месте"], ["Дата и время", when || "—"], ["Владелец", [F("fName"), F("fPhone")].filter(Boolean).join(", ") || "—"]]
+      .forEach(([k, v]) => $("tkv").append(h("span", {}, k), h("b", {}, v)));
+    $("tTot").textContent = K.total() ? K.money(K.total()) + (K.onRequest() ? " +" : "") : "по осмотру";
+    let t = K.text([["Автомобиль", carTxt], ["Дата и время", when], ["Имя", F("fName")], ["Телефон", F("fPhone")], ["Что беспокоит", F("fNote")]]);
+    if (when && C.order.closing) t = t.replace(C.order.closing, "Подтвердите, пожалуйста, запись. Спасибо!");
+    const ok = [[!!F("carModel"), "Автомобиль указан"], [K.count() > 0, "Работы отмечены"], [!!when, "Выбраны дата и время"], [okN() && okP(), "Имя и телефон"]];
+    $("chk").innerHTML = ""; ok.forEach(([v, l]) => $("chk").append(h("div", { class: v ? "ok" : "" }, h("i", {}, v ? "✓" : ""), l)));
+    const ready = !!when && okN() && okP();
+    $("send").innerHTML = "";
+    const L = K.links(t), main = L.find((x) => x.k !== "tel");
+    if (main) $("send").append(h("a", { class: "main", href: main.href, target: "_blank", rel: "noopener", "aria-disabled": ready ? "false" : "true", onclick: () => main.k !== "wa" && K.copy(t) }, "Отправить талон в " + main.label));
+    $("send").append(h("button", { type: "button", onclick: () => K.copy(t) }, "Скопировать"));
+    L.filter((x) => x !== main).forEach((x) => $("send").append(h("a", { href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && K.copy(t) }, x.label)));
+    $("need").textContent = ready ? "Текст талона скопируется автоматически — вставьте его в чат." : "Чтобы отправить, выберите время и укажите имя с телефоном.";
+    $("mtxt").innerHTML = ""; $("mtxt").append(K.count() + " работ · " + (when || "время не выбрано"), h("b", {}, K.total() ? K.money(K.total()) : "—"));
+  }
+
+  // ---- отметки, вопросы, контакты ----
+  $("about").textContent = (C.about || []).join(" ");
+  (C.reviews || []).forEach((r, i) => { const d = new Date(); d.setDate(d.getDate() - 9 - i * 23); $("mk").append(h("div", { class: "mark" }, h("span", { class: "d" }, d.toLocaleDateString("ru-RU")), h("span", { class: "s", "aria-label": "Оценка " + r.rating }, "★".repeat(r.rating)), h("p", {}, r.text), h("b", {}, r.name))); });
+  if (!(C.reviews || []).length) $("marks").hidden = true;
+  (C.faq || []).forEach((f) => $("fq").append(h("details", {}, h("summary", {}, f.q), h("p", {}, f.a))));
+  if (!(C.faq || []).length) $("faq").hidden = true;
+  const m = C.messengers || {};
+  [["Телефон", C.phone, K.tel()], ["Telegram", m.telegram && (/^\+/.test(m.telegram) ? "" : "@") + m.telegram, m.telegram && "https://t.me/" + m.telegram], ["WhatsApp", m.whatsapp && "+" + m.whatsapp, m.whatsapp && "https://wa.me/" + m.whatsapp], ["ВКонтакте", m.vk && "vk.com/" + m.vk, m.vk && "https://vk.com/" + m.vk], ["Адрес", C.address], ["Часы работы", C.hours], ["Email", C.email, C.email && "mailto:" + C.email]]
+    .forEach(([k, v, href]) => v && $("cl").append(h(href ? "a" : "div", { href, target: href && href.startsWith("http") ? "_blank" : null, rel: "noopener" }, h("span", {}, k), h("b", {}, v))));
+  $("foot").textContent = "© " + new Date().getFullYear() + " " + C.brand + " · Сервисная книжка";
+
+  K.on(() => { table(); car(); });
+  table(); car(); when();
+})();
+</script>
+<script>
+(function () { if (!CONFIG.demo && !/[?&]preview/.test(location.search)) return;
+  var p = /[?&]preview/.test(location.search);
+  var b = document.createElement("div");
+  b.style.cssText = "position:relative;z-index:99;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center";
+  b.innerHTML = p ? "Предпросмотр ваших изменений — видно только на этом устройстве · <a href='admin/' style='color:#ffd54a'>вернуться в кабинет</a>"
+                  : "Демо-версия сайта · цены примерные · <a href='admin/' style='color:#ffd54a'>✎ войти в кабинет и изменить</a>";
+  document.body.prepend(b); })();
+</script>
+</body>
+</html>

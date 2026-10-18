@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colorist — Колористика и стрижки в Иркутске</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Exo+2:wght@400;500;700&display=swap">
+<style>
+/* Стиль 15 «Дуотон»: вся страница в цвете бренда, белые карточки, крупный гротеск, вращающийся штамп.
+   Средний: карусель услуг со стрелками и прогрессом, слайдер отзывов, окно заявки по центру. */
+:root{--accent:#2f6f5e;--ink:#101010;--white:#ffffff;--soft:rgba(255,255,255,.78);--d:"Dela Gothic One","Arial Black",sans-serif;--b:"Exo 2",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--accent);color:var(--white);font:17px/1.55 var(--b);overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+h1,h2,h3{font-family:var(--d);font-weight:400;line-height:.95;margin:0}
+.top .wrap{display:flex;align-items:center;gap:20px;height:76px}
+.brand{font:400 20px var(--d);color:var(--white);text-decoration:none;margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top nav{display:flex;gap:20px}.top nav a{color:var(--soft);text-decoration:none;font-weight:500}.top nav a:hover{color:var(--white)}
+.pill{background:var(--white);color:var(--ink);border:0;border-radius:999px;padding:11px 18px;font:700 15px var(--b);cursor:pointer;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.pill b{background:var(--accent);color:var(--white);border-radius:999px;min-width:24px;height:24px;display:inline-grid;place-items:center;font-size:13px}
+@media(max-width:760px){.top nav{display:none}}
+.hero{padding:40px 0 70px;position:relative}
+.hero h1{font-size:clamp(52px,12vw,170px);letter-spacing:-.02em;text-transform:uppercase;overflow-wrap:anywhere}
+.hero h1 .o{color:transparent;-webkit-text-stroke:2px var(--white)}
+.hrow{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;margin-top:30px}
+.hrow p{font-size:20px;max-width:46ch;margin:0 0 22px;color:var(--soft)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--white);padding:16px 26px;border-radius:999px;text-decoration:none;font-weight:700;border:0;cursor:pointer;font-family:var(--b);font-size:16px}
+.btn.wh{background:var(--white);color:var(--ink)}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible,.pill:focus-visible,.arr:focus-visible,.chip:focus-visible,.add:focus-visible{outline:3px solid var(--white);outline-offset:3px}
+.badge{width:170px;height:170px;position:relative;flex-shrink:0}
+.badge svg{width:100%;height:100%;animation:spin 18s linear infinite}
+.badge text{font:700 13px var(--b);letter-spacing:3px;fill:var(--white);text-transform:uppercase}
+.badge span{position:absolute;inset:0;display:grid;place-items:center;font:400 34px var(--d)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.badge svg{animation:none}}
+@media(max-width:700px){.hrow{grid-template-columns:1fr}.badge{width:130px;height:130px}}
+section{padding:70px 0}
+.sh{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:22px;flex-wrap:wrap}
+.sh h2{font-size:clamp(36px,6vw,72px);text-transform:uppercase}
+.sh p{margin:8px 0 0;max-width:52ch;color:var(--soft)}
+.arrs{display:flex;gap:8px}
+.arr{width:54px;height:54px;border-radius:50%;border:2px solid var(--white);background:transparent;color:var(--white);font-size:22px;cursor:pointer}
+.arr:hover{background:var(--white);color:var(--ink)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.chip{border:2px solid var(--white);background:transparent;color:var(--white);border-radius:999px;padding:7px 16px;font:500 15px var(--b);cursor:pointer}
+.chip.on{background:var(--white);color:var(--ink)}
+.rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 16px 8px;margin:0 -16px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.svc{flex:0 0 min(310px,82%);scroll-snap-align:start;background:var(--white);color:var(--ink);border-radius:28px;padding:24px;display:flex;flex-direction:column;gap:10px;min-height:290px}
+.svc .n{font:400 15px var(--d);color:var(--accent)}
+.svc h3{font-size:24px;line-height:1.05}
+.svc p{margin:0;color:#555;font-size:15px;flex:1}
+.svc .r{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.svc .pr{font:400 24px var(--d)}.svc .pr small{font:500 13px var(--b);color:#777}
+.add{width:50px;height:50px;border-radius:50%;border:0;background:var(--ink);color:var(--white);font-size:24px;cursor:pointer;flex-shrink:0;transition:transform .2s}
+.add.on{background:var(--accent);transform:rotate(45deg)}
+.prog{height:4px;background:rgba(255,255,255,.3);border-radius:4px;margin-top:20px;overflow:hidden}
+.prog i{display:block;height:100%;width:20%;background:var(--white);border-radius:4px;transition:width .2s}
+.band{background:var(--ink)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px}
+.fact b{display:block;font:400 clamp(44px,6vw,72px)/1 var(--d);color:var(--accent);filter:brightness(1.35) saturate(1.2)}
+.fact span{color:var(--soft)}
+.about{font-size:20px;max-width:60ch;color:var(--soft);margin:0 0 36px}
+.works{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.w{aspect-ratio:16/10;border-radius:28px;overflow:hidden;position:relative;background:linear-gradient(135deg,#fff,#999);display:flex;align-items:flex-end}
+.w::after{content:"";position:absolute;inset:0;background:var(--accent);mix-blend-mode:multiply}
+.w img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1)}
+.w span{position:relative;z-index:1;margin:18px;font:400 22px var(--d);text-transform:uppercase}
+@media(max-width:620px){.works{grid-template-columns:1fr}}
+.rev{background:var(--white);color:var(--ink);border-radius:32px;padding:clamp(26px,5vw,56px);position:relative;min-height:260px}
+.rev q{display:block;font:400 clamp(22px,3.2vw,36px)/1.2 var(--d);quotes:"«" "»"}
+.rev .who{margin-top:22px;font-weight:700}
+.rev .who span{color:#c38b00;letter-spacing:2px}
+.rev .arrs{position:absolute;right:24px;bottom:24px}
+.rev .arr{border-color:var(--ink);color:var(--ink)}.rev .arr:hover{background:var(--ink);color:var(--white)}
+.contact{background:var(--white);color:var(--ink);border-radius:32px;padding:clamp(26px,5vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.contact h2{font-size:clamp(36px,5vw,60px);text-transform:uppercase}
+.cl{display:grid;gap:12px}
+.cl a,.cl div{display:flex;justify-content:space-between;gap:16px;padding-bottom:10px;border-bottom:2px solid #eee;color:var(--ink);text-decoration:none;font-weight:700}
+.cl span{color:#888;font-weight:500}
+a.cl-a:hover{color:var(--accent)}
+@media(max-width:760px){.contact{grid-template-columns:1fr}}
+footer{padding:30px 0 40px;color:var(--soft);font-size:14px}
+/* окно заявки */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal[hidden]{display:none}
+.box{background:var(--white);color:var(--ink);border-radius:32px;width:min(560px,100%);max-height:92vh;overflow:auto;padding:28px}
+.box .t{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.box h2{font-size:34px;text-transform:uppercase}
+.box .x{width:44px;height:44px;border-radius:50%;border:0;background:#eee;font-size:20px;cursor:pointer}
+.op-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:2px solid #f0f0f0}
+.op-nm{font-weight:700}.op-nm small{display:block;font-weight:500;color:#777}
+.op-qty{display:flex;align-items:center;gap:6px}
+.op-qty button{width:34px;height:34px;border-radius:50%;border:0;background:#eee;font-size:18px;cursor:pointer}
+.op-qty span{min-width:20px;text-align:center;font-weight:700}
+.op-empty{color:#777}
+.op-fields{display:grid;gap:10px;margin-top:14px}
+.op-field span{display:block;font-size:13px;color:#777;font-weight:500}
+.op-field input{width:100%;padding:13px 16px;border-radius:16px;border:2px solid #eee;font:16px var(--b);color:var(--ink)}
+.op-field input:focus{outline:0;border-color:var(--accent)}
+.op-total{display:flex;justify-content:space-between;font:400 26px var(--d);margin-top:16px}
+.op-text{width:100%;min-height:160px;margin-top:12px;border-radius:16px;border:2px dashed #ccc;padding:12px;font:14px/1.5 var(--b);color:var(--ink);resize:vertical}
+.op-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.op-links a,.op-links button{display:flex;justify-content:center;padding:13px;border-radius:999px;font:700 15px var(--b);color:#fff;text-decoration:none;border:0;cursor:pointer}
+.op-copy{grid-column:1/-1;background:var(--ink)}
+.op-tg{background:#229ed9}.op-wa{background:#25a244}.op-vk{background:#0077ff}.op-tel{background:var(--accent)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" id="brand" href="#top"></a>
+  <nav><a href="#services">Услуги</a><a href="#about">О нас</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a></nav>
+  <button class="pill" id="pill" type="button">Заявка <b id="cnt">0</b></button>
+</div></header>
+<main id="top">
+  <section class="hero" style="padding-top:30px"><div class="wrap">
+    <h1 id="h1"></h1>
+    <div class="hrow">
+      <div><p id="lead"></p><a class="btn wh" href="#services" id="choose"></a></div>
+      <div class="badge" aria-hidden="true"><svg viewBox="0 0 200 200"><defs><path id="c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#c">заявка за минуту · без звонков · </textPath></text></svg><span>→</span></div>
+    </div>
+  </div></section>
+  <section id="services"><div class="wrap">
+    <div class="sh"><div><h2 id="sTitle"></h2><p id="sSub"></p></div><div class="arrs"><button class="arr" id="prev" type="button" aria-label="Назад">←</button><button class="arr" id="next" type="button" aria-label="Вперёд">→</button></div></div>
+    <div class="chips" id="chips"></div>
+    <div class="rail" id="rail" tabindex="0" aria-label="Список услуг"></div>
+    <div class="prog" aria-hidden="true"><i id="prog"></i></div>
+  </div></section>
+  <section class="band" id="about"><div class="wrap">
+    <p class="about" id="aboutTxt"></p>
+    <div class="facts" id="facts"></div>
+  </div></section>
+  <section id="works"><div class="wrap"><div class="sh"><h2>Работы</h2></div><div class="works" id="wgrid"></div></div></section>
+  <section id="reviews" style="padding-top:0"><div class="wrap"><div class="sh"><h2>Отзывы</h2></div>
+    <div class="rev"><q id="rq"></q><div class="who" id="rw"></div><div class="arrs"><button class="arr" id="rp" type="button" aria-label="Предыдущий отзыв">←</button><button class="arr" id="rn" type="button" aria-label="Следующий отзыв">→</button></div></div>
+  </div></section>
+  <section id="contacts" style="padding-top:0"><div class="wrap"><div class="contact"><div><h2>Связаться</h2><p id="hours" style="color:#777"></p><button class="btn" id="cta2" type="button">Оставить заявку</button></div><div class="cl" id="cl"></div></div></div></section>
+</main>
+<footer><div class="wrap" id="foot"></div></footer>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mt"><div class="box"><div class="t"><h2 id="mt">Заявка</h2><button class="x" id="mx" type="button" aria-label="Закрыть">×</button></div><div id="panel"></div></div></div>
+<script>
+const CONFIG = (function () { var d = /*CONFIG*/{"brand": "Colorist", "tagline": "Колористика и стрижки в Иркутске", "description": "Сложные окрашивания, тонирование, стрижки. Выберите услугу — обсудим цвет в Telegram.", "accent": "#e0457b", "currency": "₽", "phone": "", "email": "", "address": "г. Иркутск, Советская, 126", "hours": "По предварительной записи", "messengers": {"telegram": "anna_rogova93", "whatsapp": "", "vk": "parik103"}, "services": [{"id": "s1", "category": "Окрашивание", "name": "Окрашивание в один тон", "desc": "", "price": 3500, "unit": "от"}, {"id": "s2", "category": "Окрашивание", "name": "Airtouch / балаяж", "desc": "", "price": 7000, "unit": "от"}, {"id": "s3", "category": "Окрашивание", "name": "Тонирование", "desc": "", "price": 2500, "unit": "от"}, {"id": "s4", "category": "Стрижки", "name": "Женская стрижка", "desc": "", "price": 1800, "unit": ""}, {"id": "s5", "category": "Уход", "name": "Восстанавливающий уход", "desc": "", "price": 2000, "unit": "от"}], "worksSubtitle": "Примеры наших работ.", "works": [], "about": ["Сложные окрашивания, тонирование, стрижки. Выберите услугу — обсудим цвет в Telegram."], "facts": [{"value": "Иркутск", "label": "Советская, 126"}, {"value": "Онлайн-заявка", "label": "в Telegram и в ВК"}], "order": {"greeting": "Здравствуйте! Хочу записаться:", "closing": "Подскажите, пожалуйста, свободное время. Спасибо!"}, "ui": {"nav": "Услуги", "servicesTitle": "Услуги и цены", "servicesSub": "Выберите процедуры, нажмите «Заказать» — вы получите готовый текст для записи. Окончательную стоимость мастер уточнит на месте.", "chooseBtn": "Выбрать процедуры", "whenLabel": "Удобные дата и время (по желанию)", "whenText": "Удобные дата и время"}, "faq": [], "booking": {"open": "10:00", "close": "20:00", "step": 60, "days": [1, 2, 3, 4, 5, 6], "status": false}, "demo": true}/*/CONFIG*/; try { if (/[?&]preview/.test(location.search)) { var p = localStorage.getItem("draft:" + location.pathname.replace(/[^/]*$/, "")); if (p) return JSON.parse(p); } } catch (e) {} return d; })();
+</script>
+<script>
+/* ===== ЯДРО: корзина, текст заявки, мессенджеры. Менять не нужно. ===== */
+const K = (function () {
+  const C = CONFIG;
+  const money = (n) => new Intl.NumberFormat("ru-RU").format(n) + " " + C.currency;
+  const KEY = "k:" + location.pathname + ":" + C.brand;
+  const st = { cart: {}, form: {} };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const byId = (id) => C.services.find((s) => s.id === id);
+  Object.keys(st.cart).forEach((id) => { if (!byId(id)) delete st.cart[id]; });
+  const subs = [];
+  const emit = () => { save(); subs.forEach((f) => f()); };
+  const pad = (n) => String(n).padStart(2, "0");
+  const toMin = (t) => { const [a, b] = t.split(":").map(Number); return a * 60 + b; };
+  const B = Object.assign({ open: "10:00", close: "20:00", step: 60, days: [0, 1, 2, 3, 4, 5, 6] }, C.booking);
+
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => {
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    kids.flat().forEach((c) => { if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); });
+    return e;
+  }
+
+  const st0 = document.createElement("style");
+  st0.textContent = "[hidden]{display:none!important}.k-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#111;color:#fff;padding:11px 18px;border-radius:12px;font:14px/1.4 system-ui,sans-serif;opacity:0;transition:.25s;z-index:999;pointer-events:none;max-width:calc(100% - 32px);text-align:center}.k-toast.show{opacity:1;transform:translate(-50%,0)}";
+  document.head.prepend(st0);
+  let toastEl, toastT;
+  function toast(msg) {
+    if (!toastEl) { toastEl = h("div", { class: "k-toast", role: "status" }); document.body.append(toastEl); }
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove("show"), 2400);
+  }
+
+  const api = {
+    C, h, money, byId, toast, pad,
+    qty: (id) => st.cart[id] || 0,
+    set(id, q) { if (q <= 0) delete st.cart[id]; else st.cart[id] = Math.min(q, 99); emit(); },
+    toggle(id) { api.set(id, api.qty(id) ? 0 : 1); },
+    clear() { st.cart = {}; emit(); },
+    items: () => Object.keys(st.cart).map((id) => ({ s: byId(id), q: st.cart[id] })).filter((x) => x.s),
+    count: () => api.items().reduce((a, x) => a + x.q, 0),
+    total: () => api.items().reduce((a, x) => a + (x.s.price || 0) * x.q, 0),
+    onRequest: () => api.items().some((x) => !x.s.price),
+    on: (f) => subs.push(f),
+    field(k, v) { if (v === undefined) return st.form[k] || ""; st.form[k] = v; save(); },
+    cats: () => [...new Set(C.services.map((s) => s.category).filter(Boolean))],
+    price: (s) => (s.price ? money(s.price) : "по договорённости"),
+
+    /* текст заявки; extra — массив [подпись, значение] */
+    text(extra) {
+      const L = [C.order.greeting, ""];
+      api.items().forEach((x, i) => L.push((i + 1) + ". " + x.s.name + (x.q > 1 ? " × " + x.q : "") + " — " + (x.s.price ? money(x.s.price * x.q) : "по договорённости")));
+      if (!api.items().length) L.push("(услуги обсудим)");
+      L.push("");
+      if (api.total() > 0) L.push("Итого: " + money(api.total()) + (api.onRequest() ? " + позиции по договорённости" : ""));
+      (extra || []).forEach(([k, v]) => { if (v && String(v).trim()) L.push(k + ": " + String(v).trim()); });
+      if (C.order.closing) L.push("", C.order.closing);
+      return L.join("\n");
+    },
+
+    /* ссылки на мессенджеры владельца */
+    links(text) {
+      const m = C.messengers || {}, out = [];
+      if (m.telegram) out.push({ k: "tg", label: "Telegram", href: "https://t.me/" + m.telegram });
+      if (m.whatsapp) out.push({ k: "wa", label: "WhatsApp", href: "https://wa.me/" + m.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "") });
+      if (m.vk) out.push({ k: "vk", label: "ВКонтакте", href: "https://vk.me/" + m.vk });
+      if (C.phone) out.push({ k: "tel", label: "Позвонить", href: "tel:" + C.phone.replace(/[^\d+]/g, "") });
+      return out;
+    },
+    tel: () => (C.phone ? "tel:" + C.phone.replace(/[^\d+]/g, "") : null),
+
+    copy(text) {
+      const ok = () => toast("Текст скопирован — вставьте его в чат");
+      const fb = () => {
+        const t = h("textarea", { style: "position:fixed;opacity:0" }); t.value = text; document.body.append(t); t.select();
+        let done = false; try { done = document.execCommand("copy"); } catch (e) {}
+        t.remove(); done ? ok() : toast("Не получилось скопировать — выделите текст вручную");
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, fb); else fb();
+    },
+
+
+    /* готовый блок заявки: список, поля, итог, текст, мессенджеры. Оформляется классами op-* */
+    panel(box, opt) {
+      opt = opt || {};
+      const UI = C.ui || {};
+      const fields = opt.fields || [["fName", "Ваше имя"], ["fWhen", UI.whenLabel || "Когда удобно"], ["fNote", "Комментарий"]];
+      const list = h("div", { class: "op-list" }), total = h("div", { class: "op-total" });
+      const ta = h("textarea", { class: "op-text", readonly: true, "aria-label": "Текст заявки" });
+      const links = h("div", { class: "op-links" });
+      const inputs = fields.map(([id, label]) => {
+        const i = h("input", { id: "op-" + id }); i.value = api.field(id);
+        i.addEventListener("input", () => { api.field(id, i.value); refreshText(); });
+        return h("label", { class: "op-field" }, h("span", {}, label), i);
+      });
+      box.append(list, h("div", { class: "op-fields" }, inputs), total, ta, links);
+      const extra = () => fields.map(([id, label]) => [id === "fWhen" ? (UI.whenText || "Когда") : id === "fName" ? "Имя" : label.replace(/ \(.*\)$/, ""), api.field(id)]).concat(opt.extra ? opt.extra() : []);
+      function refreshText() {
+        const t = api.text(extra()); ta.value = t; links.innerHTML = "";
+        links.append(h("button", { type: "button", class: "op-copy", onclick: () => api.copy(t) }, "Скопировать текст"));
+        api.links(t).forEach((x) => links.append(h("a", { class: "op-" + x.k, href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && api.copy(t) }, x.label)));
+      }
+      function refresh() {
+        list.innerHTML = "";
+        if (!api.items().length) list.append(h("p", { class: "op-empty" }, opt.empty || "Пока ничего не выбрано."));
+        api.items().forEach((x) => list.append(h("div", { class: "op-row" },
+          h("div", { class: "op-nm" }, x.s.name, h("small", {}, x.s.price ? api.money(x.s.price * x.q) : "по договорённости")),
+          h("div", { class: "op-qty" },
+            h("button", { type: "button", "aria-label": "Меньше", onclick: () => api.set(x.s.id, x.q - 1) }, "−"),
+            h("span", {}, String(x.q)),
+            h("button", { type: "button", "aria-label": "Больше", onclick: () => api.set(x.s.id, x.q + 1) }, "+")))));
+        total.innerHTML = "";
+        if (api.total()) total.append(h("span", {}, "Итого"), h("b", {}, api.money(api.total())));
+        refreshText();
+      }
+      api.on(refresh); refresh();
+      return { refresh };
+    },
+    /* график: открыто ли сейчас, ближайшие рабочие дни, свободное время */
+    status() {
+      if (!B.status) return { open: false, text: "" };
+      const d = new Date(), m = d.getHours() * 60 + d.getMinutes();
+      const open = B.days.includes(d.getDay()) && m >= toMin(B.open) && m < toMin(B.close);
+      return open ? { open: true, text: "Открыто до " + B.close } : { open: false, text: "Сейчас закрыто · откроемся в " + B.open };
+    },
+    days(n) {
+      const out = [], d = new Date(); d.setHours(0, 0, 0, 0);
+      for (let i = 0; out.length < n && i < 60; i++) {
+        const x = new Date(d); x.setDate(d.getDate() + i);
+        if (B.days.includes(x.getDay())) out.push(x);
+      }
+      return out;
+    },
+    slots(date) {
+      const out = [], now = new Date(), today = date.toDateString() === now.toDateString();
+      for (let t = toMin(B.open); t + B.step <= toMin(B.close); t += B.step) {
+        if (today && t <= now.getHours() * 60 + now.getMinutes() + 30) continue;
+        out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
+      }
+      return out;
+    },
+    dayLabel(d) {
+      const now = new Date(); now.setHours(0, 0, 0, 0);
+      const diff = Math.round((d - now) / 864e5);
+      const wd = d.toLocaleDateString("ru-RU", { weekday: "short" });
+      return diff === 0 ? "Сегодня" : diff === 1 ? "Завтра" : wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + d.getDate();
+    },
+    dateText: (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long" })
+  };
+  return api;
+})();
+
+</script>
+<script>
+(function () {
+  const { C, h } = K, $ = (id) => document.getElementById(id), U = C.ui || {};
+  document.documentElement.style.setProperty("--accent", C.accent);
+  $("brand").textContent = C.brand;
+  const w = C.brand.split(" "); $("h1").append(w[0]); if (w.length > 1) $("h1").append(h("br"), h("span", { class: "o" }, w.slice(1).join(" ")));
+  $("lead").textContent = C.tagline + ". " + C.description;
+  $("choose").textContent = U.chooseBtn || "Выбрать услуги";
+  $("sTitle").textContent = U.servicesTitle || "Услуги"; $("sSub").textContent = U.servicesSub || "";
+  let cat = "Все";
+  const cats = ["Все"].concat(K.cats());
+  function chips() { $("chips").innerHTML = ""; if (cats.length > 2) cats.forEach((c) => $("chips").append(h("button", { class: "chip" + (c === cat ? " on" : ""), type: "button", onclick: () => { cat = c; chips(); cards(); } }, c))); }
+  function cards() {
+    $("rail").innerHTML = "";
+    C.services.filter((s) => cat === "Все" || s.category === cat).forEach((s, i) => $("rail").append(h("article", { class: "svc", "data-id": s.id },
+      h("span", { class: "n" }, String(i + 1).padStart(2, "0") + " / " + s.category), h("h3", {}, s.name), h("p", {}, s.desc || ""),
+      h("div", { class: "r" }, h("span", { class: "pr" }, s.price ? K.money(s.price) : "Договорная", s.price && s.unit ? h("small", {}, " " + s.unit) : null),
+        h("button", { class: "add", type: "button", onclick: () => K.toggle(s.id) }, "+")))));
+    $("rail").scrollLeft = 0; upd(); prog();
+  }
+  function upd() {
+    document.querySelectorAll(".svc").forEach((c) => { const on = !!K.qty(c.dataset.id), b = c.querySelector(".add"); b.classList.toggle("on", on); b.setAttribute("aria-label", on ? "Убрать из заявки" : "Добавить в заявку"); });
+    $("cnt").textContent = K.count();
+  }
+  const rail = $("rail");
+  function prog() { const max = rail.scrollWidth - rail.clientWidth; $("prog").style.width = (max > 0 ? 15 + 85 * rail.scrollLeft / max : 100) + "%"; }
+  rail.addEventListener("scroll", prog, { passive: true });
+  const step = () => (rail.querySelector(".svc") ? rail.querySelector(".svc").offsetWidth + 16 : 300);
+  $("prev").onclick = () => rail.scrollBy({ left: -step() });
+  $("next").onclick = () => rail.scrollBy({ left: step() });
+  chips(); cards(); K.on(upd);
+
+  $("aboutTxt").textContent = (C.about || []).join(" ");
+  (C.facts || []).forEach((f) => $("facts").append(h("div", { class: "fact" }, h("b", {}, f.value), h("span", {}, f.label))));
+  (C.works || []).slice(0, 4).forEach((x) => $("wgrid").append(h("div", { class: "w" }, x.image ? h("img", { src: x.image, alt: x.title || "", loading: "lazy" }) : null, h("span", {}, x.title))));
+  if (!(C.works || []).length) $("works").hidden = true;
+
+  const R = C.reviews || []; let ri = 0;
+  function rev(i) { if (!R.length) return; ri = (i + R.length) % R.length; const r = R[ri]; $("rq").textContent = r.text; $("rw").innerHTML = ""; $("rw").append(r.name + " ", h("span", { "aria-label": "Оценка " + r.rating }, "★".repeat(r.rating))); }
+  $("rp").onclick = () => rev(ri - 1); $("rn").onclick = () => rev(ri + 1); rev(0);
+  if (!R.length) $("reviews").hidden = true;
+
+  $("hours").textContent = [C.hours, C.address].filter(Boolean).join(" · ");
+  const m = C.messengers || {};
+  [["Телефон", C.phone, K.tel()], ["Telegram", m.telegram && (/^\+/.test(m.telegram) ? "" : "@") + m.telegram, m.telegram && "https://t.me/" + m.telegram], ["WhatsApp", m.whatsapp && "+" + m.whatsapp, m.whatsapp && "https://wa.me/" + m.whatsapp], ["ВКонтакте", m.vk && "vk.com/" + m.vk, m.vk && "https://vk.com/" + m.vk], ["Email", C.email, C.email && "mailto:" + C.email]]
+    .forEach(([k, v, href]) => v && $("cl").append(h(href ? "a" : "div", { class: href ? "cl-a" : null, href, target: href && href.startsWith("http") ? "_blank" : null, rel: "noopener" }, h("span", {}, k), v)));
+  $("foot").textContent = "© " + new Date().getFullYear() + " " + C.brand;
+
+  K.panel($("panel"), { empty: "Добавьте услуги кнопкой «+» в карточках." });
+  const open = () => { $("modal").hidden = false; $("mx").focus(); }, close = () => { $("modal").hidden = true; };
+  $("pill").onclick = open; $("cta2").onclick = open; $("mx").onclick = close;
+  $("modal").addEventListener("click", (e) => e.target.id === "modal" && close());
+  document.addEventListener("keydown", (e) => e.key === "Escape" && close());
+})();
+</script>
+<script>
+(function () { if (!CONFIG.demo && !/[?&]preview/.test(location.search)) return;
+  var p = /[?&]preview/.test(location.search);
+  var b = document.createElement("div");
+  b.style.cssText = "position:relative;z-index:99;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center";
+  b.innerHTML = p ? "Предпросмотр ваших изменений — видно только на этом устройстве · <a href='admin/' style='color:#ffd54a'>вернуться в кабинет</a>"
+                  : "Демо-версия сайта · цены примерные · <a href='admin/' style='color:#ffd54a'>✎ войти в кабинет и изменить</a>";
+  document.body.prepend(b); })();
+</script>
+</body>
+</html>
