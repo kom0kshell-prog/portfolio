@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кафе «Уют»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap">
+<style>
+/* Стиль 10 «Чек»: прайс-лист в виде кассового чека. Простой: без корзины-окна, всё на одной ленте. */
+:root{--accent:#2f6f5e;--desk:#dedbd3;--paper:#fffefa;--ink:#1d1d1b;--muted:#77756f;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--ink);font:15px/1.55 var(--mono);padding:32px 12px 48px}
+.paper{max-width:460px;margin:0 auto;background:var(--paper);padding:30px 26px 34px;position:relative;box-shadow:0 18px 40px rgba(0,0,0,.12)}
+.paper::before,.paper::after{content:"";position:absolute;left:0;right:0;height:12px;background:linear-gradient(-45deg,transparent 8px,var(--paper) 0) 0 0/16px 12px repeat-x,linear-gradient(45deg,transparent 8px,var(--paper) 0) 0 0/16px 12px repeat-x}
+.paper::before{top:-12px;transform:scaleY(-1)}
+.paper::after{bottom:-12px}
+.c{text-align:center}
+h1{font-size:24px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px;overflow-wrap:anywhere}
+.sub{margin:0;color:var(--muted);font-size:13px}
+.rule{border:0;border-top:2px dashed var(--ink);margin:18px 0;opacity:.8}
+.rule.dbl{border-top:4px double var(--ink)}
+.meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.cat{font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;margin:18px 0 6px;color:var(--muted)}
+.row{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:baseline;padding:5px 0;cursor:pointer}
+.row input{appearance:none;width:15px;height:15px;border:1.5px solid var(--ink);margin:0;transform:translateY(2px);cursor:pointer;display:grid;place-items:center}
+.row input:checked{background:var(--ink)}
+.row input:checked::after{content:"";width:6px;height:6px;background:var(--paper)}
+.row input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.nm{display:flex;gap:6px;min-width:0}
+.nm span:first-child{flex-shrink:1}
+.nm .dots{flex:1;border-bottom:1.5px dotted var(--muted);transform:translateY(-4px);min-width:16px}
+.pr{white-space:nowrap;font-weight:500}
+.row small{grid-column:2/4;color:var(--muted);font-size:12px;margin-top:-4px}
+.row.on .nm span:first-child{font-weight:700}
+.sum{display:flex;justify-content:space-between;font-size:20px;font-weight:700;text-transform:uppercase}
+.cnt{font-size:12px;color:var(--muted);text-align:right;margin-top:2px}
+label.f{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:12px}
+label.f input{display:block;width:100%;margin-top:4px;font:15px var(--mono);color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid var(--ink);padding:6px 0;border-radius:0}
+label.f input:focus{outline:0;border-color:var(--accent)}
+.go{display:block;width:100%;margin-top:22px;padding:14px;border:0;background:var(--ink);color:var(--paper);font:700 15px var(--mono);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.go:hover{background:var(--accent)}
+.go:focus-visible,.lnk a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#out textarea{width:100%;min-height:200px;margin-top:16px;font:13px/1.5 var(--mono);color:var(--ink);background:#f6f4ec;border:1.5px dashed var(--ink);padding:10px;resize:vertical}
+.lnk{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.lnk a,.lnk button{display:block;text-align:center;padding:10px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;font:500 13px var(--mono);text-transform:uppercase;letter-spacing:.06em;background:transparent;cursor:pointer}
+.lnk a:hover,.lnk button:hover{background:var(--ink);color:var(--paper)}
+.hint{font-size:12px;color:var(--muted);margin:10px 0 0;text-align:center}
+.bar{height:46px;margin:22px auto 6px;max-width:260px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 7px,transparent 7px 9px,var(--ink) 9px 10px,transparent 10px 13px)}
+.thanks{text-align:center;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
+.contacts{font-size:13px;text-align:center;color:var(--muted);margin-top:8px}
+.contacts a{color:var(--ink)}
+@media(max-width:420px){.paper{padding:26px 16px 30px}body{padding:24px 0 40px}}
+</style>
+</head>
+<body>
+<main class="paper">
+  <div class="c">
+    <h1 id="brand"></h1>
+    <p class="sub" id="tag"></p>
+    <p class="sub" id="addr"></p>
+  </div>
+  <hr class="rule dbl">
+  <div class="meta"><span>Прайс-лист</span><span id="date"></span></div>
+  <div id="list"></div>
+  <hr class="rule">
+  <div class="sum"><span>Итого</span><span id="total">0 ₽</span></div>
+  <div class="cnt" id="cnt">Отметьте нужные позиции</div>
+  <label class="f">Ваше имя <input id="fName" autocomplete="name"></label>
+  <label class="f"><span id="whenLbl"></span> <input id="fWhen"></label>
+  <button class="go" id="go" type="button">Оформить заявку</button>
+  <section id="out" hidden>
+    <textarea id="txt" readonly aria-label="Текст заявки"></textarea>
+    <div class="lnk" id="lnk"></div>
+    <p class="hint">Скопируйте текст и отправьте в любой мессенджер</p>
+  </section>
+  <hr class="rule">
+  <div class="bar" aria-hidden="true"></div>
+  <div class="thanks">Спасибо! Ждём вас</div>
+  <div class="contacts" id="contacts"></div>
+</main>
+<script>
+const CONFIG = (function () { var d = /*CONFIG*/{}/*/CONFIG*/; try { if (/[?&]preview/.test(location.search)) { var p = localStorage.getItem("draft:" + location.pathname.replace(/[^/]*$/, "")); if (p) return JSON.parse(p); } } catch (e) {} return d; })();
+</script>
+<script>
+/* ===== ЯДРО: корзина, текст заявки, мессенджеры. Менять не нужно. ===== */
+const K = (function () {
+  const C = CONFIG;
+  const money = (n) => new Intl.NumberFormat("ru-RU").format(n) + " " + C.currency;
+  const KEY = "k:" + location.pathname + ":" + C.brand;
+  const st = { cart: {}, form: {} };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const byId = (id) => C.services.find((s) => s.id === id);
+  Object.keys(st.cart).forEach((id) => { if (!byId(id)) delete st.cart[id]; });
+  const subs = [];
+  const emit = () => { save(); subs.forEach((f) => f()); };
+  const pad = (n) => String(n).padStart(2, "0");
+  const toMin = (t) => { const [a, b] = t.split(":").map(Number); return a * 60 + b; };
+  const B = Object.assign({ open: "10:00", close: "20:00", step: 60, days: [0, 1, 2, 3, 4, 5, 6] }, C.booking);
+
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => {
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    kids.flat().forEach((c) => { if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); });
+    return e;
+  }
+
+  const st0 = document.createElement("style");
+  st0.textContent = "[hidden]{display:none!important}.k-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#111;color:#fff;padding:11px 18px;border-radius:12px;font:14px/1.4 system-ui,sans-serif;opacity:0;transition:.25s;z-index:999;pointer-events:none;max-width:calc(100% - 32px);text-align:center}.k-toast.show{opacity:1;transform:translate(-50%,0)}";
+  document.head.prepend(st0);
+  let toastEl, toastT;
+  function toast(msg) {
+    if (!toastEl) { toastEl = h("div", { class: "k-toast", role: "status" }); document.body.append(toastEl); }
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove("show"), 2400);
+  }
+
+  const api = {
+    C, h, money, byId, toast, pad,
+    qty: (id) => st.cart[id] || 0,
+    set(id, q) { if (q <= 0) delete st.cart[id]; else st.cart[id] = Math.min(q, 99); emit(); },
+    toggle(id) { api.set(id, api.qty(id) ? 0 : 1); },
+    clear() { st.cart = {}; emit(); },
+    items: () => Object.keys(st.cart).map((id) => ({ s: byId(id), q: st.cart[id] })).filter((x) => x.s),
+    count: () => api.items().reduce((a, x) => a + x.q, 0),
+    total: () => api.items().reduce((a, x) => a + (x.s.price || 0) * x.q, 0),
+    onRequest: () => api.items().some((x) => !x.s.price),
+    on: (f) => subs.push(f),
+    field(k, v) { if (v === undefined) return st.form[k] || ""; st.form[k] = v; save(); },
+    cats: () => [...new Set(C.services.map((s) => s.category).filter(Boolean))],
+    price: (s) => (s.price ? money(s.price) : "по договорённости"),
+
+    /* текст заявки; extra — массив [подпись, значение] */
+    text(extra) {
+      const L = [C.order.greeting, ""];
+      api.items().forEach((x, i) => L.push((i + 1) + ". " + x.s.name + (x.q > 1 ? " × " + x.q : "") + " — " + (x.s.price ? money(x.s.price * x.q) : "по договорённости")));
+      if (!api.items().length) L.push("(услуги обсудим)");
+      L.push("");
+      if (api.total() > 0) L.push("Итого: " + money(api.total()) + (api.onRequest() ? " + позиции по договорённости" : ""));
+      (extra || []).forEach(([k, v]) => { if (v && String(v).trim()) L.push(k + ": " + String(v).trim()); });
+      if (C.order.closing) L.push("", C.order.closing);
+      return L.join("\n");
+    },
+
+    /* ссылки на мессенджеры владельца */
+    links(text) {
+      const m = C.messengers || {}, out = [];
+      if (m.telegram) out.push({ k: "tg", label: "Telegram", href: "https://t.me/" + m.telegram });
+      if (m.whatsapp) out.push({ k: "wa", label: "WhatsApp", href: "https://wa.me/" + m.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "") });
+      if (m.vk) out.push({ k: "vk", label: "ВКонтакте", href: "https://vk.me/" + m.vk });
+      if (C.phone) out.push({ k: "tel", label: "Позвонить", href: "tel:" + C.phone.replace(/[^\d+]/g, "") });
+      return out;
+    },
+    tel: () => (C.phone ? "tel:" + C.phone.replace(/[^\d+]/g, "") : null),
+
+    copy(text) {
+      const ok = () => toast("Текст скопирован — вставьте его в чат");
+      const fb = () => {
+        const t = h("textarea", { style: "position:fixed;opacity:0" }); t.value = text; document.body.append(t); t.select();
+        let done = false; try { done = document.execCommand("copy"); } catch (e) {}
+        t.remove(); done ? ok() : toast("Не получилось скопировать — выделите текст вручную");
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, fb); else fb();
+    },
+
+
+    /* готовый блок заявки: список, поля, итог, текст, мессенджеры. Оформляется классами op-* */
+    panel(box, opt) {
+      opt = opt || {};
+      const UI = C.ui || {};
+      const fields = opt.fields || [["fName", "Ваше имя"], ["fWhen", UI.whenLabel || "Когда удобно"], ["fNote", "Комментарий"]];
+      const list = h("div", { class: "op-list" }), total = h("div", { class: "op-total" });
+      const ta = h("textarea", { class: "op-text", readonly: true, "aria-label": "Текст заявки" });
+      const links = h("div", { class: "op-links" });
+      const inputs = fields.map(([id, label]) => {
+        const i = h("input", { id: "op-" + id }); i.value = api.field(id);
+        i.addEventListener("input", () => { api.field(id, i.value); refreshText(); });
+        return h("label", { class: "op-field" }, h("span", {}, label), i);
+      });
+      box.append(list, h("div", { class: "op-fields" }, inputs), total, ta, links);
+      const extra = () => fields.map(([id, label]) => [id === "fWhen" ? (UI.whenText || "Когда") : id === "fName" ? "Имя" : label.replace(/ \(.*\)$/, ""), api.field(id)]).concat(opt.extra ? opt.extra() : []);
+      function refreshText() {
+        const t = api.text(extra()); ta.value = t; links.innerHTML = "";
+        links.append(h("button", { type: "button", class: "op-copy", onclick: () => api.copy(t) }, "Скопировать текст"));
+        api.links(t).forEach((x) => links.append(h("a", { class: "op-" + x.k, href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && api.copy(t) }, x.label)));
+      }
+      function refresh() {
+        list.innerHTML = "";
+        if (!api.items().length) list.append(h("p", { class: "op-empty" }, opt.empty || "Пока ничего не выбрано."));
+        api.items().forEach((x) => list.append(h("div", { class: "op-row" },
+          h("div", { class: "op-nm" }, x.s.name, h("small", {}, x.s.price ? api.money(x.s.price * x.q) : "по договорённости")),
+          h("div", { class: "op-qty" },
+            h("button", { type: "button", "aria-label": "Меньше", onclick: () => api.set(x.s.id, x.q - 1) }, "−"),
+            h("span", {}, String(x.q)),
+            h("button", { type: "button", "aria-label": "Больше", onclick: () => api.set(x.s.id, x.q + 1) }, "+")))));
+        total.innerHTML = "";
+        if (api.total()) total.append(h("span", {}, "Итого"), h("b", {}, api.money(api.total())));
+        refreshText();
+      }
+      api.on(refresh); refresh();
+      return { refresh };
+    },
+    /* график: открыто ли сейчас, ближайшие рабочие дни, свободное время */
+    status() {
+      if (!B.status) return { open: false, text: "" };
+      const d = new Date(), m = d.getHours() * 60 + d.getMinutes();
+      const open = B.days.includes(d.getDay()) && m >= toMin(B.open) && m < toMin(B.close);
+      return open ? { open: true, text: "Открыто до " + B.close } : { open: false, text: "Сейчас закрыто · откроемся в " + B.open };
+    },
+    days(n) {
+      const out = [], d = new Date(); d.setHours(0, 0, 0, 0);
+      for (let i = 0; out.length < n && i < 60; i++) {
+        const x = new Date(d); x.setDate(d.getDate() + i);
+        if (B.days.includes(x.getDay())) out.push(x);
+      }
+      return out;
+    },
+    slots(date) {
+      const out = [], now = new Date(), today = date.toDateString() === now.toDateString();
+      for (let t = toMin(B.open); t + B.step <= toMin(B.close); t += B.step) {
+        if (today && t <= now.getHours() * 60 + now.getMinutes() + 30) continue;
+        out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
+      }
+      return out;
+    },
+    dayLabel(d) {
+      const now = new Date(); now.setHours(0, 0, 0, 0);
+      const diff = Math.round((d - now) / 864e5);
+      const wd = d.toLocaleDateString("ru-RU", { weekday: "short" });
+      return diff === 0 ? "Сегодня" : diff === 1 ? "Завтра" : wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + d.getDate();
+    },
+    dateText: (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long" })
+  };
+  return api;
+})();
+
+</script>
+<script>
+(function () {
+  const { C, h } = K, $ = (id) => document.getElementById(id);
+  document.documentElement.style.setProperty("--accent", C.accent);
+  $("brand").textContent = "* " + C.brand + " *";
+  $("tag").textContent = C.tagline;
+  $("addr").textContent = [C.address, C.hours].filter(Boolean).join(" · ");
+  $("date").textContent = new Date().toLocaleDateString("ru-RU");
+  $("whenLbl").textContent = (C.ui && C.ui.whenText) || "Когда удобно";
+
+  const list = $("list");
+  K.cats().forEach((cat) => {
+    list.append(h("div", { class: "cat" }, "— " + cat + " —"));
+    C.services.filter((s) => s.category === cat).forEach((s) => {
+      const cb = h("input", { type: "checkbox", "aria-label": s.name });
+      cb.checked = !!K.qty(s.id);
+      cb.addEventListener("change", () => K.set(s.id, cb.checked ? 1 : 0));
+      list.append(h("label", { class: "row" + (cb.checked ? " on" : ""), "data-id": s.id }, cb,
+        h("span", { class: "nm" }, h("span", {}, s.name), h("span", { class: "dots" })),
+        h("span", { class: "pr" }, s.price ? K.money(s.price) : "дог."),
+        s.unit ? h("small", {}, s.unit) : null));
+    });
+  });
+
+  ["fName", "fWhen"].forEach((id) => { $(id).value = K.field(id); $(id).addEventListener("input", () => K.field(id, $(id).value)); });
+
+  function upd() {
+    document.querySelectorAll(".row").forEach((r) => r.classList.toggle("on", !!K.qty(r.dataset.id)));
+    $("total").textContent = K.money(K.total());
+    const n = K.count();
+    $("cnt").textContent = n ? "Позиций: " + n + (K.onRequest() ? " · часть по договорённости" : "") : "Отметьте нужные позиции";
+  }
+  K.on(upd); upd();
+
+  $("go").addEventListener("click", () => {
+    const t = K.text([["Имя", $("fName").value], [(C.ui && C.ui.whenText) || "Когда", $("fWhen").value]]);
+    $("txt").value = t; $("out").hidden = false;
+    const l = $("lnk"); l.innerHTML = "";
+    l.append(h("button", { type: "button", onclick: () => K.copy(t) }, "Копировать"));
+    K.links(t).forEach((x) => l.append(h("a", { href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && K.copy(t) }, x.label)));
+    $("out").scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  const c = $("contacts");
+  K.links("").forEach((x, i) => { if (i) c.append(" · "); c.append(h("a", { href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener" }, x.label)); });
+})();
+</script>
+<script>
+(function () { if (!CONFIG.demo && !/[?&]preview/.test(location.search)) return;
+  var p = /[?&]preview/.test(location.search);
+  var b = document.createElement("div");
+  b.style.cssText = "position:relative;z-index:99;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center";
+  b.innerHTML = p ? "Предпросмотр ваших изменений — видно только на этом устройстве · <a href='admin/' style='color:#ffd54a'>вернуться в кабинет</a>"
+                  : "Демо-версия сайта · цены примерные · <a href='admin/' style='color:#ffd54a'>✎ войти в кабинет и изменить</a>";
+  document.body.prepend(b); })();
+</script>
+</body>
+</html>

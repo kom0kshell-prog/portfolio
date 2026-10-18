@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>АвтоМастер</title>
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600;700;800&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden}
+a{color:inherit}
+h1,h2,h3{margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+section{padding:64px 0}
+.section-sub{margin:0 0 28px}
+.top{position:sticky;top:0;z-index:20}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{display:flex}
+.nav a{text-decoration:none}
+@media(max-width:640px){.nav{display:none}}
+.cart-btn{display:flex;align-items:center;gap:8px;cursor:pointer;font:inherit;flex-shrink:0}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px}
+.badge[hidden]{display:none}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-decoration:none;font:inherit}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap}
+.chip,.add,.qty button,.x{cursor:pointer;font:inherit}
+.card{display:flex;flex-direction:column}
+.card p{margin:0;flex:1}
+.card .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.qty{display:inline-flex;align-items:center;overflow:hidden}
+.qty button{border:0;background:transparent;color:inherit;width:38px;height:38px;font-size:20px}
+.qty span{min-width:24px;text-align:center;font-weight:600}
+.work{position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.work img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.work span{position:relative;z-index:1}
+.contact{display:block;text-decoration:none}
+.contact small{display:block}
+.contact strong{word-break:break-word}
+.fact b{display:block}
+.overlay{position:fixed;inset:0;opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.overlay.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;z-index:41;display:flex;flex-direction:column;overflow:hidden;transition:transform .25s ease,opacity .25s;right:0;top:0;bottom:0;width:min(460px,100%);transform:translateX(100%)}
+.drawer.open{transform:none}
+@media(max-width:640px){.drawer{left:0;right:0;top:auto;width:100%;max-height:92vh;transform:translateY(100%)}}
+.d-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px}
+.x{line-height:1;width:36px;height:36px;font-size:24px}
+.d-body{padding:16px 20px;overflow:auto;flex:1}
+.d-foot{padding:14px 20px 20px;display:flex;flex-direction:column;gap:10px}
+.empty{text-align:center;padding:44px 0}
+.line{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 0}
+.total{display:flex;justify-content:space-between}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.field input,.field textarea{font:inherit;width:100%;padding:11px 12px}
+textarea.out{min-height:220px;resize:vertical}
+.hint{margin:0 0 12px}
+.msgrs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.msgrs a{display:flex;align-items:center;justify-content:center;padding:12px;color:#fff;font-weight:600;text-decoration:none}
+.m-tg{background:#229ed9}.m-wa{background:#25a244}.m-vk{background:#0077ff}.m-tel{background:#555a58}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);padding:11px 18px;font-size:14px;opacity:0;transition:.25s;z-index:60;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+[hidden]{display:none!important}
+.overlay{background:rgba(0,0,0,.45)}
+.drawer{background:var(--surface);color:var(--ink)}
+.d-head{border-bottom:1px solid var(--line)}.d-head h2{font-size:22px}
+.x{background:transparent;border:0;color:var(--ink);border-radius:10px}.x:hover{background:var(--line)}
+.d-foot{border-top:1px solid var(--line)}
+.empty{color:var(--muted)}
+.line{border-bottom:1px solid var(--line)}.line .nm{font-weight:600}.line .sm{color:var(--muted);font-size:14px}
+.total{font-size:20px;font-weight:700}
+.field{font-size:14px;color:var(--muted)}
+.field input,.field textarea{color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px}
+.field input:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.hint{color:var(--muted);font-size:14px}
+.msgrs a{border-radius:12px}
+.toast{background:var(--ink);color:var(--bg);border-radius:999px}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:14px 24px;font-weight:600}
+
+:root{--accent:#2f6f5e;--accent-ink:#fff;--bg:#eceef1;--surface:#fff;--ink:#14161a;--muted:#6b717b;--line:#e2e5ea;--r:28px}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1113;--surface:#1a1d21;--ink:#f0f2f4;--muted:#9097a1;--line:#2a2e34}}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 "Golos Text",system-ui,sans-serif}
+h1,h2,h3{font-family:"Montserrat Alternates",sans-serif;font-weight:700;line-height:1.08}
+.wrap{max-width:1200px}
+.top{padding:12px 16px}
+.top .wrap{background:var(--surface);border-radius:999px;height:60px;padding:0 8px 0 24px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.brand{font-family:"Montserrat Alternates";font-weight:800;font-size:18px}
+.nav{gap:2px}.nav a{padding:8px 14px;border-radius:999px;color:var(--muted);font-weight:500;font-size:15px}.nav a:hover{background:var(--bg);color:var(--ink)}
+.cart-btn{background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px;font-weight:600}
+.badge{background:var(--accent);color:var(--accent-ink);border-radius:999px;font-size:13px}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;padding-top:8px}
+.tile{background:var(--surface);border-radius:var(--r);padding:clamp(22px,3vw,34px);min-width:0}
+.t-hero{grid-column:span 4;grid-row:span 2;background:var(--accent);color:var(--accent-ink);display:flex;flex-direction:column;justify-content:flex-end;min-height:460px;position:relative;overflow:hidden}
+.t-hero::before{content:"";position:absolute;top:-90px;right:-90px;width:340px;height:340px;border-radius:42% 58% 55% 45%;background:rgba(255,255,255,.13);animation:spin 20s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.t-hero::before{animation:none}}
+.t-hero>*{position:relative}
+.t-hero h1{font-size:clamp(38px,6vw,76px);font-weight:800;overflow-wrap:anywhere}
+.t-hero p{font-size:18px;max-width:46ch;opacity:.92;margin:16px 0 26px}
+.t-hero .btn{background:var(--accent-ink);color:var(--accent);border-radius:999px}
+.t-hero .btn.ghost{background:transparent;color:var(--accent-ink);border:1px solid rgba(255,255,255,.55)}
+.t-about{grid-column:span 2}
+.t-about .section-title{font-size:22px;margin-bottom:10px}
+.t-about p{margin:0 0 8px;color:var(--muted);font-size:15px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.fact{background:var(--bg);border-radius:18px;padding:14px}
+.fact b{font:800 20px "Montserrat Alternates";color:var(--accent)}
+.fact span{font-size:13px;color:var(--muted)}
+.t-steps{grid-column:span 2;background:var(--ink);color:var(--bg)}
+.t-steps h2{font-size:22px;margin-bottom:16px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:st}
+.steps li{counter-increment:st;display:grid;grid-template-columns:34px 1fr;gap:12px;font-size:14px;align-items:start}
+.steps li::before{content:counter(st);width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-weight:700}
+.steps span{opacity:.8}.steps b{display:block;font-size:15px;opacity:1}
+section{padding:64px 0 0}
+.section-title{font-size:clamp(28px,4vw,42px);margin-bottom:8px}
+.section-sub{color:var(--muted);max-width:60ch}
+.chips{gap:8px;margin-bottom:20px}
+.chip{background:var(--surface);border:0;border-radius:999px;padding:10px 18px;color:var(--ink);font-weight:500}
+.chip.on{background:var(--accent);color:var(--accent-ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:14px;grid-auto-flow:dense}
+.card{background:var(--surface);border-radius:var(--r);padding:24px;gap:10px;min-height:190px;transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.08)}
+@media(min-width:700px){.card:first-child{grid-column:span 2;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,var(--surface)),var(--surface))}.card:first-child h3{font-size:26px}}
+.card h3{font-size:19px}
+.card p{color:var(--muted);font-size:15px}
+.price{font:800 22px "Montserrat Alternates"}
+.price small{font:500 13px "Golos Text";color:var(--muted)}
+.qty{background:var(--bg);border-radius:999px}
+.add{background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px;font-weight:600}
+.add:hover{background:var(--accent);color:var(--accent-ink)}
+.works{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:180px;gap:14px}
+.work{border-radius:var(--r);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 60%,var(--surface)),color-mix(in srgb,var(--accent) 15%,var(--surface)))}
+.work:first-child{grid-column:span 2;grid-row:span 2}
+.work span{margin:14px;padding:6px 14px;background:var(--surface);color:var(--ink);border-radius:999px;font-size:13px;font-weight:600}
+@media(max-width:700px){.works{grid-template-columns:1fr 1fr;grid-auto-rows:130px}}
+.contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px}
+.contact{background:var(--surface);border-radius:22px;padding:20px;transition:.2s}
+a.contact:hover{background:var(--accent);color:var(--accent-ink)}
+.contact small{color:var(--muted);font-size:13px;margin-bottom:4px}
+a.contact:hover small{color:inherit;opacity:.8}
+.contact strong{font-size:17px}
+footer{padding:48px 0;color:var(--muted);font-size:14px;text-align:center}
+.drawer{margin:12px 0;right:12px;border-radius:var(--r);width:min(440px,calc(100% - 24px));transform:translateX(calc(100% + 24px));top:0;bottom:0}
+.btn{border-radius:999px}
+@media(max-width:900px){.bento{grid-template-columns:1fr 1fr}.t-hero{grid-column:1/-1;grid-row:auto;min-height:400px}.t-about,.t-steps{grid-column:span 1}}
+@media(max-width:620px){.bento{grid-template-columns:1fr}.t-about,.t-steps{grid-column:auto}.top .wrap{padding-left:18px}}
+@media(max-width:640px){.drawer{margin:0;right:0;width:100%;top:auto;border-radius:var(--r) var(--r) 0 0;transform:translateY(100%)}}
+</style>
+</head>
+<body>
+<noscript>Для работы сайта нужен JavaScript.</noscript>
+
+<header class="top"><div class="wrap">
+  <a class="brand" id="brandTop" href="#top"></a>
+  <nav class="nav" id="nav"></nav>
+  <button class="cart-btn" id="cartBtn" aria-label="Открыть корзину"><span>Корзина</span><span class="badge" id="badge" hidden>0</span></button>
+</div></header>
+<main id="top"><div class="wrap">
+  <div class="bento">
+    <div class="tile t-hero"><h1 id="heroTitle"></h1><p id="heroText"></p><div class="hero-actions"><a class="btn" id="chooseBtn" href="#services"></a><a class="btn ghost" href="#contacts">Контакты</a></div></div>
+    <div class="tile t-about" id="about"><h2 class="section-title">О нас</h2><div id="aboutText"></div><div class="facts" id="facts"></div></div>
+    <div class="tile t-steps"><h2>Как заказать</h2><ol class="steps">
+      <li><span><b>Выберите</b>Добавьте нужное в корзину</span></li>
+      <li><span><b>Нажмите «Заказать»</b>Получите готовый текст заявки</span></li>
+      <li><span><b>Отправьте</b>Вставьте текст в мессенджер — мы ответим</span></li>
+    </ol></div>
+  </div>
+</div>
+  <section id="services"><div class="wrap"><h2 class="section-title" id="servicesTitle"></h2><p class="section-sub" id="servicesSub"></p><div class="chips" id="chips"></div><div class="grid" id="grid"></div></div></section>
+  <section id="works"><div class="wrap"><h2 class="section-title">Примеры работ</h2><p class="section-sub" id="worksSub"></p><div class="works" id="worksGrid"></div></div></section>
+  <section id="contacts"><div class="wrap"><h2 class="section-title">Контакты</h2><p class="section-sub">Свяжитесь с нами удобным способом.</p><div class="contacts" id="contactsGrid"></div></div></section>
+</main>
+<footer><div class="wrap" id="foot"></div></footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Корзина"></aside>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   НАСТРОЙКИ КЛИЕНТА — меняйте только этот блок
+   ===================================================================== */
+const CONFIG = (function () { var d = /*CONFIG*/{}/*/CONFIG*/; try { if (/[?&]preview/.test(location.search)) { var p = localStorage.getItem("draft:" + location.pathname.replace(/[^/]*$/, "")); if (p) return JSON.parse(p); } } catch (e) {} return d; })();
+
+/* =====================================================================
+   КОД САЙТА — ниже ничего менять не нужно
+   ===================================================================== */
+(function () {
+  const C = CONFIG;
+  const U = Object.assign({ nav: "Услуги", servicesTitle: "Услуги и цены", servicesSub: "", chooseBtn: "Выбрать услуги",
+    whenLabel: "Желаемая дата и время (по желанию)", whenText: "Желаемая дата и время" }, C.ui);
+  const $ = (s) => document.querySelector(s);
+  const money = (n) => new Intl.NumberFormat("ru-RU").format(n) + "\u00A0" + C.currency;
+
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => {
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    kids.flat().forEach((c) => {
+      if (c == null || c === false) return;
+      e.append(c.nodeType ? c : document.createTextNode(c));
+    });
+    return e;
+  }
+
+  /* ---------- состояние ---------- */
+  const KEY = "order:" + C.brand;
+  let cart = {};                      // id -> количество
+  let form = { name: "", when: "", comment: "" };
+  let category = "Все";
+  let view = "cart";                  // "cart" | "order"
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+    if (saved.cart) cart = saved.cart;
+    if (saved.form) form = Object.assign(form, saved.form);
+  } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ cart, form })); } catch (e) {} };
+
+  const byId = (id) => C.services.find((s) => s.id === id);
+  // убираем из корзины услуги, которых больше нет в списке
+  Object.keys(cart).forEach((id) => { if (!byId(id)) delete cart[id]; });
+
+  const items = () => Object.keys(cart).map((id) => ({ s: byId(id), q: cart[id] })).filter((x) => x.s && x.q > 0);
+  const count = () => items().reduce((a, x) => a + x.q, 0);
+  const total = () => items().reduce((a, x) => a + (x.s.price ? x.s.price * x.q : 0), 0);
+  const hasOnRequest = () => items().some((x) => !x.s.price);
+
+  function setQty(id, q) {
+    if (q <= 0) delete cart[id]; else cart[id] = Math.min(q, 99);
+    save(); renderServices(); renderBadge();
+    if ($("#drawer").classList.contains("open")) renderDrawer();
+  }
+
+  /* ---------- шапка, текст, цвет ---------- */
+  document.documentElement.style.setProperty("--accent", C.accent);
+  document.title = C.brand;
+  const md = document.querySelector('meta[name="description"]');
+  if (md) md.setAttribute("content", C.tagline + ". " + C.description);
+  $("#brandTop").textContent = C.brand;
+  $("#heroTitle").textContent = C.brand;
+  $("#heroText").textContent = C.tagline + (C.description ? ". " + C.description : "");
+  $("#servicesTitle").textContent = U.servicesTitle;
+  if (U.servicesSub) $("#servicesSub").textContent = U.servicesSub;
+  $("#chooseBtn").textContent = U.chooseBtn;
+  $("#worksSub").textContent = C.worksSubtitle || "";
+
+  const nav = $("#nav");
+  [["#services", U.nav], ["#works", "Работы"], ["#about", "О нас"], ["#contacts", "Контакты"]]
+    .forEach(([href, t]) => nav.append(h("a", { href }, t)));
+
+  /* ---------- услуги ---------- */
+  function renderChips() {
+    const cats = ["Все"].concat([...new Set(C.services.map((s) => s.category).filter(Boolean))]);
+    const box = $("#chips"); box.innerHTML = "";
+    if (cats.length <= 2) return;     // одна категория — фильтр не нужен
+    cats.forEach((c) => box.append(
+      h("button", { class: "chip" + (c === category ? " on" : ""), onclick: () => { category = c; renderChips(); renderServices(); } }, c)
+    ));
+  }
+
+  function renderServices() {
+    const grid = $("#grid"); grid.innerHTML = "";
+    C.services.filter((s) => category === "Все" || s.category === category).forEach((s) => {
+      const q = cart[s.id] || 0;
+      const control = q > 0
+        ? h("div", { class: "qty" },
+            h("button", { "aria-label": "Меньше", onclick: () => setQty(s.id, q - 1) }, "−"),
+            h("span", {}, String(q)),
+            h("button", { "aria-label": "Больше", onclick: () => setQty(s.id, q + 1) }, "+"))
+        : h("button", { class: "add", onclick: () => setQty(s.id, 1) }, "В корзину");
+      grid.append(h("article", { class: "card" },
+        h("h3", {}, s.name),
+        s.desc ? h("p", {}, s.desc) : null,
+        h("div", { class: "row" },
+          h("div", { class: "price" }, s.price ? money(s.price) : "По договорённости",
+            s.price && s.unit ? h("small", {}, " " + s.unit) : null),
+          control)));
+    });
+  }
+
+  /* ---------- работы, о нас, контакты ---------- */
+  function renderStatic() {
+    const wg = $("#worksGrid");
+    if (!C.works || !C.works.length) $("#works").hidden = true;
+    (C.works || []).forEach((w) => wg.append(h("div", { class: "work" },
+      w.image ? h("img", { src: w.image, alt: w.title || "", loading: "lazy" }) : null,
+      w.title ? h("span", {}, w.title) : null)));
+
+    const at = $("#aboutText");
+    (C.about || []).forEach((p) => at.append(h("p", {}, p)));
+    (C.facts || []).forEach((f) => $("#facts").append(h("div", { class: "fact" }, h("b", {}, f.value), h("span", {}, f.label))));
+    if (!(C.about || []).length && !(C.facts || []).length) $("#about").hidden = true;
+
+    const cg = $("#contactsGrid");
+    const m = C.messengers || {};
+    const add = (label, text, href) => text && cg.append(h(href ? "a" : "div", { class: "contact", href, target: href && href.startsWith("http") ? "_blank" : null, rel: "noopener" }, h("small", {}, label), h("strong", {}, text)));
+    add("Телефон", C.phone, C.phone ? "tel:" + C.phone.replace(/[^\d+]/g, "") : null);
+    add("Telegram", m.telegram && (/^\+/.test(m.telegram) ? "" : "@") + m.telegram, m.telegram && "https://t.me/" + m.telegram);
+    add("WhatsApp", m.whatsapp && "+" + m.whatsapp, m.whatsapp && "https://wa.me/" + m.whatsapp);
+    add("ВКонтакте", m.vk && "vk.com/" + m.vk, m.vk && "https://vk.com/" + m.vk);
+    add("Email", C.email, C.email ? "mailto:" + C.email : null);
+    add("Адрес", C.address, null);
+    add("Часы работы", C.hours, null);
+
+    $("#foot").textContent = "© " + new Date().getFullYear() + " " + C.brand;
+  }
+
+  /* ---------- корзина ---------- */
+  function renderBadge() {
+    const n = count(), b = $("#badge");
+    b.textContent = n; b.hidden = n === 0;
+  }
+
+  function orderText() {
+    const lines = [C.order.greeting, ""];
+    items().forEach((x, i) => {
+      const sum = x.s.price ? " — " + money(x.s.price * x.q) : " — по договорённости";
+      lines.push((i + 1) + ". " + x.s.name + " × " + x.q + sum);
+    });
+    lines.push("");
+    if (total() > 0) lines.push("Итого: " + money(total()) + (hasOnRequest() ? " (+ позиции по договорённости)" : ""));
+    if (form.name.trim()) lines.push("Имя: " + form.name.trim());
+    if (form.when.trim()) lines.push(U.whenText + ": " + form.when.trim());
+    if (form.comment.trim()) lines.push("Комментарий: " + form.comment.trim());
+    if (C.order.closing) { lines.push(""); lines.push(C.order.closing); }
+    return lines.join("\n");
+  }
+
+  const drawer = $("#drawer"), overlay = $("#overlay");
+  function openDrawer(v) { view = v || "cart"; renderDrawer(); drawer.classList.add("open"); overlay.classList.add("open"); document.body.classList.add("locked"); }
+  function closeDrawer() { drawer.classList.remove("open"); overlay.classList.remove("open"); document.body.classList.remove("locked"); }
+
+  function field(label, key, multiline) {
+    const el = multiline ? h("textarea", { rows: 2 }) : h("input", { type: "text" });
+    el.value = form[key];
+    el.addEventListener("input", () => { form[key] = el.value; save(); });
+    return h("label", { class: "field" }, label, el);
+  }
+
+  function renderDrawer() {
+    drawer.innerHTML = "";
+    const head = h("div", { class: "d-head" },
+      h("h2", {}, view === "cart" ? "Корзина" : "Ваша заявка"),
+      h("button", { class: "x", "aria-label": "Закрыть", onclick: closeDrawer }, "×"));
+    const body = h("div", { class: "d-body" });
+    const foot = h("div", { class: "d-foot" });
+
+    if (view === "cart") {
+      const list = items();
+      if (!list.length) {
+        body.append(h("div", { class: "empty" }, "Пока пусто. Добавьте услуги из списка."));
+        foot.append(h("button", { class: "btn", onclick: () => { closeDrawer(); location.hash = "#services"; } }, "К услугам"));
+      } else {
+        list.forEach((x) => body.append(h("div", { class: "line" },
+          h("div", {}, h("div", { class: "nm" }, x.s.name),
+            h("div", { class: "sm" }, x.s.price ? money(x.s.price) + " × " + x.q + " = " + money(x.s.price * x.q) : "По договорённости")),
+          h("div", { class: "qty" },
+            h("button", { "aria-label": "Меньше", onclick: () => setQty(x.s.id, x.q - 1) }, "−"),
+            h("span", {}, String(x.q)),
+            h("button", { "aria-label": "Больше", onclick: () => setQty(x.s.id, x.q + 1) }, "+")))));
+        body.append(field("Ваше имя (по желанию)", "name"),
+                    field(U.whenLabel, "when"),
+                    field("Комментарий (по желанию)", "comment", true));
+        if (total() > 0) foot.append(h("div", { class: "total" }, h("span", {}, "Итого"), h("span", {}, money(total()))));
+        foot.append(h("button", { class: "btn", onclick: () => { view = "order"; renderDrawer(); } }, "Заказать"));
+      }
+    } else {
+      const text = orderText();
+      const ta = h("textarea", { class: "field out", readonly: true });
+      ta.className = "out"; ta.value = text;
+      ta.style.cssText = "width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px";
+      ta.addEventListener("focus", () => ta.select());
+      body.append(
+        h("p", { class: "hint" }, "1. Скопируйте текст заявки.  2. Откройте мессенджер и вставьте его в чат."),
+        ta,
+        h("button", { class: "btn", style: "width:100%;margin-top:12px", onclick: () => copy(text, ta) }, "Скопировать текст"),
+        h("div", { class: "msgrs" }, messengerLinks(text, ta)));
+      foot.append(h("button", { class: "btn ghost", onclick: () => { view = "cart"; renderDrawer(); } }, "← Изменить заявку"));
+    }
+    drawer.append(head, body, foot);
+  }
+
+  function messengerLinks(text, ta) {
+    const m = C.messengers || {}, out = [];
+    const link = (cls, label, href, extra) => out.push(
+      h("a", Object.assign({ class: cls, href, target: href.startsWith("http") ? "_blank" : null, rel: "noopener", onclick: () => copy(text, ta, true) }, extra || {}), label));
+    if (m.telegram) link("m-tg", "Telegram", "https://t.me/" + m.telegram);
+    if (m.whatsapp) link("m-wa", "WhatsApp", "https://wa.me/" + m.whatsapp + "?text=" + encodeURIComponent(text));
+    if (m.vk) link("m-vk", "ВКонтакте", "https://vk.me/" + m.vk);
+    if (C.phone) link("m-tel", "Позвонить", "tel:" + C.phone.replace(/[^\d+]/g, ""));
+    return out;
+  }
+
+  /* ---------- копирование ---------- */
+  let toastTimer;
+  function toast(msg) {
+    const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+  }
+  function copy(text, ta, silentFail) {
+    const done = () => toast("Текст скопирован — вставьте его в чат");
+    const fallback = () => {
+      try { ta.focus(); ta.select(); ta.setSelectionRange(0, 99999); if (document.execCommand("copy")) return done(); } catch (e) {}
+      if (!silentFail) toast("Не удалось скопировать — выделите текст вручную");
+    };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback);
+    else fallback();
+  }
+
+  /* ---------- события ---------- */
+  $("#cartBtn").addEventListener("click", () => openDrawer("cart"));
+  overlay.addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDrawer(); });
+
+  renderChips(); renderServices(); renderStatic(); renderBadge();
+})();
+</script>
+
+<script>
+(function () { if (!CONFIG.demo && !/[?&]preview/.test(location.search)) return;
+  var p = /[?&]preview/.test(location.search);
+  var b = document.createElement("div");
+  b.style.cssText = "position:relative;z-index:99;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center";
+  b.innerHTML = p ? "Предпросмотр ваших изменений — видно только на этом устройстве · <a href='admin/' style='color:#ffd54a'>вернуться в кабинет</a>"
+                  : "Демо-версия сайта · цены примерные · <a href='admin/' style='color:#ffd54a'>✎ войти в кабинет и изменить</a>";
+  document.body.prepend(b); })();
+</script>
+</body>
+</html>

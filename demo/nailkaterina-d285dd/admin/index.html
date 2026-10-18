@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Кабинет — NailKaterina</title>
+<style>
+:root{--a:#d9466f;--bg:#f4f4f6;--card:#fff;--ink:#17171c;--mute:#6b6b76;--line:#e3e3e8;--r:14px}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,textarea,select{font:inherit;color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px 120px}
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 16px}
+.top h1{font-size:20px;margin:0;flex:1;min-width:0}
+.badge{font-size:12px;background:#fff3cd;color:#7a5b00;border-radius:99px;padding:4px 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:0 0 14px}
+.card h2{font-size:17px;margin:0 0 4px}
+.card p.h{margin:0 0 12px;color:var(--mute);font-size:14px}
+label{display:block;font-size:13px;color:var(--mute);margin:10px 0 4px}
+input,textarea,select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;min-width:0}
+textarea{min-height:84px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--a);outline-offset:-1px;border-color:transparent}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row>*{min-width:0}
+.btn{border:0;border-radius:10px;padding:11px 16px;background:var(--ink);color:#fff;cursor:pointer;font-weight:600}
+.btn.a{background:var(--a)}.btn.l{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.s{padding:7px 11px;font-size:14px}.btn.del{background:#fff;color:#b42318;border:1px solid #f1c5c0}
+.item{border:1px solid var(--line);border-radius:12px;padding:12px;margin:0 0 10px;background:#fbfbfc}
+.item .bar{display:flex;gap:6px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap}
+.item .n{font-weight:600;font-size:14px;margin-right:auto;align-self:center;color:var(--mute)}
+.price{display:grid;grid-template-columns:1fr 110px;gap:10px}
+.chk{display:flex;gap:10px;align-items:center;margin-top:10px;color:var(--ink);font-size:15px}.chk input{width:auto}
+.ph{display:flex;gap:12px;align-items:center}
+.ph img,.ph .no{width:72px;height:72px;border-radius:10px;object-fit:cover;background:#eee;flex:none;display:grid;place-items:center;color:var(--mute);font-size:12px}
+.save{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);border-top:1px solid var(--line);padding:12px 16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;z-index:5}
+.save .st{align-self:center;font-size:14px;color:var(--mute);min-width:0}
+.login{max-width:380px;margin:12vh auto;padding:0 16px}
+.login .card{padding:22px}.login h1{font-size:22px;margin:0 0 6px}
+.err{color:#b42318;font-size:14px;min-height:20px;margin-top:8px}
+.toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;z-index:9;max-width:calc(100% - 32px)}
+.color{display:flex;gap:10px;align-items:center}.color input[type=color]{width:56px;height:44px;padding:4px}
+@media (max-width:520px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="login" id="login">
+  <div class="card">
+    <h1>Вход в кабинет</h1>
+    <p class="h" style="color:var(--mute);margin:0 0 10px">NailKaterina — управление сайтом</p>
+    <form id="lf">
+      <label for="pw">Пароль</label>
+      <input id="pw" type="password" autocomplete="current-password" required>
+      <div class="err" id="lerr"></div>
+      <button class="btn a" style="width:100%;margin-top:6px">Войти</button>
+    </form>
+    <p id="demoHint" hidden style="font-size:13px;color:var(--mute);margin:12px 0 0">Демо-режим: подойдёт любой пароль. Изменения увидите только вы, на этом устройстве.</p>
+  </div>
+</div>
+
+<div class="wrap" id="app" hidden>
+  <div class="top">
+    <h1 id="ttl">Кабинет</h1>
+    <span class="badge" id="demoBadge" hidden>Демо-режим</span>
+    <a class="btn l s" href="../" target="_blank" id="openSite">Открыть сайт ↗</a>
+    <button class="btn l s" id="logout">Выйти</button>
+  </div>
+
+  <div class="card">
+    <h2>Основное</h2>
+    <label>Название</label><input data-k="brand">
+    <label>Короткое описание под названием</label><input data-k="tagline">
+    <label>Текст на первом экране</label><textarea data-k="description"></textarea>
+    <label>Фирменный цвет</label>
+    <div class="color"><input type="color" data-k="accent"><span class="h" style="color:var(--mute);font-size:14px">кнопки и акценты на сайте</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Контакты</h2>
+    <div class="row">
+      <div><label>Телефон</label><input data-k="phone" inputmode="tel" placeholder="+7 900 000-00-00"></div>
+      <div><label>Почта</label><input data-k="email" inputmode="email"></div>
+    </div>
+    <label>Адрес</label><input data-k="address">
+    <label>Время работы</label><input data-k="hours" placeholder="Пн–Пт 10:00–20:00">
+  </div>
+
+  <div class="card">
+    <h2>Куда приходят заявки</h2>
+    <p class="h">Клиент нажимает «Заказать» и пишет вам сюда. Оставьте пустым, если мессенджера нет.</p>
+    <label>Telegram — имя без @ или номер с +7</label><input data-k="messengers.telegram" placeholder="username или +79000000000">
+    <label>WhatsApp — номер только цифрами</label><input data-k="messengers.whatsapp" inputmode="numeric" placeholder="79000000000">
+    <label>ВКонтакте — адрес страницы после vk.com/</label><input data-k="messengers.vk" placeholder="club123 или username">
+  </div>
+
+  <div class="card">
+    <h2>Услуги и цены</h2>
+    <p class="h">Пустая цена — на сайте будет «по договорённости». В поле «от / ед.» можно написать «от», «шт», «за кг».</p>
+    <div id="svc"></div>
+    <button class="btn l" id="addSvc">+ Добавить услугу</button>
+  </div>
+
+  <div class="card">
+    <h2>Фото работ</h2>
+    <p class="h">Фото автоматически уменьшаются, чтобы сайт открывался быстро.</p>
+    <div id="works"></div>
+    <button class="btn l" id="addWork">+ Добавить фото</button>
+  </div>
+
+  <div class="card">
+    <h2>О нас</h2>
+    <label>Текст (каждый абзац с новой строки)</label><textarea data-k="about" data-lines style="min-height:120px"></textarea>
+    <label>Цифры и факты — по одному в строке: «значение | подпись»</label>
+    <textarea data-k="facts" data-facts placeholder="5 лет | работаем"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Настройки</h2>
+    <label class="chk"><input type="checkbox" data-k="demo"> Показывать плашку «демо-версия» сверху сайта</label>
+    <label class="chk"><input type="checkbox" data-k="booking.status"> Показывать «Открыто сейчас / Закрыто» по часам ниже</label>
+    <div class="row">
+      <div><label>Открываемся</label><input type="time" data-k="booking.open"></div>
+      <div><label>Закрываемся</label><input type="time" data-k="booking.close"></div>
+    </div>
+    <div id="pwBox">
+      <label>Сменить пароль</label>
+      <div class="row"><input id="oldPw" type="password" placeholder="Старый пароль" autocomplete="current-password"><input id="newPw" type="password" placeholder="Новый (от 6 символов)" autocomplete="new-password"></div>
+      <button class="btn l s" id="chPw" style="margin-top:10px">Сменить пароль</button>
+    </div>
+  </div>
+</div>
+
+<div class="save" id="saveBar" hidden>
+  <span class="st" id="st">Изменений нет</span>
+  <button class="btn a" id="save">Сохранить</button>
+</div>
+
+<script>
+const SEED = {"brand": "NailKaterina", "tagline": "Маникюр и педикюр", "description": "Аккуратный маникюр и педикюр с покрытием. Напишите — подберём удобное время.", "accent": "#d9466f", "currency": "₽", "phone": "+7 964 651-91-51", "email": "", "address": "г. Иркутск, ул. Пискунова, 54, офис 27", "hours": "По предварительной записи", "messengers": {"telegram": "+79646519151", "whatsapp": "", "vk": "id192114138"}, "services": [{"id": "s1", "category": "Маникюр", "name": "Маникюр без покрытия", "desc": "Обработка и форма.", "price": 800, "unit": ""}, {"id": "s2", "category": "Маникюр", "name": "Маникюр с гель-лаком", "desc": "Обработка, покрытие.", "price": 1800, "unit": ""}, {"id": "s3", "category": "Маникюр", "name": "Наращивание ногтей", "desc": "Длина и форма на выбор.", "price": 2800, "unit": "от"}, {"id": "s4", "category": "Маникюр", "name": "Дизайн", "desc": "За один ноготь.", "price": 50, "unit": "от"}, {"id": "s5", "category": "Педикюр", "name": "Педикюр с покрытием", "desc": "Аппаратный + гель-лак.", "price": 2200, "unit": ""}, {"id": "s6", "category": "Педикюр", "name": "Педикюр без покрытия", "desc": "Аппаратная обработка.", "price": 1500, "unit": ""}], "worksSubtitle": "Примеры наших работ.", "works": [], "about": ["Аккуратный маникюр и педикюр с покрытием. Напишите — подберём удобное время."], "facts": [{"value": "Иркутск", "label": "ул. Пискунова, 54, офис 27"}, {"value": "Онлайн-заявка", "label": "в Telegram и ВК"}], "order": {"greeting": "Здравствуйте! Хочу записаться:", "closing": "Подскажите, пожалуйста, свободное время. Спасибо!"}, "ui": {"nav": "Услуги", "servicesTitle": "Услуги и цены", "servicesSub": "Выберите процедуры, нажмите «Заказать» — вы получите готовый текст для записи. Окончательную стоимость мастер уточнит на месте.", "chooseBtn": "Выбрать процедуры", "whenLabel": "Удобные дата и время (по желанию)", "whenText": "Удобные дата и время"}, "faq": [{"q": "Сколько держится наращивание?", "a": "3–4 недели, затем рекомендуем коррекцию."}, {"q": "Что делать, если опаздываю?", "a": "Предупредите нас — постараемся сохранить запись. При опоздании больше 15 минут время процедуры может сократиться."}, {"q": "Можно ли подобрать мастера?", "a": "Да, напишите пожелания в комментарии к заявке."}], "booking": {"open": "10:00", "close": "20:00", "step": 60, "days": [1, 2, 3, 4, 5, 6], "status": false}, "demo": true};
+const API = "api.php";
+const DRAFT = "draft:" + location.pathname.replace(/admin\/[^/]*$/, "");
+let D = null, demo = false, dirty = false;
+const $ = (s, r = document) => r.querySelector(s);
+
+function toast(t) { const e = document.createElement("div"); e.className = "toast"; e.textContent = t; document.body.append(e); setTimeout(() => e.remove(), 2600); }
+async function api(a, body, isForm) {
+  const r = await fetch(API + "?a=" + a, { method: body ? "POST" : "GET", credentials: "same-origin",
+    headers: Object.assign({ "X-Cabinet": "1" }, isForm ? {} : { "Content-Type": "application/json" }),
+    body: body ? (isForm ? body : JSON.stringify(body)) : undefined });
+  let j; try { j = await r.json(); } catch (e) { throw new Error("Сервер ответил не так — проверьте, что хостинг поддерживает PHP"); }
+  if (!r.ok || j.error) { const e = new Error(j.error || "Ошибка " + r.status); e.code = r.status; throw e; }
+  return j;
+}
+async function detect() {
+  if (location.protocol === "file:") return true;
+  try { const r = await fetch(API + "?a=ping", { credentials: "same-origin" }); await r.clone().json(); if (!r.ok) return true; const j = await r.json(); return j.auth ? "auth" : false; }
+  catch (e) { return true; }
+}
+
+const get = (k) => k.split(".").reduce((o, p) => (o || {})[p], D);
+const set = (k, v) => { const ps = k.split("."); let o = D; ps.slice(0, -1).forEach((p) => o = o[p] = o[p] || {}); o[ps.at(-1)] = v; };
+function mark() { dirty = true; $("#st").textContent = "Есть несохранённые изменения"; }
+
+function bindFields() {
+  document.querySelectorAll("[data-k]").forEach((el) => {
+    const k = el.dataset.k, v = get(k);
+    if (el.type === "checkbox") el.checked = !!v;
+    else if ("lines" in el.dataset) el.value = (v || []).join("\n");
+    else if ("facts" in el.dataset) el.value = (v || []).map((f) => f.value + " | " + f.label).join("\n");
+    else el.value = v == null ? "" : v;
+    el.oninput = el.onchange = () => {
+      let val = el.type === "checkbox" ? el.checked : el.value;
+      if ("lines" in el.dataset) val = el.value.split("\n").map((s) => s.trim()).filter(Boolean);
+      if ("facts" in el.dataset) val = el.value.split("\n").map((s) => s.split("|")).filter((p) => p[0].trim()).map((p) => ({ value: p[0].trim(), label: (p[1] || "").trim() }));
+      if (k === "messengers.telegram") val = val.trim().replace(/^https?:\/\/t\.me\//, "").replace(/^@/, "").replace(/^%2B/i, "+");
+      if (k === "messengers.vk") val = val.trim().replace(/^https?:\/\/(m\.)?vk\.(com|me)\//, "");
+      if (k === "messengers.whatsapp") val = val.replace(/\D/g, "");
+      if (k === "accent") document.documentElement.style.setProperty("--a", val);
+      set(k, val); mark();
+    };
+  });
+}
+
+function input(v, ph, on, type) { const i = document.createElement("input"); i.value = v == null ? "" : v; i.placeholder = ph; if (type) i.inputMode = type; i.oninput = () => { on(i.value); mark(); }; return i; }
+function lab(t, el) { const w = document.createElement("div"); const l = document.createElement("label"); l.textContent = t; w.append(l, el); return w; }
+function bar(list, i, rerender, name) {
+  const b = document.createElement("div"); b.className = "bar";
+  const n = document.createElement("span"); n.className = "n"; n.textContent = name + " " + (i + 1);
+  const mk = (t, cls, fn) => { const x = document.createElement("button"); x.type = "button"; x.className = "btn s " + cls; x.textContent = t; x.onclick = () => { fn(); mark(); rerender(); }; return x; };
+  b.append(n);
+  if (i > 0) b.append(mk("↑", "l", () => list.splice(i - 1, 0, list.splice(i, 1)[0])));
+  if (i < list.length - 1) b.append(mk("↓", "l", () => list.splice(i + 1, 0, list.splice(i, 1)[0])));
+  b.append(mk("Удалить", "del", () => { if (confirm("Удалить?")) list.splice(i, 1); }));
+  return b;
+}
+
+function renderSvc() {
+  const box = $("#svc"); box.innerHTML = "";
+  D.services.forEach((s, i) => {
+    const it = document.createElement("div"); it.className = "item";
+    const pr = document.createElement("div"); pr.className = "price";
+    pr.append(lab("Цена, ₽", input(s.price, "пусто = договорная", (v) => { const n = parseInt(v.replace(/\D/g, ""), 10); s.price = isNaN(n) ? null : n; }, "numeric")),
+              lab("от / ед.", input(s.unit, "от", (v) => s.unit = v)));
+    it.append(lab("Название", input(s.name, "Например: Стрижка", (v) => s.name = v)),
+              lab("Раздел", input(s.category, "Например: Волосы", (v) => s.category = v)),
+              lab("Описание", input(s.desc, "Коротко, что входит", (v) => s.desc = v)), pr,
+              bar(D.services, i, renderSvc, "Услуга"));
+    box.append(it);
+  });
+}
+$("#addSvc").onclick = () => { const last = D.services.at(-1) || {}; D.services.push({ id: "s" + Date.now().toString(36), category: last.category || "Услуги", name: "", desc: "", price: null, unit: "" }); mark(); renderSvc(); const all = document.querySelectorAll("#svc .item"); all[all.length - 1].querySelector("input").focus(); };
+
+// Уменьшаем фото в браузере: быстрее грузится и меньше места занимает
+function shrink(file, max) {
+  return new Promise((ok, bad) => {
+    const img = new Image(); img.onerror = () => bad(new Error("Это не картинка"));
+    img.onload = () => { const k = Math.min(1, max / Math.max(img.width, img.height)); const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); c.toBlob((b) => ok({ blob: b, url: c.toDataURL("image/jpeg", 0.8) }), "image/jpeg", 0.82); URL.revokeObjectURL(img.src); };
+    img.src = URL.createObjectURL(file);
+  });
+}
+function photoSrc(u) { return !u ? "" : /^(data:|https?:)/.test(u) ? u : "../" + u; }
+function renderWorks() {
+  D.works = D.works || [];
+  const box = $("#works"); box.innerHTML = "";
+  D.works.forEach((w, i) => {
+    const it = document.createElement("div"); it.className = "item";
+    const ph = document.createElement("div"); ph.className = "ph";
+    const pv = w.image ? Object.assign(document.createElement("img"), { src: photoSrc(w.image), alt: "" }) : Object.assign(document.createElement("div"), { className: "no", textContent: "нет фото" });
+    const f = document.createElement("input"); f.type = "file"; f.accept = "image/*";
+    f.onchange = async () => {
+      if (!f.files[0]) return;
+      try {
+        const sm = await shrink(f.files[0], demo ? 900 : 1600);
+        if (demo) w.image = sm.url;
+        else { const fd = new FormData(); fd.append("file", sm.blob, "photo.jpg"); w.image = (await api("upload", fd, true)).url; }
+        mark(); renderWorks(); toast("Фото добавлено — не забудьте сохранить");
+      } catch (e) { toast(e.message); }
+    };
+    const col = document.createElement("div"); col.style.cssText = "flex:1;min-width:0";
+    col.append(lab("Подпись", input(w.title, "Например: Окрашивание", (v) => w.title = v)), lab(w.image ? "Заменить фото" : "Загрузить фото", f));
+    ph.append(pv, col);
+    it.append(ph, bar(D.works, i, renderWorks, "Фото"));
+    box.append(it);
+  });
+}
+$("#addWork").onclick = () => { D.works = D.works || []; D.works.push({ title: "", image: "" }); mark(); renderWorks(); };
+
+function startApp() {
+  $("#login").hidden = true; $("#app").hidden = false; $("#saveBar").hidden = false;
+  $("#demoBadge").hidden = !demo; $("#pwBox").hidden = demo;
+  $("#ttl").textContent = D.brand || "Кабинет";
+  if (demo) $("#openSite").href = "../index.html?preview";
+  document.documentElement.style.setProperty("--a", D.accent || "#333");
+  bindFields(); renderSvc(); renderWorks();
+}
+async function load() {
+  if (demo) { try { D = JSON.parse(localStorage.getItem(DRAFT)); } catch (e) {} D = D || JSON.parse(JSON.stringify(SEED)); }
+  else D = (await api("get")).data;
+  D.services = D.services || []; D.messengers = D.messengers || {};
+  startApp();
+}
+
+$("#lf").onsubmit = async (e) => {
+  e.preventDefault(); $("#lerr").textContent = "";
+  try { if (!demo) await api("login", { password: $("#pw").value }); await load(); }
+  catch (er) { $("#lerr").textContent = er.message; }
+};
+$("#save").onclick = async () => {
+  const empty = D.services.filter((s) => !String(s.name || "").trim()).length;
+  if (empty && !confirm("У " + empty + " услуг нет названия — они будут удалены. Сохранить?")) return;
+  D.services = D.services.filter((s) => String(s.name || "").trim());
+  D.works = (D.works || []).filter((w) => w.image || String(w.title || "").trim());
+  $("#save").disabled = true; $("#st").textContent = "Сохраняю…";
+  try {
+    if (demo) { localStorage.setItem(DRAFT, JSON.stringify(D)); }
+    else await api("save", { data: D });
+    dirty = false; $("#st").textContent = demo ? "Сохранено на этом устройстве" : "Сохранено, сайт обновлён";
+    renderSvc(); renderWorks();
+    toast(demo ? "Готово! Нажмите «Открыть сайт», чтобы увидеть изменения" : "Готово! Сайт обновлён");
+  } catch (e) {
+    $("#st").textContent = "Не сохранилось";
+    toast(e.code === 401 ? "Сессия закончилась — войдите снова" : (e.name === "QuotaExceededError" ? "Слишком много фото для демо-режима" : e.message));
+    if (e.code === 401) { $("#app").hidden = true; $("#saveBar").hidden = true; $("#login").hidden = false; }
+  } finally { $("#save").disabled = false; }
+};
+$("#logout").onclick = async () => { if (dirty && !confirm("Есть несохранённые изменения. Выйти?")) return; dirty = false; if (!demo) try { await api("logout", {}); } catch (e) {} location.reload(); };
+$("#chPw").onclick = async () => {
+  try { await api("password", { old: $("#oldPw").value, new: $("#newPw").value }); $("#oldPw").value = $("#newPw").value = ""; toast("Пароль изменён"); }
+  catch (e) { toast(e.message); }
+};
+addEventListener("beforeunload", (e) => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+(async () => {
+  const m = await detect();
+  demo = m === true;
+  $("#demoHint").hidden = !demo;
+  if (m === "auth") { try { await load(); } catch (e) { $("#lerr").textContent = e.message; } }
+})();
+</script>
+</body>
+</html>
