@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кебаб-тайм — Кафе и банкеты в Иркутске</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Arsenal:wght@400;700&display=swap">
+<style>
+/* Тематический (сложный) · Кафе · «Неон»: вечернее кафе — кирпичная стена, неоновые вывески.
+   Функции: мигающая неоновая вывеска, табличка «Открыто/Закрыто» по часам, вкладки меню-трубки, количество,
+   переключатель «доставка / самовывоз», шкала до бесплатной доставки, приборы, чек-заказ. */
+:root{--accent:#c2410c;--brick:#3a1d1a;--brick2:#2c1513;--ink:#fdf2ef;--muted:#c6a9a2;--pink:#ff4fd8;--cyan:#3ef2ff;--yel:#ffe066;--panel:rgba(18,8,10,.82);
+  --d:"Pacifico","Brush Script MT",cursive;--b:"Arsenal",system-ui,sans-serif}
+*{box-sizing:border-box}
+a{color:inherit}
+body{margin:0;color:var(--ink);font:18px/1.5 var(--b);background-color:var(--brick2);
+  background-image:linear-gradient(rgba(10,4,5,.55),rgba(10,4,5,.8)),linear-gradient(335deg,rgba(0,0,0,.25) 23px,transparent 23px),linear-gradient(155deg,rgba(0,0,0,.25) 23px,transparent 23px),linear-gradient(335deg,rgba(0,0,0,.25) 23px,transparent 23px),linear-gradient(155deg,rgba(0,0,0,.25) 23px,transparent 23px);
+  background-size:auto,58px 58px,58px 58px,58px 58px,58px 58px;background-position:0 0,0 2px,4px 35px,29px 31px,34px 6px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+h1,h2,h3{margin:0;font-weight:400}
+.neon{font-family:var(--d);color:#fff;text-shadow:0 0 4px #fff,0 0 10px var(--c),0 0 22px var(--c),0 0 44px var(--c),0 0 80px var(--c)}
+.flick{animation:flick 6s infinite}
+@keyframes flick{0%,19%,21%,23%,55%,57%,100%{opacity:1}20%,22%,56%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.flick{animation:none}}
+.top .wrap{display:flex;align-items:center;gap:16px;height:80px}
+.sign{display:inline-flex;align-items:center;gap:10px;border:2px solid var(--c);border-radius:12px;padding:6px 14px;font:700 14px var(--b);letter-spacing:.2em;text-transform:uppercase;color:#fff;box-shadow:0 0 10px var(--c),inset 0 0 10px var(--c);text-shadow:0 0 8px var(--c);margin-right:auto}
+.bill{border:2px solid var(--cyan);color:#fff;background:transparent;border-radius:999px;padding:9px 18px;font:700 15px var(--b);cursor:pointer;box-shadow:0 0 12px var(--cyan),inset 0 0 8px var(--cyan);text-shadow:0 0 6px var(--cyan);white-space:nowrap}
+.hero{text-align:center;padding:40px 0 30px}
+.hero h1{font-size:clamp(54px,11vw,130px);--c:var(--pink);line-height:1.15;overflow-wrap:anywhere}
+.hero .sub{font:400 clamp(26px,4vw,40px) var(--d);--c:var(--cyan);margin-top:10px}
+.hero p{color:var(--muted);max-width:52ch;margin:20px auto 0}
+.tubes{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:40px 0 26px}
+.tube{border:2px solid var(--c);background:transparent;color:#fff;border-radius:999px;padding:10px 22px;font:700 17px var(--b);cursor:pointer;opacity:.55;transition:.2s;box-shadow:0 0 0 transparent}
+.tube[aria-selected="true"]{opacity:1;box-shadow:0 0 12px var(--c),inset 0 0 10px var(--c);text-shadow:0 0 8px var(--c)}
+.tube:focus-visible,.bill:focus-visible,.it button:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.menu{background:var(--panel);border:2px solid var(--c);border-radius:26px;padding:clamp(18px,3vw,34px);box-shadow:0 0 18px var(--c),inset 0 0 18px color-mix(in srgb,var(--c) 40%,transparent);transition:border-color .3s,box-shadow .3s}
+.menu h2{font:400 clamp(34px,5vw,52px) var(--d);text-align:center;margin-bottom:16px;color:#fff;text-shadow:0 0 8px var(--c),0 0 20px var(--c)}
+.it{display:grid;grid-template-columns:1fr auto auto;gap:4px 16px;align-items:center;padding:14px 0;border-bottom:1px dashed rgba(255,255,255,.18)}
+.it:last-child{border:0}
+.it b{font-size:20px}
+.it small{grid-column:1;color:var(--muted);font-size:15px}
+.it .p{font-size:20px;font-weight:700;white-space:nowrap;color:var(--yel);text-shadow:0 0 8px rgba(255,224,102,.6)}
+.it .q{display:flex;align-items:center;gap:6px;grid-row:1/3;grid-column:3}
+.it .q button{width:38px;height:38px;border-radius:50%;border:2px solid var(--c);background:transparent;color:#fff;font-size:20px;cursor:pointer}
+.it .q span{min-width:22px;text-align:center;font-weight:700}
+.it.on b{text-shadow:0 0 10px var(--c)}
+.it .p{grid-row:1/3;grid-column:2}
+section{padding:50px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.box{background:var(--panel);border-radius:22px;padding:24px;border:1px solid rgba(255,255,255,.12)}
+.box h3{font:400 34px var(--d);--c:var(--yel);margin-bottom:10px}
+.rv{margin:0 0 14px;color:var(--muted)}.rv b{color:#fff}
+.cl a,.cl div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12);text-decoration:none}
+.cl span{color:var(--muted)}
+footer{text-align:center;padding:30px 0 60px;color:var(--muted)}
+/* чек */
+.shade{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.25s;z-index:40}.shade.open{opacity:1;pointer-events:auto}
+.rc{position:fixed;top:0;right:0;bottom:0;width:min(430px,100%);background:#fbf7ee;color:#1d1d1d;z-index:41;transform:translateX(105%);transition:transform .3s;overflow:auto;padding:24px 22px 30px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;visibility:hidden}
+.rc.open{transform:none;visibility:visible}
+.rc h2{font:400 34px var(--d);color:var(--accent);text-align:center}
+.rc .x{position:absolute;right:12px;top:10px;width:36px;height:36px;border:1px solid #ccc;border-radius:50%;background:#fff;cursor:pointer;font-size:18px}
+.mode{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid #1d1d1d;border-radius:12px;overflow:hidden;margin:14px 0}
+.mode button{border:0;background:none;padding:10px;font:700 14px var(--b);cursor:pointer;color:#1d1d1d}
+.mode button[aria-pressed="true"]{background:#1d1d1d;color:#fbf7ee}
+.free{margin:8px 0 12px}
+.free .bar{height:10px;border-radius:10px;background:#e7e0d2;overflow:hidden}
+.free .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .4s}
+.free small{display:block;margin-top:4px;color:#555}
+.cut{display:flex;align-items:center;justify-content:space-between;margin:10px 0}
+.cut div{display:flex;align-items:center;gap:6px}.cut button{width:30px;height:30px;border-radius:50%;border:1px solid #1d1d1d;background:#fff;cursor:pointer}
+.sumr{display:flex;justify-content:space-between;padding:3px 0}
+.op-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed #bbb}
+.op-nm small{display:block;color:#666}
+.op-qty{display:flex;align-items:center;gap:4px}.op-qty button{width:26px;height:26px;border-radius:50%;border:1px solid #1d1d1d;background:#fff;cursor:pointer}.op-qty span{min-width:16px;text-align:center}
+.op-empty{color:#666}
+.op-field{display:block;margin-top:8px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#666}
+.op-field input{display:block;width:100%;margin-top:3px;padding:9px;border:1px solid #1d1d1d;border-radius:8px;font:14px ui-monospace,monospace;background:#fff;color:#1d1d1d}
+.op-total{display:none}
+.op-text{width:100%;min-height:130px;margin-top:10px;border:1px dashed #1d1d1d;padding:8px;font:12px/1.5 ui-monospace,monospace;resize:vertical;background:#fff;color:#1d1d1d}
+.op-links{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.op-links a,.op-links button{display:flex;justify-content:center;padding:11px;border-radius:8px;font:700 14px var(--b);text-decoration:none;color:#fff;border:0;cursor:pointer}
+.op-copy{grid-column:1/-1;background:#1d1d1d}.op-tg{background:#229ed9}.op-wa{background:#25a244}.op-vk{background:#0077ff}.op-tel{background:var(--accent)}
+.tot2{display:flex;justify-content:space-between;font:700 22px var(--b);border-top:2px solid #1d1d1d;margin-top:6px;padding-top:6px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><span class="sign" id="sign"><span id="signT"></span></span><button class="bill" id="billb" type="button">Мой заказ · <span id="cnt">0</span></button></div></header>
+<main class="wrap">
+  <div class="hero"><h1 class="neon flick" id="h1"></h1><div class="neon sub" id="sub"></div><p id="lead"></p></div>
+  <div class="tubes" role="tablist" id="tubes"></div>
+  <div class="menu" id="menu" role="tabpanel"></div>
+  <section><div class="two"><div class="box"><h3 class="neon">Говорят гости</h3><div id="rv"></div></div><div class="box"><h3 class="neon">Заглядывайте</h3><div class="cl" id="cl"></div></div></div></section>
+</main>
+<footer id="foot"></footer>
+<div class="shade" id="shade"></div>
+<aside class="rc" id="rc" role="dialog" aria-modal="true" aria-labelledby="rt"><button class="x" id="rx" type="button" aria-label="Закрыть">×</button><h2 id="rt">Ваш чек</h2>
+  <div class="mode" role="group" aria-label="Способ получения"><button type="button" id="mDel" aria-pressed="true">Доставка</button><button type="button" id="mPick" aria-pressed="false">Самовывоз</button></div>
+  <div class="free" id="free"><div class="bar"><i id="freeBar"></i></div><small id="freeTxt"></small></div>
+  <div id="panel"></div>
+  <div class="cut"><span>Приборы</span><div><button type="button" id="cm" aria-label="Меньше приборов">−</button><b id="cv">1</b><button type="button" id="cp" aria-label="Больше приборов">+</button></div></div>
+  <div id="sums"></div>
+</aside>
+<script>
+const CONFIG = (function () { var d = /*CONFIG*/{"brand": "Кебаб-тайм", "tagline": "Кафе и банкеты в Иркутске", "description": "Шаурма, кебабы и банкетный зал. Закажите навынос или с доставкой.", "accent": "#ff2e63", "currency": "₽", "phone": "+7 914 470-93-33", "email": "", "address": "г. Иркутск, микрорайон Юбилейный, 35а", "hours": "По предварительной записи", "messengers": {"telegram": "+79144709333", "whatsapp": "", "vk": ""}, "services": [{"id": "s1", "category": "Шаурма", "name": "Шаурма классическая", "desc": "", "price": 280, "unit": ""}, {"id": "s2", "category": "Шаурма", "name": "Шаурма XL", "desc": "", "price": 380, "unit": ""}, {"id": "s3", "category": "Кебаб", "name": "Люля-кебаб", "desc": "С лавашом и соусом.", "price": 420, "unit": ""}, {"id": "s4", "category": "Кебаб", "name": "Шашлык из свинины", "desc": "", "price": 450, "unit": ""}, {"id": "s5", "category": "Гарниры", "name": "Картофель фри", "desc": "", "price": 150, "unit": ""}, {"id": "s6", "category": "Банкеты", "name": "Банкет в зале", "desc": "Меню на гостя.", "price": 1800, "unit": "от"}], "worksSubtitle": "Примеры наших работ.", "works": [], "about": ["Шаурма, кебабы и банкетный зал. Закажите навынос или с доставкой."], "facts": [{"value": "Иркутск", "label": "микрорайон Юбилейный, 35а"}, {"value": "Онлайн-заявка", "label": "в Telegram"}], "order": {"greeting": "Здравствуйте! Хочу сделать заказ:", "closing": "Подскажите, пожалуйста, когда будет готово. Спасибо!"}, "ui": {"nav": "Меню", "servicesTitle": "Меню", "servicesSub": "Выберите блюда, нажмите «Заказать» — вы получите готовый текст заказа. Отправьте его нам в мессенджер.", "chooseBtn": "Смотреть меню", "whenLabel": "Адрес доставки или время самовывоза", "whenText": "Адрес / время"}, "faq": [], "booking": {"open": "10:00", "close": "20:00", "step": 30, "days": [1, 2, 3, 4, 5, 6], "status": false}, "demo": true}/*/CONFIG*/; try { if (/[?&]preview/.test(location.search)) { var p = localStorage.getItem("draft:" + location.pathname.replace(/[^/]*$/, "")); if (p) return JSON.parse(p); } } catch (e) {} return d; })();
+</script>
+<script>
+/* ===== ЯДРО: корзина, текст заявки, мессенджеры. Менять не нужно. ===== */
+const K = (function () {
+  const C = CONFIG;
+  const money = (n) => new Intl.NumberFormat("ru-RU").format(n) + " " + C.currency;
+  const KEY = "k:" + location.pathname + ":" + C.brand;
+  const st = { cart: {}, form: {} };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const byId = (id) => C.services.find((s) => s.id === id);
+  Object.keys(st.cart).forEach((id) => { if (!byId(id)) delete st.cart[id]; });
+  const subs = [];
+  const emit = () => { save(); subs.forEach((f) => f()); };
+  const pad = (n) => String(n).padStart(2, "0");
+  const toMin = (t) => { const [a, b] = t.split(":").map(Number); return a * 60 + b; };
+  const B = Object.assign({ open: "10:00", close: "20:00", step: 60, days: [0, 1, 2, 3, 4, 5, 6] }, C.booking);
+
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => {
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    kids.flat().forEach((c) => { if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); });
+    return e;
+  }
+
+  const st0 = document.createElement("style");
+  st0.textContent = "[hidden]{display:none!important}.k-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#111;color:#fff;padding:11px 18px;border-radius:12px;font:14px/1.4 system-ui,sans-serif;opacity:0;transition:.25s;z-index:999;pointer-events:none;max-width:calc(100% - 32px);text-align:center}.k-toast.show{opacity:1;transform:translate(-50%,0)}";
+  document.head.prepend(st0);
+  let toastEl, toastT;
+  function toast(msg) {
+    if (!toastEl) { toastEl = h("div", { class: "k-toast", role: "status" }); document.body.append(toastEl); }
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove("show"), 2400);
+  }
+
+  const api = {
+    C, h, money, byId, toast, pad,
+    qty: (id) => st.cart[id] || 0,
+    set(id, q) { if (q <= 0) delete st.cart[id]; else st.cart[id] = Math.min(q, 99); emit(); },
+    toggle(id) { api.set(id, api.qty(id) ? 0 : 1); },
+    clear() { st.cart = {}; emit(); },
+    items: () => Object.keys(st.cart).map((id) => ({ s: byId(id), q: st.cart[id] })).filter((x) => x.s),
+    count: () => api.items().reduce((a, x) => a + x.q, 0),
+    total: () => api.items().reduce((a, x) => a + (x.s.price || 0) * x.q, 0),
+    onRequest: () => api.items().some((x) => !x.s.price),
+    on: (f) => subs.push(f),
+    field(k, v) { if (v === undefined) return st.form[k] || ""; st.form[k] = v; save(); },
+    cats: () => [...new Set(C.services.map((s) => s.category).filter(Boolean))],
+    price: (s) => (s.price ? money(s.price) : "по договорённости"),
+
+    /* текст заявки; extra — массив [подпись, значение] */
+    text(extra) {
+      const L = [C.order.greeting, ""];
+      api.items().forEach((x, i) => L.push((i + 1) + ". " + x.s.name + (x.q > 1 ? " × " + x.q : "") + " — " + (x.s.price ? money(x.s.price * x.q) : "по договорённости")));
+      if (!api.items().length) L.push("(услуги обсудим)");
+      L.push("");
+      if (api.total() > 0) L.push("Итого: " + money(api.total()) + (api.onRequest() ? " + позиции по договорённости" : ""));
+      (extra || []).forEach(([k, v]) => { if (v && String(v).trim()) L.push(k + ": " + String(v).trim()); });
+      if (C.order.closing) L.push("", C.order.closing);
+      return L.join("\n");
+    },
+
+    /* ссылки на мессенджеры владельца */
+    links(text) {
+      const m = C.messengers || {}, out = [];
+      if (m.telegram) out.push({ k: "tg", label: "Telegram", href: "https://t.me/" + m.telegram });
+      if (m.whatsapp) out.push({ k: "wa", label: "WhatsApp", href: "https://wa.me/" + m.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "") });
+      if (m.vk) out.push({ k: "vk", label: "ВКонтакте", href: "https://vk.me/" + m.vk });
+      if (C.phone) out.push({ k: "tel", label: "Позвонить", href: "tel:" + C.phone.replace(/[^\d+]/g, "") });
+      return out;
+    },
+    tel: () => (C.phone ? "tel:" + C.phone.replace(/[^\d+]/g, "") : null),
+
+    copy(text) {
+      const ok = () => toast("Текст скопирован — вставьте его в чат");
+      const fb = () => {
+        const t = h("textarea", { style: "position:fixed;opacity:0" }); t.value = text; document.body.append(t); t.select();
+        let done = false; try { done = document.execCommand("copy"); } catch (e) {}
+        t.remove(); done ? ok() : toast("Не получилось скопировать — выделите текст вручную");
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, fb); else fb();
+    },
+
+
+    /* готовый блок заявки: список, поля, итог, текст, мессенджеры. Оформляется классами op-* */
+    panel(box, opt) {
+      opt = opt || {};
+      const UI = C.ui || {};
+      const fields = opt.fields || [["fName", "Ваше имя"], ["fWhen", UI.whenLabel || "Когда удобно"], ["fNote", "Комментарий"]];
+      const list = h("div", { class: "op-list" }), total = h("div", { class: "op-total" });
+      const ta = h("textarea", { class: "op-text", readonly: true, "aria-label": "Текст заявки" });
+      const links = h("div", { class: "op-links" });
+      const inputs = fields.map(([id, label]) => {
+        const i = h("input", { id: "op-" + id }); i.value = api.field(id);
+        i.addEventListener("input", () => { api.field(id, i.value); refreshText(); });
+        return h("label", { class: "op-field" }, h("span", {}, label), i);
+      });
+      box.append(list, h("div", { class: "op-fields" }, inputs), total, ta, links);
+      const extra = () => fields.map(([id, label]) => [id === "fWhen" ? (UI.whenText || "Когда") : id === "fName" ? "Имя" : label.replace(/ \(.*\)$/, ""), api.field(id)]).concat(opt.extra ? opt.extra() : []);
+      function refreshText() {
+        const t = api.text(extra()); ta.value = t; links.innerHTML = "";
+        links.append(h("button", { type: "button", class: "op-copy", onclick: () => api.copy(t) }, "Скопировать текст"));
+        api.links(t).forEach((x) => links.append(h("a", { class: "op-" + x.k, href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && api.copy(t) }, x.label)));
+      }
+      function refresh() {
+        list.innerHTML = "";
+        if (!api.items().length) list.append(h("p", { class: "op-empty" }, opt.empty || "Пока ничего не выбрано."));
+        api.items().forEach((x) => list.append(h("div", { class: "op-row" },
+          h("div", { class: "op-nm" }, x.s.name, h("small", {}, x.s.price ? api.money(x.s.price * x.q) : "по договорённости")),
+          h("div", { class: "op-qty" },
+            h("button", { type: "button", "aria-label": "Меньше", onclick: () => api.set(x.s.id, x.q - 1) }, "−"),
+            h("span", {}, String(x.q)),
+            h("button", { type: "button", "aria-label": "Больше", onclick: () => api.set(x.s.id, x.q + 1) }, "+")))));
+        total.innerHTML = "";
+        if (api.total()) total.append(h("span", {}, "Итого"), h("b", {}, api.money(api.total())));
+        refreshText();
+      }
+      api.on(refresh); refresh();
+      return { refresh };
+    },
+    /* график: открыто ли сейчас, ближайшие рабочие дни, свободное время */
+    status() {
+      if (!B.status) return { open: false, text: "" };
+      const d = new Date(), m = d.getHours() * 60 + d.getMinutes();
+      const open = B.days.includes(d.getDay()) && m >= toMin(B.open) && m < toMin(B.close);
+      return open ? { open: true, text: "Открыто до " + B.close } : { open: false, text: "Сейчас закрыто · откроемся в " + B.open };
+    },
+    days(n) {
+      const out = [], d = new Date(); d.setHours(0, 0, 0, 0);
+      for (let i = 0; out.length < n && i < 60; i++) {
+        const x = new Date(d); x.setDate(d.getDate() + i);
+        if (B.days.includes(x.getDay())) out.push(x);
+      }
+      return out;
+    },
+    slots(date) {
+      const out = [], now = new Date(), today = date.toDateString() === now.toDateString();
+      for (let t = toMin(B.open); t + B.step <= toMin(B.close); t += B.step) {
+        if (today && t <= now.getHours() * 60 + now.getMinutes() + 30) continue;
+        out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
+      }
+      return out;
+    },
+    dayLabel(d) {
+      const now = new Date(); now.setHours(0, 0, 0, 0);
+      const diff = Math.round((d - now) / 864e5);
+      const wd = d.toLocaleDateString("ru-RU", { weekday: "short" });
+      return diff === 0 ? "Сегодня" : diff === 1 ? "Завтра" : wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + d.getDate();
+    },
+    dateText: (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long" })
+  };
+  return api;
+})();
+
+</script>
+<script>
+(function () {
+  // Настройки доставки (меняйте под заведение)
+  const FREE_FROM = 1000, DELIVERY_FEE = 150;
+  const { C, h } = K, $ = (id) => document.getElementById(id), F = K.field;
+  document.documentElement.style.setProperty("--accent", C.accent);
+  $("h1").textContent = C.brand; $("sub").textContent = C.tagline.split(",")[0]; $("lead").textContent = C.description;
+  const st = K.status(); $("sign").style.setProperty("--c", st.open ? "#3dff8a" : "#ff4f4f"); $("signT").textContent = st.open ? "● Открыто" : "● Закрыто"; if (!st.text) $("sign").style.display = "none";
+  $("sign").title = st.text;
+  const COL = ["#ff4fd8", "#3ef2ff", "#ffe066", "#7cff6b", "#ff8a3d"], cats = K.cats(); let cur = 0;
+  cats.forEach((c, i) => $("tubes").append(h("button", { class: "tube", type: "button", role: "tab", style: "--c:" + COL[i % COL.length], "aria-selected": i === 0 ? "true" : "false", onclick: () => { cur = i; [...$("tubes").children].forEach((b, j) => b.setAttribute("aria-selected", j === i)); menu(); } }, c)));
+  function menu() {
+    const m = $("menu"), c = COL[cur % COL.length]; m.style.setProperty("--c", c); m.innerHTML = ""; m.append(h("h2", {}, cats[cur]));
+    C.services.filter((s) => s.category === cats[cur]).forEach((s) => { const q = K.qty(s.id);
+      m.append(h("div", { class: "it" + (q ? " on" : "") }, h("b", {}, s.name), h("span", { class: "p" }, s.price ? K.money(s.price) : "—"),
+        h("div", { class: "q" }, q ? h("button", { type: "button", "aria-label": "Меньше", onclick: () => K.set(s.id, q - 1) }, "−") : null, q ? h("span", {}, String(q)) : null, h("button", { type: "button", "aria-label": "Добавить " + s.name, onclick: () => K.set(s.id, q + 1) }, "+")),
+        h("small", {}, [s.desc, s.unit].filter(Boolean).join(" · ")))); });
+  }
+  menu();
+  const mode = () => F("mode") || "del";
+  const setMode = (v) => { F("mode", v); $("mDel").setAttribute("aria-pressed", v === "del"); $("mPick").setAttribute("aria-pressed", v === "pick"); sums(); };
+  $("mDel").onclick = () => setMode("del"); $("mPick").onclick = () => setMode("pick");
+  const cut = () => +F("cut") || 1;
+  $("cm").onclick = () => { F("cut", String(Math.max(0, cut() - 1))); sums(); }; $("cp").onclick = () => { F("cut", String(Math.min(20, cut() + 1))); sums(); };
+  const panel = K.panel($("panel"), {
+    empty: "Чек пуст — добавьте что-нибудь вкусное.",
+    fields: [["fName", "Имя"], ["fPhone", "Телефон"], ["fWhen", "Адрес / время"]],
+    extra: () => { const sub = K.total(), fee = mode() === "del" && sub && sub < FREE_FROM ? DELIVERY_FEE : 0; return [["Получение", mode() === "del" ? "доставка" : "самовывоз"], ["Приборы", String(cut())], ["Доставка", fee ? K.money(fee) : mode() === "del" && sub ? "бесплатно" : ""], ["К оплате", sub ? K.money(sub + fee) : ""]]; }
+  });
+  function sums() {
+    const sub = K.total(), del = mode() === "del", fee = del && sub && sub < FREE_FROM ? DELIVERY_FEE : 0;
+    $("free").hidden = !del; $("freeBar").style.width = Math.min(100, 100 * sub / FREE_FROM) + "%";
+    $("freeTxt").textContent = sub >= FREE_FROM ? "Доставка бесплатная!" : "До бесплатной доставки: " + K.money(FREE_FROM - sub);
+    $("cv").textContent = cut();
+    $("sums").innerHTML = "";
+    $("sums").append(h("div", { class: "sumr" }, h("span", {}, "Блюда"), h("span", {}, K.money(sub))), del ? h("div", { class: "sumr" }, h("span", {}, "Доставка"), h("span", {}, fee ? K.money(fee) : "0 ₽")) : null, h("div", { class: "tot2" }, h("span", {}, "К оплате"), h("span", {}, K.money(sub + fee))));
+    const lbl = document.querySelector('#op-fWhen'); if (lbl) lbl.placeholder = del ? "Улица, дом, квартира" : "Во сколько заберёте";
+    panel.refresh();
+  }
+  K.on(() => { menu(); $("cnt").textContent = K.count(); sums(); }); setMode(mode());
+  (C.reviews || []).forEach((r) => $("rv").append(h("p", { class: "rv" }, "«" + r.text + "» ", h("b", {}, "— " + r.name))));
+  const m = C.messengers || {};
+  [["Телефон", C.phone, K.tel()], ["Telegram", m.telegram && (/^\+/.test(m.telegram) ? "" : "@") + m.telegram, m.telegram && "https://t.me/" + m.telegram], ["WhatsApp", m.whatsapp && "+" + m.whatsapp, m.whatsapp && "https://wa.me/" + m.whatsapp], ["Адрес", C.address], ["Часы", C.hours]]
+    .forEach(([k, v, href]) => v && $("cl").append(h(href ? "a" : "div", { href, target: href && href.startsWith("http") ? "_blank" : null, rel: "noopener" }, h("span", {}, k), v)));
+  $("foot").textContent = "© " + new Date().getFullYear() + " " + C.brand;
+  const open = () => { $("rc").classList.add("open"); $("shade").classList.add("open"); $("rx").focus(); }, close = () => { $("rc").classList.remove("open"); $("shade").classList.remove("open"); };
+  $("billb").onclick = open; $("rx").onclick = close; $("shade").onclick = close;
+  document.addEventListener("keydown", (e) => e.key === "Escape" && close());
+})();
+</script>
+<script>
+(function () { if (!CONFIG.demo && !/[?&]preview/.test(location.search)) return;
+  var p = /[?&]preview/.test(location.search);
+  var b = document.createElement("div");
+  b.style.cssText = "position:relative;z-index:99;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center";
+  b.innerHTML = p ? "Предпросмотр ваших изменений — видно только на этом устройстве · <a href='admin/' style='color:#ffd54a'>вернуться в кабинет</a>"
+                  : "Демо-версия сайта · цены примерные · <a href='admin/' style='color:#ffd54a'>✎ войти в кабинет и изменить</a>";
+  document.body.prepend(b); })();
+</script>
+</body>
+</html>

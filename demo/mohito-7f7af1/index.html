@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Мохито — Студия красоты в Челябинске</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600&display=swap">
+<style>
+/* Тематический ФЛАГМАН · Бьюти · «Ботаника»: спокойная студия-оранжерея — шалфей, гербарий, тонкая графика.
+   Функции: рисующаяся ботаническая иллюстрация, ритуалы по категориям с длительностью, онлайн-запись на день и время
+   с проверкой телефона, конструктор подарочного сертификата с живым превью, гербарий-галерея с лайтбоксом,
+   отзывы-слайдер, вопросы, мобильная панель записи. */
+:root{--accent:#b5527a;--sage:#5f7a62;--sage2:#a9bba6;--bg:#f1f3ec;--leaf:#e4eadc;--card:#fbfcf8;--ink:#253128;--muted:#6a776b;--line:#d5ddd0;--gold:#b08d57;
+  --d:"Playfair Display",Georgia,serif;--b:"Raleway",system-ui,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+a{color:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--ink);font:300 17px/1.7 var(--b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left,0px))}
+h1,h2,h3{font-family:var(--d);font-weight:400;margin:0;line-height:1.08}
+em{font-style:italic;color:var(--sage)}
+:focus-visible{outline:2px solid var(--sage);outline-offset:3px}
+.eb{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--sage);font-weight:600}
+.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:26px;height:76px}
+.brand{font:400 26px var(--d);text-decoration:none;margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top nav{display:flex;gap:26px}.top nav a{text-decoration:none;font-size:14px;letter-spacing:.06em;color:var(--muted)}.top nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 28px;border-radius:999px;border:1px solid var(--sage);background:var(--sage);color:#fff;font:500 14px var(--b);letter-spacing:.06em;text-decoration:none;cursor:pointer;transition:.25s}
+.btn:hover{background:var(--ink);border-color:var(--ink)}
+.btn.ln{background:transparent;color:var(--ink);border-color:var(--ink)}.btn.ln:hover{background:var(--ink);color:#fff}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+@media(max-width:900px){.top nav{display:none}}
+/* герой */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:min(78vh,720px);padding:40px 0}
+.hero h1{font-size:clamp(46px,6.6vw,92px);margin:22px 0}
+.hero p{font-size:19px;color:var(--muted);max-width:42ch;margin:0 0 32px}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+.meta{display:flex;gap:28px;margin-top:40px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.meta b{display:block;font:400 30px var(--d);color:var(--ink)}
+.art{position:relative;aspect-ratio:4/5;max-width:520px;width:100%;justify-self:center}
+.art .frame{position:absolute;inset:0;border-radius:999px 999px 30px 30px;background:var(--leaf);overflow:hidden;border:1px solid var(--line)}
+.art .frame img{width:100%;height:100%;object-fit:cover}
+.art svg{position:absolute;inset:4% 6%;width:88%;height:92%;overflow:visible}
+.art path{fill:none;stroke:var(--sage);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:draw 3.2s ease forwards}
+.art path.f{stroke:var(--accent);animation-delay:1.4s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.art .tag{position:absolute;left:-18px;bottom:12%;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 18px;box-shadow:0 20px 40px -24px rgba(30,50,30,.4);font-size:14px}
+.art .tag b{display:block;font:400 22px var(--d)}
+.art .lat{position:absolute;right:8%;top:10%;font:italic 400 15px var(--d);color:var(--sage);writing-mode:vertical-rl}
+@media(max-width:900px){.hero{grid-template-columns:1fr;min-height:0}.art{max-width:380px}.art .tag{left:0}}
+@media(prefers-reduced-motion:reduce){.art path{animation:none;stroke-dashoffset:0}}
+section{padding:96px 0;border-top:1px solid var(--line)}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:44px;flex-wrap:wrap}
+.sh h2{font-size:clamp(38px,5vw,64px);margin-top:12px}
+.sh p{max-width:44ch;color:var(--muted);margin:0}
+/* ритуалы */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:30px}
+.tabs button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:10px 18px;font:500 14px var(--b);color:var(--muted);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.rits{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));gap:20px}
+.rit{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:28px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:.3s}
+.rit::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:var(--leaf);transition:.4s}
+.rit:hover::after{transform:scale(1.4)}
+.rit>*{position:relative;z-index:1}
+.rit .n{font:italic 400 15px var(--d);color:var(--sage)}
+.rit h3{font-size:28px}
+.rit p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.rit .r{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:16px;margin-top:6px;border-top:1px solid var(--line)}
+.rit .pr{font:400 26px var(--d)}.rit .pr small{font:300 13px var(--b);color:var(--muted);display:block}
+.rit.on{border-color:var(--sage);box-shadow:0 20px 40px -28px rgba(40,70,40,.5)}
+.add{border:1px solid var(--ink);background:transparent;border-radius:999px;padding:10px 18px;font:500 13px var(--b);cursor:pointer;color:var(--ink)}
+.add.on{background:var(--sage);border-color:var(--sage);color:#fff}
+/* запись */
+.book{display:grid;grid-template-columns:1.1fr .9fr;gap:30px}
+.panelc{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:clamp(22px,3vw,34px)}
+.step{padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid var(--line)}
+.step:last-child{border:0;margin:0;padding:0}
+.step h3{font-size:24px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.step h3 i{width:30px;height:30px;border-radius:50%;border:1px solid var(--sage);color:var(--sage);display:grid;place-items:center;font:500 13px var(--b);font-style:normal}
+.step.ok h3 i{background:var(--sage);color:#fff}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+.day{flex:0 0 auto;min-width:80px;padding:10px;border-radius:16px;border:1px solid var(--line);background:#fff;color:var(--ink);font:500 14px var(--b);cursor:pointer;text-align:center}
+.day small{display:block;color:var(--muted);font-weight:300;font-size:12px}
+.day[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}.day[aria-pressed="true"] small{color:#cfd8cf}
+.slots{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.slot{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:#fff;font:500 14px var(--b);cursor:pointer;color:var(--ink);font-variant-numeric:tabular-nums}
+.slot[aria-pressed="true"]{background:var(--sage);border-color:var(--sage);color:#fff}
+.fl{display:block;margin-bottom:12px}
+.fl span{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}
+.fl input,.fl textarea{width:100%;padding:13px 16px;border-radius:16px;border:1px solid var(--line);background:#fff;font:400 16px var(--b);color:var(--ink)}
+.fl textarea{min-height:70px;resize:vertical}
+.fl.bad input{border-color:#b0413e}.fl em{display:block;font-style:normal;color:#b0413e;font-size:13px;margin-top:4px}
+.sel{display:grid;gap:8px}
+.sel .it{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:var(--leaf)}
+.sel .it button{border:0;background:none;color:var(--muted);cursor:pointer;font-size:18px}
+.none{color:var(--muted);font-size:15px}
+.sum{position:sticky;top:96px;align-self:start;min-width:0}
+.sum .card{background:var(--ink);color:#e9efe6;border-radius:26px;padding:28px}
+.sum h3{font-size:28px;color:#fff;margin-bottom:14px}
+.sum .kv{display:grid;gap:10px;font-size:15px}
+.sum .kv div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:10px}
+.sum .kv span{color:#9fb19f}.sum .kv b{text-align:right;font-weight:500}
+.sum .tot{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0;font:400 30px var(--d);color:#fff}
+.sum textarea{width:100%;min-height:120px;border-radius:16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#e9efe6;font:300 13px/1.5 var(--b);padding:12px;resize:vertical}
+.send{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:12px}
+.send a,.send button{display:flex;justify-content:center;align-items:center;padding:12px;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;text-decoration:none;font:500 13px var(--b);cursor:pointer}
+.send .main{grid-column:1/-1;background:var(--sage2);color:var(--ink);border-color:var(--sage2);font-size:15px;padding:14px}
+.send .main[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.need{font-size:13px;color:#9fb19f;margin:10px 0 0}
+@media(max-width:900px){.book{grid-template-columns:1fr}.sum{position:static}}
+/* сертификат */
+.gift{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+.amts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.amts button{padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:#fff;font:500 15px var(--b);cursor:pointer;color:var(--ink)}
+.amts button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cert{aspect-ratio:1.6;border-radius:24px;background:linear-gradient(135deg,var(--sage),color-mix(in srgb,var(--sage) 60%,var(--ink)));color:#f4f1e8;padding:clamp(20px,3vw,34px);position:relative;overflow:hidden;box-shadow:0 30px 60px -30px rgba(30,50,30,.6);display:flex;flex-direction:column;justify-content:space-between}
+.cert::before{content:"";position:absolute;inset:12px;border:1px solid rgba(244,241,232,.35);border-radius:16px;pointer-events:none}
+.cert svg{position:absolute;right:-20px;bottom:-30px;width:55%;opacity:.25}
+.cert svg path{fill:none;stroke:#f4f1e8;stroke-width:1.5}
+.cert .ct{font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.85}
+.cert .am{font:400 clamp(40px,6vw,64px)/1 var(--d)}
+.cert .to{font:italic 400 20px var(--d)}
+.cert .br{font:400 18px var(--d);opacity:.9}
+@media(max-width:860px){.gift{grid-template-columns:1fr}}
+/* гербарий */
+.herb{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:22px}
+.hb{border:0;padding:16px 16px 18px;background:var(--card);border-radius:6px;box-shadow:0 14px 30px -22px rgba(30,50,30,.5);cursor:zoom-in;text-align:left;font:inherit;color:inherit;position:relative}
+.hb::before{content:"";position:absolute;top:-8px;left:50%;width:70px;height:18px;background:rgba(213,221,208,.8);transform:translateX(-50%) rotate(-2deg)}
+.hb .im{aspect-ratio:4/5;background:linear-gradient(160deg,var(--leaf),color-mix(in srgb,var(--sage) 35%,var(--leaf)));border-radius:3px;overflow:hidden;position:relative}
+.hb .im img{width:100%;height:100%;object-fit:cover}
+.hb .im svg{position:absolute;inset:18%;width:64%;height:64%}
+.hb .im svg path{fill:none;stroke:var(--sage);stroke-width:1.4}
+.hb b{display:block;font:italic 400 20px var(--d);margin-top:12px}
+.hb small{color:var(--muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.lb{position:fixed;inset:0;z-index:80;background:rgba(20,28,22,.88);display:flex;align-items:center;justify-content:center;padding:20px}
+.lb[hidden]{display:none}
+.lb figure{margin:0;width:min(640px,100%);color:#fff;text-align:center}
+.lb .im{aspect-ratio:4/5;max-height:76vh;margin:0 auto;border-radius:6px;overflow:hidden;background:linear-gradient(160deg,var(--leaf),var(--sage2))}
+.lb .im img{width:100%;height:100%;object-fit:cover}
+.lb figcaption{font:italic 400 24px var(--d);margin-top:12px}
+.lb .c{position:absolute;width:50px;height:50px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:none;color:#fff;font-size:20px;cursor:pointer}
+/* отзывы */
+.rv{max-width:900px;margin:0 auto;text-align:center}
+.rv q{display:block;font:italic 400 clamp(26px,3.6vw,44px)/1.25 var(--d);quotes:"«" "»";min-height:3.8em}
+.rv .who{margin-top:20px;color:var(--muted)}.rv .who b{color:var(--ink);font-weight:600}
+.rvn{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:24px}
+.rvn button.a{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--ink)}
+.rvn .d{display:flex;gap:6px}.rvn .d button{width:8px;height:8px;border-radius:50%;border:0;background:var(--line);padding:0;cursor:pointer}.rvn .d button.on{background:var(--sage)}
+details{border-bottom:1px solid var(--line);max-width:900px}
+summary{padding:22px 0;cursor:pointer;font:400 24px var(--d);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--sage);font-family:var(--b)}details[open] summary::after{content:"–"}
+details p{margin:0 0 20px;color:var(--muted)}
+.cts{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.cl a,.cl div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.cl span{color:var(--muted);font-size:14px}.cl b{font-weight:500;text-align:right}
+@media(max-width:800px){.cts{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding:40px 0 120px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.mbar{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:45;display:none;align-items:center;gap:12px;background:var(--ink);color:#e9efe6;border-radius:20px;padding:10px 10px 10px 18px;box-shadow:0 14px 34px rgba(0,0,0,.3)}
+.mbar div{flex:1;font-size:13px}.mbar b{display:block;font:400 20px var(--d);color:#fff}
+.mbar .btn{padding:12px 18px}
+@media(max-width:760px){.mbar{display:flex}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" id="brand" href="#"></a>
+  <nav><a href="#rituals">Ритуалы</a><a href="#book">Запись</a><a href="#gift">Сертификат</a><a href="#herbarium">Работы</a><a href="#contacts">Контакты</a></nav>
+  <a class="btn" href="#book" style="padding:11px 20px">Записаться</a>
+</div></header>
+<main>
+  <div class="wrap hero">
+    <div><span class="eb" id="st"></span><h1 id="h1"></h1><p id="lead"></p>
+      <div class="acts"><a class="btn" href="#book">Онлайн-запись</a><a class="btn ln" href="#gift">Подарить сертификат</a></div>
+      <div class="meta" id="meta"></div></div>
+    <div class="art"><div class="frame" id="frame"></div>
+      <svg viewBox="0 0 300 380" aria-hidden="true" id="botany">
+        <path d="M150 370 C150 300 148 220 152 120"/><path d="M151 300 C120 290 96 268 86 236 C116 240 140 262 151 290"/><path d="M151 260 C182 252 204 228 212 196 C184 202 160 226 151 252"/>
+        <path d="M152 210 C124 200 106 176 100 148 C128 154 148 176 152 202"/><path d="M152 170 C178 160 194 138 198 112 C174 120 156 140 152 164"/>
+        <path class="f" d="M152 120 C140 96 138 70 152 50 C166 70 164 96 152 120 Z"/><path class="f" d="M152 104 C128 92 112 70 112 46 C134 58 148 80 152 104"/><path class="f" d="M152 104 C176 92 192 70 192 46 C170 58 156 80 152 104"/>
+      </svg>
+      <span class="lat">Salvia officinalis</span>
+      <div class="tag" id="tag"></div></div>
+  </div>
+
+  <section id="rituals"><div class="wrap">
+    <div class="sh"><div><span class="eb">Меню</span><h2>Наши <em>ритуалы</em></h2></div><p id="sSub"></p></div>
+    <div class="tabs" role="tablist" id="tabs"></div><div class="rits" id="rits"></div>
+  </div></section>
+
+  <section id="book"><div class="wrap">
+    <div class="sh"><div><span class="eb">Онлайн-запись</span><h2>Выберите <em>время</em></h2></div><p>Ответим в мессенджере и подтвердим запись. Без звонков и ожидания на линии.</p></div>
+    <div class="book">
+      <div class="panelc">
+        <div class="step" id="s1"><h3><i>1</i>Ритуалы</h3><div class="sel" id="sel"></div></div>
+        <div class="step" id="s2"><h3><i>2</i>День и время</h3><div class="days" id="days"></div><div class="slots" id="slots"></div></div>
+        <div class="step" id="s3"><h3><i>3</i>Контакты</h3>
+          <label class="fl" id="wN"><span>Имя</span><input id="fName" autocomplete="name"><em hidden>Как к вам обращаться?</em></label>
+          <label class="fl" id="wP"><span>Телефон</span><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"><em hidden>Номер полностью — 11 цифр</em></label>
+          <label class="fl"><span>Пожелания к мастеру</span><textarea id="fNote" placeholder="Например: аллергия на латекс, хочу естественный объём…"></textarea></label></div>
+      </div>
+      <div class="sum"><div class="card"><h3>Ваш визит</h3><div class="kv" id="kv"></div><div class="tot"><span>Итого</span><span id="tot">—</span></div><textarea id="out" readonly aria-label="Текст заявки"></textarea><div class="send" id="send"></div><p class="need" id="need"></p></div></div>
+    </div>
+  </div></section>
+
+  <section id="gift" style="background:var(--leaf)"><div class="wrap gift">
+    <div><span class="eb">Подарок</span><h2 style="font-size:clamp(36px,4.6vw,58px);margin:12px 0 14px">Сертификат <em>в подарок</em></h2>
+      <p style="color:var(--muted);margin:0 0 22px">Выберите сумму и подпишите — превью обновится сразу. Сертификат добавится в заявку.</p>
+      <div class="amts" id="amts" role="group" aria-label="Сумма"></div>
+      <label class="fl"><span>Своя сумма, ₽</span><input id="gAmt" inputmode="numeric" placeholder="Например, 4000"></label>
+      <label class="fl"><span>Кому</span><input id="gTo" placeholder="Для Анны"></label>
+      <button class="btn" id="gAdd" type="button">Добавить в заявку</button></div>
+    <div class="cert" aria-label="Превью сертификата"><span class="ct">Подарочный сертификат</span><div><div class="am" id="cAm"></div><div class="to" id="cTo"></div></div><span class="br" id="cBr"></span>
+      <svg viewBox="0 0 200 220"><path d="M100 215 C100 160 98 110 102 40"/><path d="M101 170 C76 162 60 144 54 120 C78 124 96 142 101 164"/><path d="M101 130 C126 122 140 102 146 80 C124 86 106 104 101 126"/><path d="M102 40 C92 22 92 6 102 -4 C112 6 112 22 102 40Z"/></svg></div>
+  </div></section>
+
+  <section id="herbarium"><div class="wrap"><div class="sh"><div><span class="eb">Работы</span><h2>Наш <em>гербарий</em></h2></div><p id="wSub"></p></div><div class="herb" id="herb"></div></div></section>
+  <section id="reviews"><div class="wrap"><div class="rv"><span class="eb">Отзывы</span><q id="rq"></q><div class="who" id="rw"></div><div class="rvn"><button class="a" id="rp" type="button" aria-label="Предыдущий">←</button><div class="d" id="rd"></div><button class="a" id="rn" type="button" aria-label="Следующий">→</button></div></div></div></section>
+  <section id="faq"><div class="wrap"><div class="sh"><div><span class="eb">Вопросы</span><h2>Перед <em>визитом</em></h2></div><p id="about"></p></div><div id="fq"></div></div></section>
+  <section id="contacts"><div class="wrap cts"><div><span class="eb">Контакты</span><h2 style="font-size:clamp(36px,4.6vw,58px);margin:12px 0 20px">Ждём <em>вас</em></h2><p id="addr" style="color:var(--muted)"></p></div><div class="cl" id="cl"></div></div></section>
+</main>
+<footer><div class="wrap"><span id="fb" style="font:400 24px var(--d);color:var(--ink)"></span><span id="fc"></span></div></footer>
+<div class="mbar"><div id="mtxt"></div><a class="btn" href="#book">Записаться</a></div>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Просмотр работы"><button class="c" id="lx" type="button" aria-label="Закрыть" style="top:16px;right:16px">×</button><button class="c" id="lp" type="button" aria-label="Предыдущая" style="left:16px;top:50%">←</button><button class="c" id="ln" type="button" aria-label="Следующая" style="right:16px;top:50%">→</button><figure><div class="im" id="lim"></div><figcaption id="lcap"></figcaption></figure></div>
+<script>
+const CONFIG = (function () { var d = /*CONFIG*/{"brand": "Мохито", "tagline": "Студия красоты в Челябинске", "description": "Маникюр, брови, ресницы и уход. Выберите процедуры и удобное время — заявка придёт администратору.", "accent": "#2e7d5b", "currency": "₽", "phone": "+7 952 518-90-51", "email": "", "address": "г. Челябинск, ул. Академика Макеева, 27", "hours": "По предварительной записи", "messengers": {"telegram": "+79525189051", "whatsapp": "", "vk": "beautymohito"}, "services": [{"id": "s1", "category": "Ногти", "name": "Маникюр с покрытием", "desc": "Гель-лак, выравнивание.", "price": 1800, "unit": ""}, {"id": "s2", "category": "Ногти", "name": "Педикюр с покрытием", "desc": "", "price": 2300, "unit": ""}, {"id": "s3", "category": "Брови", "name": "Коррекция и окрашивание", "desc": "", "price": 1000, "unit": ""}, {"id": "s4", "category": "Брови", "name": "Ламинирование бровей", "desc": "", "price": 1600, "unit": ""}, {"id": "s5", "category": "Ресницы", "name": "Ламинирование ресниц", "desc": "", "price": 1800, "unit": ""}, {"id": "s6", "category": "Ресницы", "name": "Наращивание 2D", "desc": "", "price": 2400, "unit": ""}, {"id": "s7", "category": "Уход", "name": "Уходовая процедура для лица", "desc": "", "price": 2500, "unit": ""}], "worksSubtitle": "Примеры наших работ.", "works": [], "about": ["Маникюр, брови, ресницы и уход. Выберите процедуры и удобное время — заявка придёт администратору."], "facts": [{"value": "Челябинск", "label": "ул. Академика Макеева, 27"}, {"value": "Онлайн-заявка", "label": "в Telegram и в ВК"}], "order": {"greeting": "Здравствуйте! Хочу записаться:", "closing": "Подскажите, пожалуйста, свободное время. Спасибо!"}, "ui": {"nav": "Услуги", "servicesTitle": "Услуги и цены", "servicesSub": "Выберите процедуры, нажмите «Заказать» — вы получите готовый текст для записи. Окончательную стоимость мастер уточнит на месте.", "chooseBtn": "Выбрать процедуры", "whenLabel": "Удобные дата и время (по желанию)", "whenText": "Удобные дата и время"}, "faq": [], "booking": {"open": "10:00", "close": "20:00", "step": 60, "days": [1, 2, 3, 4, 5, 6], "status": false}, "demo": true}/*/CONFIG*/; try { if (/[?&]preview/.test(location.search)) { var p = localStorage.getItem("draft:" + location.pathname.replace(/[^/]*$/, "")); if (p) return JSON.parse(p); } } catch (e) {} return d; })();
+</script>
+<script>
+/* ===== ЯДРО: корзина, текст заявки, мессенджеры. Менять не нужно. ===== */
+const K = (function () {
+  const C = CONFIG;
+  const money = (n) => new Intl.NumberFormat("ru-RU").format(n) + " " + C.currency;
+  const KEY = "k:" + location.pathname + ":" + C.brand;
+  const st = { cart: {}, form: {} };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const byId = (id) => C.services.find((s) => s.id === id);
+  Object.keys(st.cart).forEach((id) => { if (!byId(id)) delete st.cart[id]; });
+  const subs = [];
+  const emit = () => { save(); subs.forEach((f) => f()); };
+  const pad = (n) => String(n).padStart(2, "0");
+  const toMin = (t) => { const [a, b] = t.split(":").map(Number); return a * 60 + b; };
+  const B = Object.assign({ open: "10:00", close: "20:00", step: 60, days: [0, 1, 2, 3, 4, 5, 6] }, C.booking);
+
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => {
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    kids.flat().forEach((c) => { if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); });
+    return e;
+  }
+
+  const st0 = document.createElement("style");
+  st0.textContent = "[hidden]{display:none!important}.k-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#111;color:#fff;padding:11px 18px;border-radius:12px;font:14px/1.4 system-ui,sans-serif;opacity:0;transition:.25s;z-index:999;pointer-events:none;max-width:calc(100% - 32px);text-align:center}.k-toast.show{opacity:1;transform:translate(-50%,0)}";
+  document.head.prepend(st0);
+  let toastEl, toastT;
+  function toast(msg) {
+    if (!toastEl) { toastEl = h("div", { class: "k-toast", role: "status" }); document.body.append(toastEl); }
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove("show"), 2400);
+  }
+
+  const api = {
+    C, h, money, byId, toast, pad,
+    qty: (id) => st.cart[id] || 0,
+    set(id, q) { if (q <= 0) delete st.cart[id]; else st.cart[id] = Math.min(q, 99); emit(); },
+    toggle(id) { api.set(id, api.qty(id) ? 0 : 1); },
+    clear() { st.cart = {}; emit(); },
+    items: () => Object.keys(st.cart).map((id) => ({ s: byId(id), q: st.cart[id] })).filter((x) => x.s),
+    count: () => api.items().reduce((a, x) => a + x.q, 0),
+    total: () => api.items().reduce((a, x) => a + (x.s.price || 0) * x.q, 0),
+    onRequest: () => api.items().some((x) => !x.s.price),
+    on: (f) => subs.push(f),
+    field(k, v) { if (v === undefined) return st.form[k] || ""; st.form[k] = v; save(); },
+    cats: () => [...new Set(C.services.map((s) => s.category).filter(Boolean))],
+    price: (s) => (s.price ? money(s.price) : "по договорённости"),
+
+    /* текст заявки; extra — массив [подпись, значение] */
+    text(extra) {
+      const L = [C.order.greeting, ""];
+      api.items().forEach((x, i) => L.push((i + 1) + ". " + x.s.name + (x.q > 1 ? " × " + x.q : "") + " — " + (x.s.price ? money(x.s.price * x.q) : "по договорённости")));
+      if (!api.items().length) L.push("(услуги обсудим)");
+      L.push("");
+      if (api.total() > 0) L.push("Итого: " + money(api.total()) + (api.onRequest() ? " + позиции по договорённости" : ""));
+      (extra || []).forEach(([k, v]) => { if (v && String(v).trim()) L.push(k + ": " + String(v).trim()); });
+      if (C.order.closing) L.push("", C.order.closing);
+      return L.join("\n");
+    },
+
+    /* ссылки на мессенджеры владельца */
+    links(text) {
+      const m = C.messengers || {}, out = [];
+      if (m.telegram) out.push({ k: "tg", label: "Telegram", href: "https://t.me/" + m.telegram });
+      if (m.whatsapp) out.push({ k: "wa", label: "WhatsApp", href: "https://wa.me/" + m.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "") });
+      if (m.vk) out.push({ k: "vk", label: "ВКонтакте", href: "https://vk.me/" + m.vk });
+      if (C.phone) out.push({ k: "tel", label: "Позвонить", href: "tel:" + C.phone.replace(/[^\d+]/g, "") });
+      return out;
+    },
+    tel: () => (C.phone ? "tel:" + C.phone.replace(/[^\d+]/g, "") : null),
+
+    copy(text) {
+      const ok = () => toast("Текст скопирован — вставьте его в чат");
+      const fb = () => {
+        const t = h("textarea", { style: "position:fixed;opacity:0" }); t.value = text; document.body.append(t); t.select();
+        let done = false; try { done = document.execCommand("copy"); } catch (e) {}
+        t.remove(); done ? ok() : toast("Не получилось скопировать — выделите текст вручную");
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, fb); else fb();
+    },
+
+
+    /* готовый блок заявки: список, поля, итог, текст, мессенджеры. Оформляется классами op-* */
+    panel(box, opt) {
+      opt = opt || {};
+      const UI = C.ui || {};
+      const fields = opt.fields || [["fName", "Ваше имя"], ["fWhen", UI.whenLabel || "Когда удобно"], ["fNote", "Комментарий"]];
+      const list = h("div", { class: "op-list" }), total = h("div", { class: "op-total" });
+      const ta = h("textarea", { class: "op-text", readonly: true, "aria-label": "Текст заявки" });
+      const links = h("div", { class: "op-links" });
+      const inputs = fields.map(([id, label]) => {
+        const i = h("input", { id: "op-" + id }); i.value = api.field(id);
+        i.addEventListener("input", () => { api.field(id, i.value); refreshText(); });
+        return h("label", { class: "op-field" }, h("span", {}, label), i);
+      });
+      box.append(list, h("div", { class: "op-fields" }, inputs), total, ta, links);
+      const extra = () => fields.map(([id, label]) => [id === "fWhen" ? (UI.whenText || "Когда") : id === "fName" ? "Имя" : label.replace(/ \(.*\)$/, ""), api.field(id)]).concat(opt.extra ? opt.extra() : []);
+      function refreshText() {
+        const t = api.text(extra()); ta.value = t; links.innerHTML = "";
+        links.append(h("button", { type: "button", class: "op-copy", onclick: () => api.copy(t) }, "Скопировать текст"));
+        api.links(t).forEach((x) => links.append(h("a", { class: "op-" + x.k, href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && api.copy(t) }, x.label)));
+      }
+      function refresh() {
+        list.innerHTML = "";
+        if (!api.items().length) list.append(h("p", { class: "op-empty" }, opt.empty || "Пока ничего не выбрано."));
+        api.items().forEach((x) => list.append(h("div", { class: "op-row" },
+          h("div", { class: "op-nm" }, x.s.name, h("small", {}, x.s.price ? api.money(x.s.price * x.q) : "по договорённости")),
+          h("div", { class: "op-qty" },
+            h("button", { type: "button", "aria-label": "Меньше", onclick: () => api.set(x.s.id, x.q - 1) }, "−"),
+            h("span", {}, String(x.q)),
+            h("button", { type: "button", "aria-label": "Больше", onclick: () => api.set(x.s.id, x.q + 1) }, "+")))));
+        total.innerHTML = "";
+        if (api.total()) total.append(h("span", {}, "Итого"), h("b", {}, api.money(api.total())));
+        refreshText();
+      }
+      api.on(refresh); refresh();
+      return { refresh };
+    },
+    /* график: открыто ли сейчас, ближайшие рабочие дни, свободное время */
+    status() {
+      if (!B.status) return { open: false, text: "" };
+      const d = new Date(), m = d.getHours() * 60 + d.getMinutes();
+      const open = B.days.includes(d.getDay()) && m >= toMin(B.open) && m < toMin(B.close);
+      return open ? { open: true, text: "Открыто до " + B.close } : { open: false, text: "Сейчас закрыто · откроемся в " + B.open };
+    },
+    days(n) {
+      const out = [], d = new Date(); d.setHours(0, 0, 0, 0);
+      for (let i = 0; out.length < n && i < 60; i++) {
+        const x = new Date(d); x.setDate(d.getDate() + i);
+        if (B.days.includes(x.getDay())) out.push(x);
+      }
+      return out;
+    },
+    slots(date) {
+      const out = [], now = new Date(), today = date.toDateString() === now.toDateString();
+      for (let t = toMin(B.open); t + B.step <= toMin(B.close); t += B.step) {
+        if (today && t <= now.getHours() * 60 + now.getMinutes() + 30) continue;
+        out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
+      }
+      return out;
+    },
+    dayLabel(d) {
+      const now = new Date(); now.setHours(0, 0, 0, 0);
+      const diff = Math.round((d - now) / 864e5);
+      const wd = d.toLocaleDateString("ru-RU", { weekday: "short" });
+      return diff === 0 ? "Сегодня" : diff === 1 ? "Завтра" : wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + d.getDate();
+    },
+    dateText: (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long" })
+  };
+  return api;
+})();
+
+</script>
+<script>
+(function () {
+  const { C, h } = K, $ = (id) => document.getElementById(id), U = C.ui || {}, F = K.field;
+  document.documentElement.style.setProperty("--accent", C.accent);
+  document.querySelectorAll("#botany path").forEach((p) => p.style.setProperty("--l", Math.ceil(p.getTotalLength())));
+  $("brand").textContent = C.brand; $("fb").textContent = C.brand; $("cBr").textContent = C.brand;
+  const st = K.status(); $("st").textContent = st.text;
+  const tw = C.tagline.split(" "); $("h1").append(tw.slice(0, -1).join(" ") + " ", h("em", {}, tw.slice(-1)[0]));
+  $("lead").textContent = C.description;
+  (C.facts || []).forEach((f) => $("meta").append(h("div", {}, h("b", {}, f.value), f.label)));
+  const W = C.works || [];
+  if (W[0] && W[0].image) { $("frame").append(h("img", { src: W[0].image, alt: W[0].title || "" })); $("botany").style.display = "none"; }
+  const days = K.days(14); let near = null; for (const d of days) { const s = K.slots(d); if (s.length) { near = { d, t: s[0] }; break; } }
+  $("tag").append("Ближайшее окно", h("b", {}, near ? K.dayLabel(near.d) + ", " + near.t : "по записи"));
+
+  // ---- ритуалы ----
+  $("sSub").textContent = U.servicesSub || "";
+  const cats = K.cats(); let cur = 0;
+  const dur = (s) => { const n = (s.name + " " + (s.desc || "")).toLowerCase(); return /наращ|окраш/.test(n) ? "2–3 часа" : /педикюр|маникюр|чистка/.test(n) ? "1,5 часа" : /стрижк|ламин/.test(n) ? "1 час" : "40 минут"; };
+  cats.forEach((c, i) => $("tabs").append(h("button", { type: "button", role: "tab", "aria-selected": i === 0 ? "true" : "false", onclick: () => { cur = i; [...$("tabs").children].forEach((b, j) => b.setAttribute("aria-selected", j === i)); rits(); } }, c)));
+  function rits() {
+    $("rits").innerHTML = "";
+    C.services.filter((s) => s.category === cats[cur]).forEach((s, i) => { const q = K.qty(s.id);
+      $("rits").append(h("article", { class: "rit" + (q ? " on" : "") }, h("span", { class: "n" }, "№ " + (i + 1) + " · " + dur(s)), h("h3", {}, s.name), h("p", {}, s.desc || ""),
+        h("div", { class: "r" }, h("span", { class: "pr" }, s.price ? (s.unit === "от" ? "от " : "") + K.money(s.price) : "по запросу"), h("button", { class: "add" + (q ? " on" : ""), type: "button", onclick: () => K.toggle(s.id) }, q ? "✓ Выбрано" : "Выбрать")))); });
+  }
+
+  // ---- запись ----
+  function whenUI() {
+    $("days").innerHTML = ""; $("slots").innerHTML = "";
+    days.forEach((d) => $("days").append(h("button", { class: "day", type: "button", "aria-pressed": F("day") === d.toDateString() ? "true" : "false", onclick: () => { F("day", d.toDateString()); F("time", ""); whenUI(); sync(); } }, K.dayLabel(d), h("small", {}, d.toLocaleDateString("ru-RU", { day: "numeric", month: "short" })))));
+    const d = days.find((x) => x.toDateString() === F("day"));
+    if (!d) { $("slots").append(h("span", { class: "none" }, "Выберите день — покажем свободное время.")); return; }
+    const sl = K.slots(d); if (!sl.length) $("slots").append(h("span", { class: "none" }, "На этот день всё занято."));
+    sl.forEach((t) => $("slots").append(h("button", { class: "slot", type: "button", "aria-pressed": F("time") === t ? "true" : "false", onclick: () => { F("time", t); whenUI(); sync(); } }, t)));
+  }
+  const fmt = (v) => { let d = v.replace(/\D/g, ""); if (!d) return ""; if (d[0] === "8") d = "7" + d.slice(1); if (d[0] !== "7") d = "7" + d; d = d.slice(0, 11); const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)]; return "+7" + (p[0] ? " (" + p[0] : "") + (p[0].length === 3 ? ")" : "") + (p[1] ? " " + p[1] : "") + (p[2] ? "-" + p[2] : "") + (p[3] ? "-" + p[3] : ""); };
+  const okN = () => F("fName").trim().length >= 2, okP = () => F("fPhone").replace(/\D/g, "").length === 11;
+  [["fName", "wN", okN], ["fPhone", "wP", okP], ["fNote"]].forEach(([id, w, ok]) => { const i = $(id); i.value = F(id);
+    i.addEventListener("input", () => { if (id === "fPhone") i.value = fmt(i.value); F(id, i.value); if (w) { $(w).classList.remove("bad"); $(w).querySelector("em").hidden = true; } sync(); });
+    if (w) i.addEventListener("blur", () => { if (i.value && !ok()) { $(w).classList.add("bad"); $(w).querySelector("em").hidden = false; } }); });
+
+  // ---- сертификат ----
+  const AM = [2000, 3000, 5000, 10000];
+  const gift = () => { try { return JSON.parse(F("gift") || "null"); } catch (e) { return null; } };
+  AM.forEach((a) => $("amts").append(h("button", { type: "button", "aria-pressed": "false", onclick: () => { $("gAmt").value = a; cert(); } }, K.money(a))));
+  function cert() {
+    const a = +$("gAmt").value.replace(/\D/g, "") || 0;
+    [...$("amts").children].forEach((b, i) => b.setAttribute("aria-pressed", AM[i] === a));
+    $("cAm").textContent = a ? K.money(a) : "Сумма"; $("cTo").textContent = $("gTo").value ? "для " + $("gTo").value.replace(/^для\s+/i, "") : "с любовью";
+  }
+  $("gAmt").addEventListener("input", () => { $("gAmt").value = $("gAmt").value.replace(/\D/g, "").slice(0, 6); cert(); });
+  $("gTo").addEventListener("input", cert);
+  $("gAdd").onclick = () => { const a = +$("gAmt").value || 0; if (!a) { K.toast("Укажите сумму сертификата"); $("gAmt").focus(); return; } F("gift", JSON.stringify({ a, to: $("gTo").value })); K.toast("Сертификат добавлен в заявку"); sync(); location.hash = "book"; };
+  const g0 = gift(); if (g0) { $("gAmt").value = g0.a; $("gTo").value = g0.to || ""; } cert();
+
+  function sync() {
+    rits();
+    const items = K.items(), g = gift(), d = days.find((x) => x.toDateString() === F("day")), when = d && F("time") ? K.dateText(d) + ", " + F("time") : "";
+    $("sel").innerHTML = "";
+    if (!items.length && !g) $("sel").append(h("span", { class: "none" }, "Выберите ритуалы выше — они появятся здесь."));
+    items.forEach((x) => $("sel").append(h("div", { class: "it" }, h("span", {}, x.s.name), h("span", {}, K.price(x.s), h("button", { type: "button", "aria-label": "Убрать " + x.s.name, onclick: () => K.set(x.s.id, 0) }, "×")))));
+    if (g) $("sel").append(h("div", { class: "it" }, h("span", {}, "Сертификат " + (g.to ? "для " + g.to.replace(/^для\s+/i, "") : "")), h("span", {}, K.money(g.a), h("button", { type: "button", "aria-label": "Убрать сертификат", onclick: () => { F("gift", ""); sync(); } }, "×"))));
+    const ok = [items.length > 0 || !!g, !!when, okN() && okP()];
+    ["s1", "s2", "s3"].forEach((id, i) => $(id).classList.toggle("ok", ok[i]));
+    const total = K.total() + (g ? g.a : 0);
+    $("kv").innerHTML = "";
+    [["Ритуалы", items.map((x) => x.s.name).join(", ") || "—"], ["Сертификат", g ? K.money(g.a) : ""], ["Когда", when || "—"], ["Гость", [F("fName"), F("fPhone")].filter(Boolean).join(", ") || "—"]].forEach(([k, v]) => v && $("kv").append(h("div", {}, h("span", {}, k), h("b", {}, v))));
+    $("tot").textContent = total ? K.money(total) : "—";
+    let t = K.text([["Подарочный сертификат", g ? K.money(g.a) + (g.to ? " (" + g.to + ")" : "") : ""], ["Дата и время", when], ["Имя", F("fName")], ["Телефон", F("fPhone")], ["Пожелания", F("fNote")]]);
+    if (g && !items.length) t = t.replace("(услуги обсудим)", "(только сертификат)");
+    if (g) t = t.replace(/Итого: [^\n]*/, "Итого: " + K.money(total));
+    if (when && C.order.closing) t = t.replace(C.order.closing, "Подтвердите, пожалуйста, запись. Спасибо!");
+    $("out").value = t;
+    const ready = ok[2] && (ok[1] || (g && !items.length));
+    $("send").innerHTML = ""; const L = K.links(t), main = L.find((x) => x.k !== "tel");
+    if (main) $("send").append(h("a", { class: "main", href: main.href, target: "_blank", rel: "noopener", "aria-disabled": ready ? "false" : "true", onclick: () => main.k !== "wa" && K.copy(t) }, "Отправить в " + main.label));
+    $("send").append(h("button", { type: "button", onclick: () => K.copy(t) }, "Скопировать"));
+    L.filter((x) => x !== main).forEach((x) => $("send").append(h("a", { href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && K.copy(t) }, x.label)));
+    $("need").textContent = ready ? "Текст скопируется сам — просто вставьте его в чат." : "Для отправки выберите время и укажите имя с телефоном.";
+    $("mtxt").innerHTML = ""; $("mtxt").append(items.length ? items.length + " ритуал(а)" : "Онлайн-запись", h("b", {}, total ? K.money(total) : (near ? K.dayLabel(near.d) + ", " + near.t : "")));
+  }
+  K.on(sync);
+
+  // ---- гербарий ----
+  $("wSub").textContent = C.worksSubtitle || "";
+  const leaf = () => { const s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("viewBox", "0 0 100 120"); s.innerHTML = '<path d="M50 118 C50 80 49 50 51 10"/><path d="M50 90 C34 86 24 74 20 58 C36 60 48 72 50 86"/><path d="M50 66 C66 62 76 50 80 34 C64 38 52 50 50 62"/><path d="M51 10 C44 0 44 -8 51 -14 C58 -8 58 0 51 10Z"/>'; return s; };
+  const im = (w) => (w.image ? h("img", { src: w.image, alt: w.title || "", loading: "lazy" }) : leaf());
+  W.forEach((w, i) => $("herb").append(h("button", { class: "hb", type: "button", "aria-label": "Открыть: " + w.title, onclick: () => lb(i) }, h("div", { class: "im" }, im(w)), h("b", {}, w.title), h("small", {}, "лист " + (i + 1)))));
+  if (!W.length) $("herbarium").hidden = true;
+  let li = 0, lastF;
+  function lb(i) { li = (i + W.length) % W.length; $("lim").innerHTML = ""; $("lim").append(im(W[li])); $("lcap").textContent = W[li].title; if ($("lb").hidden) { lastF = document.activeElement; $("lb").hidden = false; $("lx").focus(); } }
+  const lbc = () => { $("lb").hidden = true; if (lastF) lastF.focus(); };
+  $("lx").onclick = lbc; $("lp").onclick = () => lb(li - 1); $("ln").onclick = () => lb(li + 1);
+  $("lb").addEventListener("click", (e) => e.target.id === "lb" && lbc());
+  document.addEventListener("keydown", (e) => { if ($("lb").hidden) return; if (e.key === "Escape") lbc(); if (e.key === "ArrowLeft") lb(li - 1); if (e.key === "ArrowRight") lb(li + 1); });
+
+  // ---- отзывы ----
+  const R = C.reviews || []; let ri = 0, tm;
+  const rv = (i) => { if (!R.length) return; ri = (i + R.length) % R.length; $("rq").textContent = R[ri].text; $("rw").innerHTML = ""; $("rw").append(h("b", {}, R[ri].name), " · " + "★".repeat(R[ri].rating)); [...$("rd").children].forEach((b, j) => b.classList.toggle("on", j === ri)); clearTimeout(tm); if (!matchMedia("(prefers-reduced-motion: reduce)").matches) tm = setTimeout(() => rv(ri + 1), 8000); };
+  R.forEach((r, j) => $("rd").append(h("button", { type: "button", "aria-label": "Отзыв " + (j + 1), onclick: () => rv(j) })));
+  $("rp").onclick = () => rv(ri - 1); $("rn").onclick = () => rv(ri + 1); if (R.length) rv(0); else $("reviews").hidden = true;
+
+  $("about").textContent = (C.about || [])[0] || "";
+  (C.faq || []).forEach((f) => $("fq").append(h("details", {}, h("summary", {}, f.q), h("p", {}, f.a))));
+  if (!(C.faq || []).length) $("faq").hidden = true;
+  $("addr").textContent = [C.address, C.hours].filter(Boolean).join(" · ");
+  const m = C.messengers || {};
+  [["Телефон", C.phone, K.tel()], ["Telegram", m.telegram && (/^\+/.test(m.telegram) ? "" : "@") + m.telegram, m.telegram && "https://t.me/" + m.telegram], ["WhatsApp", m.whatsapp && "+" + m.whatsapp, m.whatsapp && "https://wa.me/" + m.whatsapp], ["ВКонтакте", m.vk && "vk.com/" + m.vk, m.vk && "https://vk.com/" + m.vk], ["Email", C.email, C.email && "mailto:" + C.email]]
+    .forEach(([k, v, href]) => v && $("cl").append(h("a", { href, target: href.startsWith("http") ? "_blank" : null, rel: "noopener" }, h("span", {}, k), h("b", {}, v))));
+  $("fc").textContent = "© " + new Date().getFullYear() + " · " + (C.address || "");
+  whenUI(); sync();
+})();
+</script>
+<script>
+(function () { if (!CONFIG.demo && !/[?&]preview/.test(location.search)) return;
+  var p = /[?&]preview/.test(location.search);
+  var b = document.createElement("div");
+  b.style.cssText = "position:relative;z-index:99;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center";
+  b.innerHTML = p ? "Предпросмотр ваших изменений — видно только на этом устройстве · <a href='admin/' style='color:#ffd54a'>вернуться в кабинет</a>"
+                  : "Демо-версия сайта · цены примерные · <a href='admin/' style='color:#ffd54a'>✎ войти в кабинет и изменить</a>";
+  document.body.prepend(b); })();
+</script>
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>АвтоМастер</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&display=swap">
+<style>
+/* Стиль 16 «Запись онлайн»: интерфейс как у приложения записи.
+   Сложный: мастер записи в 4 шага (услуги → дата и время → контакты → отправка), поиск, проверка телефона, нижнее меню на телефоне. */
+:root{--accent:#2f6f5e;--bg:#f3f4f7;--card:#ffffff;--ink:#14161c;--muted:#6b7180;--line:#e4e6ec;--soft:#f7f8fa;--ok:#1f9d55;--err:#d93025;--f:"Commissioner",system-ui,sans-serif}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#181b21;--ink:#eef0f4;--muted:#9aa1ae;--line:#272b33;--soft:#1f232a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--f);padding-bottom:90px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:12px;height:66px}
+.ava{width:40px;height:40px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:800;flex-shrink:0}
+.who{margin-right:auto;min-width:0}
+.who b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.who small{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:#9aa0a6}.dot.on{background:var(--ok)}
+.ib{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 14px;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:14px}
+.top{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;padding:26px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px}
+.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.08;margin:0 0 10px;letter-spacing:-.02em}
+.hero p{color:var(--muted);margin:0 0 18px}
+.rate{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rate b{font-size:28px}.stars{color:#f5a623;letter-spacing:2px}
+.rate span{color:var(--muted);font-size:14px}
+.kv{display:grid;gap:10px}
+.kv div{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+.kv div:last-child{border:0}
+.kv span{color:var(--muted)}
+.kv b{text-align:right;font-weight:600}
+@media(max-width:800px){.top{grid-template-columns:1fr}}
+/* мастер записи */
+.wiz{padding:0;overflow:hidden}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.st{padding:16px 10px;text-align:center;font-size:14px;color:var(--muted);border:0;background:none;font-family:var(--f);cursor:pointer;position:relative}
+.st:disabled{cursor:default}
+.st i{display:grid;place-items:center;width:28px;height:28px;margin:0 auto 6px;border-radius:50%;border:2px solid var(--line);font-style:normal;font-weight:700;font-size:13px}
+.st.cur{color:var(--ink);font-weight:600}.st.cur i{border-color:var(--accent);color:var(--accent)}
+.st.done i{background:var(--accent);border-color:var(--accent);color:#fff}
+.st::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:transparent}
+.st.cur::after{background:var(--accent)}
+@media(max-width:560px){.st span{display:none}}
+.pane{padding:22px}
+.pane h2{margin:0 0 4px;font-size:22px}
+.pane .hint{color:var(--muted);margin:0 0 16px;font-size:15px}
+.search{width:100%;padding:13px 16px 13px 42px;border-radius:14px;border:1px solid var(--line);background:var(--soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%238a90a0' stroke-width='2'%3E%3Ccircle cx='8' cy='8' r='6'/%3E%3Cpath d='m13 13 4 4'/%3E%3C/svg%3E") 14px 50%/18px no-repeat;font:16px var(--f);color:var(--ink)}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:12px 0;scrollbar-width:none}
+.chip{flex-shrink:0;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 14px var(--f);cursor:pointer}
+.chip.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.svc{display:flex;align-items:center;gap:14px;padding:14px;border-radius:16px;border:1px solid var(--line);margin-bottom:8px;cursor:pointer;background:var(--card)}
+.svc.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,var(--card))}
+.svc input{width:22px;height:22px;accent-color:var(--accent);flex-shrink:0;cursor:pointer}
+.svc .t{flex:1;min-width:0}.svc .t b{display:block;font-weight:600}.svc .t small{color:var(--muted);font-size:13px}
+.svc .p{font-weight:700;white-space:nowrap}
+.q{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;margin-left:6px}
+.q button{width:30px;height:30px;border:0;background:none;color:var(--ink);font-size:16px;cursor:pointer}
+.q span{min-width:18px;text-align:center;font-weight:700;font-size:14px}
+.empty{color:var(--muted);text-align:center;padding:24px}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.day{flex:0 0 auto;min-width:84px;padding:12px 10px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 14px var(--f);cursor:pointer;text-align:center}
+.day small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.day.on{background:var(--accent);border-color:var(--accent);color:#fff}.day.on small{color:rgba(255,255,255,.8)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:16px}
+.slot{padding:11px 6px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 15px var(--f);cursor:pointer;font-variant-numeric:tabular-nums}
+.slot.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.fld{display:block;margin-bottom:14px}
+.fld span{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.fld input,.fld textarea{width:100%;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:var(--soft);font:16px var(--f);color:var(--ink)}
+.fld textarea{min-height:80px;resize:vertical}
+.fld.bad input{border-color:var(--err)}
+.fld em{display:block;color:var(--err);font-style:normal;font-size:13px;margin-top:4px}
+.radios{display:flex;gap:8px;flex-wrap:wrap}
+.radios label{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-weight:500}
+.radios input{accent-color:var(--accent)}
+.sum{background:var(--soft);border-radius:16px;padding:16px;display:grid;gap:8px;font-size:15px}
+.sum div{display:flex;justify-content:space-between;gap:14px}.sum span{color:var(--muted)}
+.sum b{text-align:right}
+.txt{width:100%;min-height:150px;margin-top:14px;padding:12px;border-radius:14px;border:1px dashed var(--line);background:var(--soft);font:14px/1.5 var(--f);color:var(--ink);resize:vertical}
+.send{display:grid;gap:8px;margin-top:12px}
+.send .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.send a,.send button{display:flex;align-items:center;justify-content:center;padding:13px;border-radius:14px;font:600 15px var(--f);text-decoration:none;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.send .main{background:var(--accent);color:#fff;border-color:var(--accent);font-size:16px;padding:15px}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 22px;border-top:1px solid var(--line);background:var(--soft)}
+.foot .info{font-size:14px;color:var(--muted)}.foot .info b{display:block;color:var(--ink);font-size:17px}
+.btn{padding:13px 22px;border-radius:14px;border:0;background:var(--accent);color:#fff;font:700 15px var(--f);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn:focus-visible,.chip:focus-visible,.day:focus-visible,.slot:focus-visible,.st:focus-visible,.send a:focus-visible,.send button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+section{padding:26px 0}
+.h2{font-size:24px;margin:0 0 14px}
+.revs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px}
+.rev p{margin:8px 0 12px}.rev b{font-size:14px}
+.gal{display:flex;gap:12px;overflow-x:auto;scrollbar-width:thin;padding-bottom:6px}
+.g{flex:0 0 200px;height:150px;border-radius:18px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 60%,var(--card)),color-mix(in srgb,var(--accent) 15%,var(--card)));position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.g img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.g span{position:relative;margin:10px;background:var(--card);color:var(--ink);font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+details{border-bottom:1px solid var(--line)}
+summary{padding:14px 0;cursor:pointer;font-weight:600}
+details p{margin:0 0 14px;color:var(--muted)}
+.tab{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:none;grid-template-columns:repeat(3,1fr);z-index:30;padding-bottom:env(safe-area-inset-bottom,0px)}
+.tab a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;text-decoration:none;color:var(--muted);font-size:12px;font-weight:600}
+.tab a svg{width:22px;height:22px}
+@media(max-width:800px){.tab{display:grid}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <div class="ava" id="ava" aria-hidden="true"></div>
+  <div class="who"><b id="brand"></b><small><i class="dot" id="dot"></i><span id="stat"></span></small></div>
+  <a class="ib" id="call">Позвонить</a>
+</div></header>
+<main class="wrap">
+  <div class="top">
+    <div class="card hero"><h1 id="h1"></h1><p id="lead"></p><div class="rate" id="rate"></div></div>
+    <div class="card kv" id="kv"></div>
+  </div>
+  <div class="card wiz" id="book">
+    <div class="steps" id="steps"></div>
+    <div id="panes"></div>
+    <div class="foot"><div class="info" id="finfo"></div><div style="display:flex;gap:8px"><button class="btn ghost" id="back" type="button">Назад</button><button class="btn" id="fwd" type="button">Далее</button></div></div>
+  </div>
+  <section id="works"><h2 class="h2">Работы</h2><div class="gal" id="gal"></div></section>
+  <section id="reviews"><h2 class="h2">Отзывы</h2><div class="revs" id="revs"></div></section>
+  <section id="faq"><h2 class="h2">Вопросы</h2><div class="card" style="padding:4px 22px" id="faqList"></div></section>
+  <section id="contacts"><h2 class="h2">Контакты</h2><div class="card kv" id="kv2"></div></section>
+</main>
+<nav class="tab" aria-label="Меню">
+  <a href="#book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>Запись</a>
+  <a href="#reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Отзывы</a>
+  <a href="#contacts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Контакты</a>
+</nav>
+<script>
+const CONFIG = (function () { var d = /*CONFIG*/{}/*/CONFIG*/; try { if (/[?&]preview/.test(location.search)) { var p = localStorage.getItem("draft:" + location.pathname.replace(/[^/]*$/, "")); if (p) return JSON.parse(p); } } catch (e) {} return d; })();
+</script>
+<script>
+/* ===== ЯДРО: корзина, текст заявки, мессенджеры. Менять не нужно. ===== */
+const K = (function () {
+  const C = CONFIG;
+  const money = (n) => new Intl.NumberFormat("ru-RU").format(n) + " " + C.currency;
+  const KEY = "k:" + location.pathname + ":" + C.brand;
+  const st = { cart: {}, form: {} };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const byId = (id) => C.services.find((s) => s.id === id);
+  Object.keys(st.cart).forEach((id) => { if (!byId(id)) delete st.cart[id]; });
+  const subs = [];
+  const emit = () => { save(); subs.forEach((f) => f()); };
+  const pad = (n) => String(n).padStart(2, "0");
+  const toMin = (t) => { const [a, b] = t.split(":").map(Number); return a * 60 + b; };
+  const B = Object.assign({ open: "10:00", close: "20:00", step: 60, days: [0, 1, 2, 3, 4, 5, 6] }, C.booking);
+
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => {
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    kids.flat().forEach((c) => { if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); });
+    return e;
+  }
+
+  const st0 = document.createElement("style");
+  st0.textContent = "[hidden]{display:none!important}.k-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#111;color:#fff;padding:11px 18px;border-radius:12px;font:14px/1.4 system-ui,sans-serif;opacity:0;transition:.25s;z-index:999;pointer-events:none;max-width:calc(100% - 32px);text-align:center}.k-toast.show{opacity:1;transform:translate(-50%,0)}";
+  document.head.prepend(st0);
+  let toastEl, toastT;
+  function toast(msg) {
+    if (!toastEl) { toastEl = h("div", { class: "k-toast", role: "status" }); document.body.append(toastEl); }
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove("show"), 2400);
+  }
+
+  const api = {
+    C, h, money, byId, toast, pad,
+    qty: (id) => st.cart[id] || 0,
+    set(id, q) { if (q <= 0) delete st.cart[id]; else st.cart[id] = Math.min(q, 99); emit(); },
+    toggle(id) { api.set(id, api.qty(id) ? 0 : 1); },
+    clear() { st.cart = {}; emit(); },
+    items: () => Object.keys(st.cart).map((id) => ({ s: byId(id), q: st.cart[id] })).filter((x) => x.s),
+    count: () => api.items().reduce((a, x) => a + x.q, 0),
+    total: () => api.items().reduce((a, x) => a + (x.s.price || 0) * x.q, 0),
+    onRequest: () => api.items().some((x) => !x.s.price),
+    on: (f) => subs.push(f),
+    field(k, v) { if (v === undefined) return st.form[k] || ""; st.form[k] = v; save(); },
+    cats: () => [...new Set(C.services.map((s) => s.category).filter(Boolean))],
+    price: (s) => (s.price ? money(s.price) : "по договорённости"),
+
+    /* текст заявки; extra — массив [подпись, значение] */
+    text(extra) {
+      const L = [C.order.greeting, ""];
+      api.items().forEach((x, i) => L.push((i + 1) + ". " + x.s.name + (x.q > 1 ? " × " + x.q : "") + " — " + (x.s.price ? money(x.s.price * x.q) : "по договорённости")));
+      if (!api.items().length) L.push("(услуги обсудим)");
+      L.push("");
+      if (api.total() > 0) L.push("Итого: " + money(api.total()) + (api.onRequest() ? " + позиции по договорённости" : ""));
+      (extra || []).forEach(([k, v]) => { if (v && String(v).trim()) L.push(k + ": " + String(v).trim()); });
+      if (C.order.closing) L.push("", C.order.closing);
+      return L.join("\n");
+    },
+
+    /* ссылки на мессенджеры владельца */
+    links(text) {
+      const m = C.messengers || {}, out = [];
+      if (m.telegram) out.push({ k: "tg", label: "Telegram", href: "https://t.me/" + m.telegram });
+      if (m.whatsapp) out.push({ k: "wa", label: "WhatsApp", href: "https://wa.me/" + m.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "") });
+      if (m.vk) out.push({ k: "vk", label: "ВКонтакте", href: "https://vk.me/" + m.vk });
+      if (C.phone) out.push({ k: "tel", label: "Позвонить", href: "tel:" + C.phone.replace(/[^\d+]/g, "") });
+      return out;
+    },
+    tel: () => (C.phone ? "tel:" + C.phone.replace(/[^\d+]/g, "") : null),
+
+    copy(text) {
+      const ok = () => toast("Текст скопирован — вставьте его в чат");
+      const fb = () => {
+        const t = h("textarea", { style: "position:fixed;opacity:0" }); t.value = text; document.body.append(t); t.select();
+        let done = false; try { done = document.execCommand("copy"); } catch (e) {}
+        t.remove(); done ? ok() : toast("Не получилось скопировать — выделите текст вручную");
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, fb); else fb();
+    },
+
+
+    /* готовый блок заявки: список, поля, итог, текст, мессенджеры. Оформляется классами op-* */
+    panel(box, opt) {
+      opt = opt || {};
+      const UI = C.ui || {};
+      const fields = opt.fields || [["fName", "Ваше имя"], ["fWhen", UI.whenLabel || "Когда удобно"], ["fNote", "Комментарий"]];
+      const list = h("div", { class: "op-list" }), total = h("div", { class: "op-total" });
+      const ta = h("textarea", { class: "op-text", readonly: true, "aria-label": "Текст заявки" });
+      const links = h("div", { class: "op-links" });
+      const inputs = fields.map(([id, label]) => {
+        const i = h("input", { id: "op-" + id }); i.value = api.field(id);
+        i.addEventListener("input", () => { api.field(id, i.value); refreshText(); });
+        return h("label", { class: "op-field" }, h("span", {}, label), i);
+      });
+      box.append(list, h("div", { class: "op-fields" }, inputs), total, ta, links);
+      const extra = () => fields.map(([id, label]) => [id === "fWhen" ? (UI.whenText || "Когда") : id === "fName" ? "Имя" : label.replace(/ \(.*\)$/, ""), api.field(id)]).concat(opt.extra ? opt.extra() : []);
+      function refreshText() {
+        const t = api.text(extra()); ta.value = t; links.innerHTML = "";
+        links.append(h("button", { type: "button", class: "op-copy", onclick: () => api.copy(t) }, "Скопировать текст"));
+        api.links(t).forEach((x) => links.append(h("a", { class: "op-" + x.k, href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && api.copy(t) }, x.label)));
+      }
+      function refresh() {
+        list.innerHTML = "";
+        if (!api.items().length) list.append(h("p", { class: "op-empty" }, opt.empty || "Пока ничего не выбрано."));
+        api.items().forEach((x) => list.append(h("div", { class: "op-row" },
+          h("div", { class: "op-nm" }, x.s.name, h("small", {}, x.s.price ? api.money(x.s.price * x.q) : "по договорённости")),
+          h("div", { class: "op-qty" },
+            h("button", { type: "button", "aria-label": "Меньше", onclick: () => api.set(x.s.id, x.q - 1) }, "−"),
+            h("span", {}, String(x.q)),
+            h("button", { type: "button", "aria-label": "Больше", onclick: () => api.set(x.s.id, x.q + 1) }, "+")))));
+        total.innerHTML = "";
+        if (api.total()) total.append(h("span", {}, "Итого"), h("b", {}, api.money(api.total())));
+        refreshText();
+      }
+      api.on(refresh); refresh();
+      return { refresh };
+    },
+    /* график: открыто ли сейчас, ближайшие рабочие дни, свободное время */
+    status() {
+      if (!B.status) return { open: false, text: "" };
+      const d = new Date(), m = d.getHours() * 60 + d.getMinutes();
+      const open = B.days.includes(d.getDay()) && m >= toMin(B.open) && m < toMin(B.close);
+      return open ? { open: true, text: "Открыто до " + B.close } : { open: false, text: "Сейчас закрыто · откроемся в " + B.open };
+    },
+    days(n) {
+      const out = [], d = new Date(); d.setHours(0, 0, 0, 0);
+      for (let i = 0; out.length < n && i < 60; i++) {
+        const x = new Date(d); x.setDate(d.getDate() + i);
+        if (B.days.includes(x.getDay())) out.push(x);
+      }
+      return out;
+    },
+    slots(date) {
+      const out = [], now = new Date(), today = date.toDateString() === now.toDateString();
+      for (let t = toMin(B.open); t + B.step <= toMin(B.close); t += B.step) {
+        if (today && t <= now.getHours() * 60 + now.getMinutes() + 30) continue;
+        out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
+      }
+      return out;
+    },
+    dayLabel(d) {
+      const now = new Date(); now.setHours(0, 0, 0, 0);
+      const diff = Math.round((d - now) / 864e5);
+      const wd = d.toLocaleDateString("ru-RU", { weekday: "short" });
+      return diff === 0 ? "Сегодня" : diff === 1 ? "Завтра" : wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + d.getDate();
+    },
+    dateText: (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long" })
+  };
+  return api;
+})();
+
+</script>
+<script>
+(function () {
+  const { C, h } = K, $ = (id) => document.getElementById(id), U = C.ui || {};
+  document.documentElement.style.setProperty("--accent", C.accent);
+  $("ava").textContent = C.brand.replace(/[«»"]/g, "").trim().charAt(0).toUpperCase();
+  $("brand").textContent = C.brand; $("h1").textContent = C.tagline; $("lead").textContent = C.description;
+  const s = K.status(); $("dot").classList.toggle("on", s.open); $("stat").textContent = s.text;
+  if (C.phone) $("call").href = K.tel(); else $("call").hidden = true;
+  const R = C.reviews || [];
+  if (R.length) { const avg = R.reduce((a, r) => a + r.rating, 0) / R.length; $("rate").append(h("b", {}, avg.toFixed(1).replace(".", ",")), h("span", { class: "stars", "aria-hidden": "true" }, "★★★★★"), h("span", {}, R.length + " отзыва · записаться можно прямо здесь")); }
+  const kv = (box, rows) => rows.forEach(([k, v]) => v && box.append(h("div", {}, h("span", {}, k), h("b", {}, v))));
+  kv($("kv"), [["Адрес", C.address], ["Часы", C.hours], ["Телефон", C.phone]]);
+  (C.facts || []).slice(0, 2).forEach((f) => kv($("kv"), [[f.label, f.value]]));
+
+  // ---------- мастер записи ----------
+  const isFood = /заказ/i.test(C.order.greeting);
+  const STEPS = [["Услуги", U.servicesTitle || "Выберите услуги"], ["Дата", isFood ? "Когда доставить или забрать" : "Выберите дату и время"], ["Контакты", "Как с вами связаться"], ["Готово", "Отправьте заявку"]];
+  let step = 0, cat = "Все", q = "";
+  const st = (k, v) => K.field(k, v);
+  STEPS.forEach(([t], i) => $("steps").append(h("button", { class: "st", type: "button", "data-i": i, onclick: () => i < step && go(i) }, h("i", {}, String(i + 1)), h("span", {}, t))));
+  const panes = STEPS.map(([, t], i) => { const p = h("div", { class: "pane", hidden: true }, h("h2", {}, t)); $("panes").append(p); return p; });
+
+  // шаг 1
+  const p1 = panes[0];
+  const search = h("input", { class: "search", type: "search", placeholder: "Найти услугу", "aria-label": "Поиск услуги" });
+  const chips = h("div", { class: "chips" }), list = h("div", {});
+  p1.append(h("p", { class: "hint" }, "Можно выбрать несколько."), search, chips, list);
+  search.addEventListener("input", () => { q = search.value.trim().toLowerCase(); renderList(); });
+  function renderChips() { chips.innerHTML = ""; ["Все"].concat(K.cats()).forEach((c) => chips.append(h("button", { class: "chip" + (c === cat ? " on" : ""), type: "button", onclick: () => { cat = c; renderChips(); renderList(); } }, c))); }
+  function renderList() {
+    list.innerHTML = "";
+    const arr = C.services.filter((s) => (cat === "Все" || s.category === cat) && (!q || (s.name + " " + (s.desc || "")).toLowerCase().includes(q)));
+    if (!arr.length) list.append(h("div", { class: "empty" }, "Ничего не нашлось. Попробуйте другое слово."));
+    arr.forEach((s) => {
+      const n = K.qty(s.id), cb = h("input", { type: "checkbox", "aria-label": s.name }); cb.checked = !!n;
+      cb.addEventListener("change", () => K.set(s.id, cb.checked ? 1 : 0));
+      list.append(h("label", { class: "svc" + (n ? " on" : "") }, cb, h("span", { class: "t" }, h("b", {}, s.name), h("small", {}, [s.desc, s.unit].filter(Boolean).join(" · "))),
+        h("span", { class: "p" }, s.price ? K.money(s.price) : "дог."),
+        n ? h("span", { class: "q", onclick: (e) => e.preventDefault() }, h("button", { type: "button", "aria-label": "Меньше", onclick: () => K.set(s.id, n - 1) }, "−"), h("span", {}, String(n)), h("button", { type: "button", "aria-label": "Больше", onclick: () => K.set(s.id, n + 1) }, "+")) : null));
+    });
+  }
+
+  // шаг 2
+  const p2 = panes[1], days = K.days(14), dayBox = h("div", { class: "days", role: "listbox", "aria-label": "День" }), slotBox = h("div", { class: "slots" });
+  p2.append(h("p", { class: "hint" }, "Показаны рабочие дни на две недели вперёд."), dayBox, slotBox);
+  function renderDays() {
+    dayBox.innerHTML = "";
+    days.forEach((d) => { const key = d.toDateString(); dayBox.append(h("button", { class: "day" + (st("day") === key ? " on" : ""), type: "button", onclick: () => { st("day", key); st("time", ""); renderDays(); upd(); } }, K.dayLabel(d), h("small", {}, d.toLocaleDateString("ru-RU", { day: "numeric", month: "short" })))); });
+    slotBox.innerHTML = "";
+    const d = days.find((x) => x.toDateString() === st("day"));
+    if (!d) { slotBox.append(h("div", { class: "empty", style: "grid-column:1/-1" }, "Сначала выберите день.")); return; }
+    const sl = K.slots(d);
+    if (!sl.length) slotBox.append(h("div", { class: "empty", style: "grid-column:1/-1" }, "На этот день свободного времени нет — выберите другой."));
+    sl.forEach((t) => slotBox.append(h("button", { class: "slot" + (st("time") === t ? " on" : ""), type: "button", onclick: () => { st("time", t); renderDays(); upd(); } }, t)));
+  }
+
+  // шаг 3
+  const p3 = panes[2], M = K.links("").filter((x) => x.k !== "tel");
+  const fld = (id, label, attrs, err) => {
+    const i = h(attrs.tag || "input", Object.assign({ id: "w-" + id }, attrs.a || {})); i.value = st(id);
+    const wrap = h("label", { class: "fld" }, h("span", {}, label), i, err ? h("em", { hidden: true }, err) : null);
+    i.addEventListener("input", () => { if (id === "phone") i.value = fmtPhone(i.value); st(id, i.value); wrap.classList.remove("bad"); if (err) wrap.querySelector("em").hidden = true; upd(); });
+    i.addEventListener("blur", () => { if (err && i.value && !valid(id)) { wrap.classList.add("bad"); wrap.querySelector("em").hidden = false; } });
+    return wrap;
+  };
+  function fmtPhone(v) {
+    let d = v.replace(/\D/g, ""); if (!d) return ""; if (d[0] === "8") d = "7" + d.slice(1); if (d[0] !== "7") d = "7" + d; d = d.slice(0, 11);
+    const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)];
+    return "+7" + (p[0] ? " (" + p[0] : "") + (p[0].length === 3 ? ")" : "") + (p[1] ? " " + p[1] : "") + (p[2] ? "-" + p[2] : "") + (p[3] ? "-" + p[3] : "");
+  }
+  const valid = (id) => id === "name" ? st("name").trim().length >= 2 : id === "phone" ? st("phone").replace(/\D/g, "").length === 11 : true;
+  p3.append(h("p", { class: "hint" }, "Нужно только для подтверждения записи."),
+    fld("name", "Имя", { a: { autocomplete: "name" } }, "Введите имя"),
+    fld("phone", "Телефон", { a: { type: "tel", inputmode: "tel", autocomplete: "tel", placeholder: "+7 (___) ___-__-__" } }, "Введите номер полностью: 11 цифр"),
+    fld("note", isFood ? "Адрес доставки и комментарий" : "Комментарий", { tag: "textarea" }));
+  if (M.length) {
+    if (!st("via")) st("via", M[0].k);
+    const r = h("div", { class: "radios", role: "radiogroup", "aria-label": "Где удобнее общаться" });
+    M.forEach((m) => { const i = h("input", { type: "radio", name: "via", value: m.k }); i.checked = st("via") === m.k; i.addEventListener("change", () => st("via", m.k)); r.append(h("label", {}, i, m.label)); });
+    p3.append(h("div", { class: "fld" }, h("span", {}, "Где удобнее общаться"), r));
+  }
+
+  // шаг 4
+  const p4 = panes[3], sum = h("div", { class: "sum" }), txt = h("textarea", { class: "txt", readonly: true, "aria-label": "Текст заявки" }), send = h("div", { class: "send" });
+  p4.append(h("p", { class: "hint" }, "Проверьте данные и отправьте заявку в удобный мессенджер."), sum, txt, send);
+  const dayObj = () => days.find((x) => x.toDateString() === st("day"));
+  function text() {
+    const d = dayObj();
+    const t = K.text([[isFood ? "Когда" : "Дата и время", d ? K.dateText(d) + ", " + st("time") : ""], ["Имя", st("name")], ["Телефон", st("phone")], [isFood ? "Адрес и комментарий" : "Комментарий", st("note")]]);
+    // время уже выбрано, поэтому вместо «подскажите время» просим подтвердить
+    return C.order.closing ? t.replace(C.order.closing, isFood ? "Подтвердите, пожалуйста, заказ. Спасибо!" : "Подтвердите, пожалуйста, запись. Спасибо!") : t;
+  }
+  function renderFinal() {
+    const d = dayObj(), t = text(); sum.innerHTML = "";
+    [["Услуги", K.items().map((x) => x.s.name + (x.q > 1 ? " × " + x.q : "")).join(", ")], ["Когда", d ? K.dateText(d) + ", " + st("time") : ""], ["Имя", st("name")], ["Телефон", st("phone")], ["Сумма", K.total() ? K.money(K.total()) + (K.onRequest() ? " +" : "") : "по договорённости"]]
+      .forEach(([k, v]) => v && sum.append(h("div", {}, h("span", {}, k), h("b", {}, v))));
+    txt.value = t; send.innerHTML = "";
+    const L = K.links(t), main = L.find((x) => x.k === st("via")) || L[0];
+    if (main) send.append(h("a", { class: "main", href: main.href, target: main.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => main.k !== "wa" && K.copy(t) }, "Отправить в " + main.label));
+    send.append(h("div", { class: "row" }, h("button", { type: "button", onclick: () => K.copy(t) }, "Скопировать"), L.filter((x) => x !== main).map((x) => h("a", { href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && K.copy(t) }, x.label))));
+    send.append(h("button", { type: "button", onclick: () => { K.clear(); ["day", "time", "note"].forEach((k) => st(k, "")); go(0); } }, "Новая запись"));
+  }
+
+  const can = [() => K.count() > 0, () => !!(st("day") && st("time")), () => valid("name") && valid("phone"), () => true];
+  function go(i) {
+    step = i;
+    panes.forEach((p, j) => (p.hidden = j !== i));
+    document.querySelectorAll(".st").forEach((b, j) => { b.className = "st" + (j === i ? " cur" : j < i ? " done" : ""); b.disabled = j >= i; if (j === i) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+    if (i === 0) { renderChips(); renderList(); } if (i === 1) renderDays(); if (i === 3) renderFinal();
+    $("back").hidden = i === 0; $("fwd").hidden = i === 3;
+    upd();
+  }
+  function upd() {
+    if (step === 0) renderList();
+    $("fwd").disabled = !can[step]();
+    $("finfo").innerHTML = "";
+    const n = K.count();
+    $("finfo").append(n ? (n + " " + (n === 1 ? "услуга" : n < 5 ? "услуги" : "услуг")) : "Ничего не выбрано", h("b", {}, K.total() ? K.money(K.total()) : "—"));
+  }
+  $("fwd").onclick = () => { if (can[step]()) { go(step + 1); $("book").scrollIntoView({ behavior: "smooth", block: "start" }); } };
+  $("back").onclick = () => go(step - 1);
+  K.on(upd); go(0);
+
+  // ---------- остальное ----------
+  (C.works || []).forEach((w) => $("gal").append(h("div", { class: "g" }, w.image ? h("img", { src: w.image, alt: w.title || "", loading: "lazy" }) : null, h("span", {}, w.title))));
+  if (!(C.works || []).length) $("works").hidden = true;
+  R.forEach((r) => $("revs").append(h("div", { class: "card rev" }, h("span", { class: "stars", "aria-label": "Оценка " + r.rating }, "★".repeat(r.rating)), h("p", {}, r.text), h("b", {}, r.name))));
+  if (!R.length) $("reviews").hidden = true;
+  (C.faq || []).forEach((f) => $("faqList").append(h("details", {}, h("summary", {}, f.q), h("p", {}, f.a))));
+  if (!(C.faq || []).length) $("faq").hidden = true;
+  const m = C.messengers || {};
+  kv($("kv2"), [["Телефон", C.phone], ["Telegram", m.telegram && (/^\+/.test(m.telegram) ? "" : "@") + m.telegram], ["WhatsApp", m.whatsapp && "+" + m.whatsapp], ["ВКонтакте", m.vk && "vk.com/" + m.vk], ["Адрес", C.address], ["Часы", C.hours], ["Email", C.email]]);
+})();
+</script>
+<script>
+(function () { if (!CONFIG.demo && !/[?&]preview/.test(location.search)) return;
+  var p = /[?&]preview/.test(location.search);
+  var b = document.createElement("div");
+  b.style.cssText = "position:relative;z-index:99;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center";
+  b.innerHTML = p ? "Предпросмотр ваших изменений — видно только на этом устройстве · <a href='admin/' style='color:#ffd54a'>вернуться в кабинет</a>"
+                  : "Демо-версия сайта · цены примерные · <a href='admin/' style='color:#ffd54a'>✎ войти в кабинет и изменить</a>";
+  document.body.prepend(b); })();
+</script>
+</body>
+</html>

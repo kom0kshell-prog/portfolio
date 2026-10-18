@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Студия-ателье Катерины Рузмановой — Пошив и ремонт одежды в Новосибирске</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap">
+<style>
+/* Стиль 11 «Визитка»: электронная визитка на один экран. Самый простой: без корзины, кнопки сразу ведут в мессенджер. */
+:root{--accent:#2f6f5e;--bg:#f1efe9;--card:#ffffff;--ink:#202124;--muted:#6f7275;--line:#e7e4dc;--f:"Comfortaa",system-ui,sans-serif}
+@media(prefers-color-scheme:dark){:root{--bg:#141516;--card:#1e2022;--ink:#eeeeec;--muted:#9a9d9f;--line:#2e3134}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font:15px/1.6 var(--f);display:flex;flex-direction:column;align-items:center;padding:40px 16px 48px;gap:18px;
+  background-image:radial-gradient(circle at 15% 10%,color-mix(in srgb,var(--accent) 22%,transparent) 0 180px,transparent 181px),radial-gradient(circle at 90% 85%,color-mix(in srgb,var(--accent) 14%,transparent) 0 240px,transparent 241px)}
+.card{width:100%;max-width:420px;background:var(--card);border-radius:28px;padding:32px 26px 26px;text-align:center;box-shadow:0 24px 60px -24px rgba(0,0,0,.25)}
+.ava{width:88px;height:88px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;background:var(--accent);color:#fff;font:700 34px var(--f)}
+h1{font-size:24px;margin:0;font-weight:700;overflow-wrap:anywhere}
+.tag{color:var(--muted);margin:8px 0 0}
+.st{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:5px 12px;border-radius:999px;background:var(--bg);font-size:13px;font-weight:600}
+.st i{width:8px;height:8px;border-radius:50%;background:#9aa0a6}
+.st.open i{background:#2fa84f}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.btns a{display:flex;align-items:center;justify-content:center;padding:13px 10px;border-radius:16px;text-decoration:none;font-weight:700;font-size:14px;color:#fff}
+.btns a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btns .tg{background:#229ed9}.btns .wa{background:#25a244}.btns .vk{background:#0077ff}.btns .tel{background:var(--ink);color:var(--card)}
+.btns a:only-child,.btns a:last-child:nth-child(odd){grid-column:1/-1}
+.info{margin-top:22px;border-top:1px solid var(--line);padding-top:16px;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.info b{color:var(--ink);font-weight:600}
+.price{width:100%;max-width:420px;background:var(--card);border-radius:24px;padding:8px 22px}
+.price h2{font-size:16px;margin:14px 0 6px;text-align:center}
+details{border-top:1px solid var(--line)}
+details:first-of-type{border-top:0}
+summary{list-style:none;cursor:pointer;padding:14px 0;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:20px;color:var(--accent);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+.li{display:flex;justify-content:space-between;gap:14px;padding:6px 0 10px;font-size:14px}
+.li span:last-child{white-space:nowrap;font-weight:700}
+.foot{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="ava" id="ava" aria-hidden="true"></div>
+  <h1 id="brand"></h1>
+  <p class="tag" id="tag"></p>
+  <div class="st" id="st"><i></i><span></span></div>
+  <div class="btns" id="btns"></div>
+  <div class="info" id="info"></div>
+</main>
+<section class="price" aria-labelledby="ph">
+  <h2 id="ph">Услуги и цены</h2>
+  <div id="cats"></div>
+</section>
+<div class="foot" id="foot"></div>
+<script>
+const CONFIG = (function () { var d = /*CONFIG*/{"brand": "Студия-ателье Катерины Рузмановой", "tagline": "Пошив и ремонт одежды в Новосибирске", "description": "Индивидуальный пошив и аккуратный ремонт. Напишите — подберём время примерки.", "accent": "#6d597a", "currency": "₽", "phone": "+7 923 140-44-45", "email": "", "address": "г. Новосибирск, ул. Оловозаводская, 18/3", "hours": "По предварительной записи", "messengers": {"telegram": "+79231404445", "whatsapp": "", "vk": "id238579994"}, "services": [{"id": "s1", "category": "Ремонт", "name": "Подшить брюки", "desc": "", "price": 500, "unit": ""}, {"id": "s2", "category": "Ремонт", "name": "Замена молнии", "desc": "", "price": 700, "unit": "от"}, {"id": "s3", "category": "Подгонка", "name": "Подгонка по фигуре", "desc": "", "price": 1000, "unit": "от"}, {"id": "s4", "category": "Пошив", "name": "Пошив платья", "desc": "", "price": 6000, "unit": "от"}, {"id": "s5", "category": "Пошив", "name": "Пошив юбки", "desc": "", "price": 3000, "unit": "от"}], "worksSubtitle": "Примеры наших работ.", "works": [], "about": ["Индивидуальный пошив и аккуратный ремонт. Напишите — подберём время примерки."], "facts": [{"value": "Новосибирск", "label": "ул. Оловозаводская, 18/3"}, {"value": "Онлайн-заявка", "label": "в Telegram и в ВК"}], "order": {"greeting": "Здравствуйте! Хочу заказать:", "closing": "Подскажите стоимость и срок. Спасибо!"}, "ui": {"nav": "Услуги", "servicesTitle": "Услуги и цены", "servicesSub": "Выберите работы, нажмите «Заказать» — вы получите готовый текст заявки. Окончательную цену назовём после уточнения объёма.", "chooseBtn": "Выбрать работы", "whenLabel": "Адрес и удобное время приезда", "whenText": "Адрес и время"}, "faq": [], "booking": {"open": "10:00", "close": "20:00", "step": 60, "days": [1, 2, 3, 4, 5, 6], "status": false}, "demo": true}/*/CONFIG*/; try { if (/[?&]preview/.test(location.search)) { var p = localStorage.getItem("draft:" + location.pathname.replace(/[^/]*$/, "")); if (p) return JSON.parse(p); } } catch (e) {} return d; })();
+</script>
+<script>
+/* ===== ЯДРО: корзина, текст заявки, мессенджеры. Менять не нужно. ===== */
+const K = (function () {
+  const C = CONFIG;
+  const money = (n) => new Intl.NumberFormat("ru-RU").format(n) + " " + C.currency;
+  const KEY = "k:" + location.pathname + ":" + C.brand;
+  const st = { cart: {}, form: {} };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  const byId = (id) => C.services.find((s) => s.id === id);
+  Object.keys(st.cart).forEach((id) => { if (!byId(id)) delete st.cart[id]; });
+  const subs = [];
+  const emit = () => { save(); subs.forEach((f) => f()); };
+  const pad = (n) => String(n).padStart(2, "0");
+  const toMin = (t) => { const [a, b] = t.split(":").map(Number); return a * 60 + b; };
+  const B = Object.assign({ open: "10:00", close: "20:00", step: 60, days: [0, 1, 2, 3, 4, 5, 6] }, C.booking);
+
+  function h(tag, attrs, ...kids) {
+    const e = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => {
+      if (v == null || v === false) return;
+      if (k === "class") e.className = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    kids.flat().forEach((c) => { if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); });
+    return e;
+  }
+
+  const st0 = document.createElement("style");
+  st0.textContent = "[hidden]{display:none!important}.k-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);background:#111;color:#fff;padding:11px 18px;border-radius:12px;font:14px/1.4 system-ui,sans-serif;opacity:0;transition:.25s;z-index:999;pointer-events:none;max-width:calc(100% - 32px);text-align:center}.k-toast.show{opacity:1;transform:translate(-50%,0)}";
+  document.head.prepend(st0);
+  let toastEl, toastT;
+  function toast(msg) {
+    if (!toastEl) { toastEl = h("div", { class: "k-toast", role: "status" }); document.body.append(toastEl); }
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove("show"), 2400);
+  }
+
+  const api = {
+    C, h, money, byId, toast, pad,
+    qty: (id) => st.cart[id] || 0,
+    set(id, q) { if (q <= 0) delete st.cart[id]; else st.cart[id] = Math.min(q, 99); emit(); },
+    toggle(id) { api.set(id, api.qty(id) ? 0 : 1); },
+    clear() { st.cart = {}; emit(); },
+    items: () => Object.keys(st.cart).map((id) => ({ s: byId(id), q: st.cart[id] })).filter((x) => x.s),
+    count: () => api.items().reduce((a, x) => a + x.q, 0),
+    total: () => api.items().reduce((a, x) => a + (x.s.price || 0) * x.q, 0),
+    onRequest: () => api.items().some((x) => !x.s.price),
+    on: (f) => subs.push(f),
+    field(k, v) { if (v === undefined) return st.form[k] || ""; st.form[k] = v; save(); },
+    cats: () => [...new Set(C.services.map((s) => s.category).filter(Boolean))],
+    price: (s) => (s.price ? money(s.price) : "по договорённости"),
+
+    /* текст заявки; extra — массив [подпись, значение] */
+    text(extra) {
+      const L = [C.order.greeting, ""];
+      api.items().forEach((x, i) => L.push((i + 1) + ". " + x.s.name + (x.q > 1 ? " × " + x.q : "") + " — " + (x.s.price ? money(x.s.price * x.q) : "по договорённости")));
+      if (!api.items().length) L.push("(услуги обсудим)");
+      L.push("");
+      if (api.total() > 0) L.push("Итого: " + money(api.total()) + (api.onRequest() ? " + позиции по договорённости" : ""));
+      (extra || []).forEach(([k, v]) => { if (v && String(v).trim()) L.push(k + ": " + String(v).trim()); });
+      if (C.order.closing) L.push("", C.order.closing);
+      return L.join("\n");
+    },
+
+    /* ссылки на мессенджеры владельца */
+    links(text) {
+      const m = C.messengers || {}, out = [];
+      if (m.telegram) out.push({ k: "tg", label: "Telegram", href: "https://t.me/" + m.telegram });
+      if (m.whatsapp) out.push({ k: "wa", label: "WhatsApp", href: "https://wa.me/" + m.whatsapp + (text ? "?text=" + encodeURIComponent(text) : "") });
+      if (m.vk) out.push({ k: "vk", label: "ВКонтакте", href: "https://vk.me/" + m.vk });
+      if (C.phone) out.push({ k: "tel", label: "Позвонить", href: "tel:" + C.phone.replace(/[^\d+]/g, "") });
+      return out;
+    },
+    tel: () => (C.phone ? "tel:" + C.phone.replace(/[^\d+]/g, "") : null),
+
+    copy(text) {
+      const ok = () => toast("Текст скопирован — вставьте его в чат");
+      const fb = () => {
+        const t = h("textarea", { style: "position:fixed;opacity:0" }); t.value = text; document.body.append(t); t.select();
+        let done = false; try { done = document.execCommand("copy"); } catch (e) {}
+        t.remove(); done ? ok() : toast("Не получилось скопировать — выделите текст вручную");
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, fb); else fb();
+    },
+
+
+    /* готовый блок заявки: список, поля, итог, текст, мессенджеры. Оформляется классами op-* */
+    panel(box, opt) {
+      opt = opt || {};
+      const UI = C.ui || {};
+      const fields = opt.fields || [["fName", "Ваше имя"], ["fWhen", UI.whenLabel || "Когда удобно"], ["fNote", "Комментарий"]];
+      const list = h("div", { class: "op-list" }), total = h("div", { class: "op-total" });
+      const ta = h("textarea", { class: "op-text", readonly: true, "aria-label": "Текст заявки" });
+      const links = h("div", { class: "op-links" });
+      const inputs = fields.map(([id, label]) => {
+        const i = h("input", { id: "op-" + id }); i.value = api.field(id);
+        i.addEventListener("input", () => { api.field(id, i.value); refreshText(); });
+        return h("label", { class: "op-field" }, h("span", {}, label), i);
+      });
+      box.append(list, h("div", { class: "op-fields" }, inputs), total, ta, links);
+      const extra = () => fields.map(([id, label]) => [id === "fWhen" ? (UI.whenText || "Когда") : id === "fName" ? "Имя" : label.replace(/ \(.*\)$/, ""), api.field(id)]).concat(opt.extra ? opt.extra() : []);
+      function refreshText() {
+        const t = api.text(extra()); ta.value = t; links.innerHTML = "";
+        links.append(h("button", { type: "button", class: "op-copy", onclick: () => api.copy(t) }, "Скопировать текст"));
+        api.links(t).forEach((x) => links.append(h("a", { class: "op-" + x.k, href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener", onclick: () => x.k !== "wa" && x.k !== "tel" && api.copy(t) }, x.label)));
+      }
+      function refresh() {
+        list.innerHTML = "";
+        if (!api.items().length) list.append(h("p", { class: "op-empty" }, opt.empty || "Пока ничего не выбрано."));
+        api.items().forEach((x) => list.append(h("div", { class: "op-row" },
+          h("div", { class: "op-nm" }, x.s.name, h("small", {}, x.s.price ? api.money(x.s.price * x.q) : "по договорённости")),
+          h("div", { class: "op-qty" },
+            h("button", { type: "button", "aria-label": "Меньше", onclick: () => api.set(x.s.id, x.q - 1) }, "−"),
+            h("span", {}, String(x.q)),
+            h("button", { type: "button", "aria-label": "Больше", onclick: () => api.set(x.s.id, x.q + 1) }, "+")))));
+        total.innerHTML = "";
+        if (api.total()) total.append(h("span", {}, "Итого"), h("b", {}, api.money(api.total())));
+        refreshText();
+      }
+      api.on(refresh); refresh();
+      return { refresh };
+    },
+    /* график: открыто ли сейчас, ближайшие рабочие дни, свободное время */
+    status() {
+      if (!B.status) return { open: false, text: "" };
+      const d = new Date(), m = d.getHours() * 60 + d.getMinutes();
+      const open = B.days.includes(d.getDay()) && m >= toMin(B.open) && m < toMin(B.close);
+      return open ? { open: true, text: "Открыто до " + B.close } : { open: false, text: "Сейчас закрыто · откроемся в " + B.open };
+    },
+    days(n) {
+      const out = [], d = new Date(); d.setHours(0, 0, 0, 0);
+      for (let i = 0; out.length < n && i < 60; i++) {
+        const x = new Date(d); x.setDate(d.getDate() + i);
+        if (B.days.includes(x.getDay())) out.push(x);
+      }
+      return out;
+    },
+    slots(date) {
+      const out = [], now = new Date(), today = date.toDateString() === now.toDateString();
+      for (let t = toMin(B.open); t + B.step <= toMin(B.close); t += B.step) {
+        if (today && t <= now.getHours() * 60 + now.getMinutes() + 30) continue;
+        out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
+      }
+      return out;
+    },
+    dayLabel(d) {
+      const now = new Date(); now.setHours(0, 0, 0, 0);
+      const diff = Math.round((d - now) / 864e5);
+      const wd = d.toLocaleDateString("ru-RU", { weekday: "short" });
+      return diff === 0 ? "Сегодня" : diff === 1 ? "Завтра" : wd.charAt(0).toUpperCase() + wd.slice(1) + ", " + d.getDate();
+    },
+    dateText: (d) => d.toLocaleDateString("ru-RU", { day: "numeric", month: "long", weekday: "long" })
+  };
+  return api;
+})();
+
+</script>
+<script>
+(function () {
+  const { C, h } = K, $ = (id) => document.getElementById(id);
+  document.documentElement.style.setProperty("--accent", C.accent);
+  $("ava").textContent = C.brand.replace(/[«»"]/g, "").trim().charAt(0).toUpperCase();
+  $("brand").textContent = C.brand;
+  $("tag").textContent = C.tagline;
+  const s = K.status(); $("st").classList.toggle("open", s.open); $("st").querySelector("span").textContent = s.text; $("st").hidden = !s.text;
+  const hello = C.order.greeting.replace(/:$/, ".") + " ";
+  K.links(hello).forEach((x) => $("btns").append(h("a", { class: x.k, href: x.href, target: x.k === "tel" ? null : "_blank", rel: "noopener" }, x.label)));
+  [["Адрес", C.address], ["Часы", C.hours], ["Email", C.email]].forEach(([k, v]) => v && $("info").append(h("div", {}, k + ": ", h("b", {}, v))));
+  K.cats().forEach((cat, i) => {
+    const d = h("details", i === 0 ? { open: true } : {}, h("summary", {}, cat));
+    C.services.filter((x) => x.category === cat).forEach((x) => d.append(h("div", { class: "li" }, h("span", {}, x.name), h("span", {}, x.price ? K.money(x.price) + (x.unit === "от" ? "+" : "") : "дог."))));
+    $("cats").append(d);
+  });
+  $("foot").textContent = "© " + new Date().getFullYear() + " " + C.brand;
+})();
+</script>
+<script>
+(function () { if (!CONFIG.demo && !/[?&]preview/.test(location.search)) return;
+  var p = /[?&]preview/.test(location.search);
+  var b = document.createElement("div");
+  b.style.cssText = "position:relative;z-index:99;background:#111;color:#fff;font:14px/1.4 system-ui,sans-serif;padding:9px 16px;text-align:center";
+  b.innerHTML = p ? "Предпросмотр ваших изменений — видно только на этом устройстве · <a href='admin/' style='color:#ffd54a'>вернуться в кабинет</a>"
+                  : "Демо-версия сайта · цены примерные · <a href='admin/' style='color:#ffd54a'>✎ войти в кабинет и изменить</a>";
+  document.body.prepend(b); })();
+</script>
+</body>
+</html>
